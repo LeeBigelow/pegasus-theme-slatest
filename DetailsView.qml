@@ -229,8 +229,7 @@ FocusScope {
             top: header.bottom
             left: parent.left
             leftMargin: root.padding
-            bottom: parent.bottom
-            bottomMargin: root.padding
+            bottom: footer.top
         }
         width: parent.width * 0.35
         height: parent.height
@@ -307,8 +306,7 @@ FocusScope {
             leftMargin: root.padding
             right: parent.right
             rightMargin: root.padding
-            bottom: parent.bottom
-            bottomMargin: root.padding
+            bottom: footer.top
         }
 
         color: "#6D6D6D"
@@ -351,7 +349,7 @@ FocusScope {
                         currentGame.assets.boxFront ||
                         currentGame.assets.logo ||
                         currentGame.assets.marquee
-                sourceSize { width: 400; height: 400 } // optimization (max size)
+                sourceSize { width: vpx(400); height: vpx(400) } // optimization (max size)
                 fillMode: Image.PreserveAspectFit
             }
         }
@@ -464,6 +462,75 @@ FocusScope {
                     gameList.forceActiveFocus();
                     return;
                 }
+        }
+    }
+    
+    Rectangle {
+        id: footer
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            leftMargin: root.padding
+            right: parent.right
+            rightMargin: root.padding
+        }
+        height: vpx(40)
+        color: "#00000000"
+
+        FooterImage {
+            id: leftRightButton
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            imageSource: "assets/dpad_leftright.svg"
+            imageLabel: "Collection Switch"
+        }
+
+        FooterImage {
+            id: upDownButton
+            anchors.left: leftRightButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/dpad_updown.svg"
+            imageLabel: "Scroll"
+        }
+
+        FooterImage {
+            id: bButton
+            anchors.left: upDownButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_b.svg"
+            imageLabel: "Select"
+        }
+
+        FooterImage {
+            id: aButton
+            anchors.left: bButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_a.svg"
+            imageLabel: "Back"
+        }
+
+        FooterImage {
+            id: xButton
+            anchors.left: aButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_x.svg"
+            imageLabel: "Toggle Favorite"
+        }
+
+        FooterImage {
+            id: yButton
+            anchors.left: xButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_y.svg"
+            imageLabel: "Toggle Focus"
+        }
+
+        FooterImage {
+            id: startButton
+            anchors.left: yButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_start.svg"
+            imageLabel: "Settings"
         }
     }
 }

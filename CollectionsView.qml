@@ -288,4 +288,41 @@ FocusScope {
             font.family: "Open Sans"
         }
     }
+
+    Rectangle {
+        id: footer
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            leftMargin: root.padding
+            right: parent.right
+            rightMargin: root.padding
+        }
+        height: vpx(40)
+        color: "#00000000"
+
+        FooterImage {
+            id: leftRightButton
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            imageSource: "assets/dpad_leftright.svg"
+            imageLabel: "Collection Switch"
+        }
+
+        FooterImage {
+            id: bButton
+            anchors.left: leftRightButton.right 
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_b.svg"
+            imageLabel: "Select"
+        }
+
+        FooterImage {
+            id: startButton
+            anchors.left: bButton.right
+            anchors.bottom: parent.bottom
+            imageSource: "assets/button_start.svg"
+            imageLabel: "Settings"
+        }
+    }
 }
