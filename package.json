@@ -1,0 +1,12 @@
+{
+  "name": "pegasus-theme-slate-es-de",
+  "version": "1.0.0",
+  "description": "",
+  "main": "utils.js",
+  "devDependencies": {
+    "eslint": "^8.53.0",
+    "eslint-config-nicjansma": "^1.0.4"
+  },
+  "author": "",
+  "license": "CC-BY-NC-SA"
+}
