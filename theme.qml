@@ -19,9 +19,11 @@ FocusScope {
     property color clrBand3: "#FF0000"
     property color clrBand4: "#303030"
 
-    // a empty collections model we can add to
+    // Custom collections models we can add to.
+    // Filling extendedCollections happens in collectionsView.
+    // It needs to be filled before being attached to a ListView or
+    // you get incomplete views on start.
     ListModel { id: extendedCollections }
-    // the auto-filled collections defined in seperate files
     FavoritesCollection { id: favoritesCollection }
     LastPlayedCollection { id: lastPlayedCollection }
 

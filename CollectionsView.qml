@@ -11,11 +11,11 @@ FocusScope {
     property var extendedCollections
     property var lastPlayedCollection
     property var favoritesCollection
-    property var clrDarkBg
-    property var clrSemiDarkBg 
-    property var clrLightBg
-    property var clrFocusedBg
-    property var clrLightText
+    property color clrDarkBg
+    property color clrSemiDarkBg 
+    property color clrLightBg
+    property color clrFocusedBg
+    property color clrLightText
     property color clrBand1
     property color clrBand2
     property color clrBand3
