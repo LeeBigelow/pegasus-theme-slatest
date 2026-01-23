@@ -7,13 +7,23 @@ import "collections.js" as Collections // collection definitions
 FocusScope {
     id: root
 
-    // This will be set in the main theme file
+    // set from theme.qml 
     property var currentCollection
     property var favoritesCollection
     property var lastPlayedCollection
+    property color clrDarkBg
+    property color clrSemiDarkBg 
+    property color clrLightBg
+    property color clrFocusedBg
+    property color clrLightText
+    property color clrBand1
+    property color clrBand2
+    property color clrBand3
+    property color clrBand4
+    
 
     property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
-
+    
     // Shortcuts for the game list's currently selected game
     readonly property var gameList: gameList
     property alias currentGameIndex: gameList.currentIndex
@@ -70,6 +80,7 @@ FocusScope {
             return;
         } else if (api.keys.isPageUp(event)) {
             event.accepted = true;
+            // don't go past first game
             if ( (currentGameIndex - 15) < 0 ) {
                 currentGameIndex = 0;
             } else {
@@ -78,6 +89,7 @@ FocusScope {
             return;
         } else if (api.keys.isPageDown(event)) {
             event.accepted = true;
+            // dont go past last game
             if ((currentGameIndex + 15) > (currentCollection.games.count - 1)) {
                 currentGameIndex = (currentCollection.games.count - 1);
             } else {
@@ -93,7 +105,7 @@ FocusScope {
         height: root.height
         // background
         anchors.fill: parent
-        color: "#404040"
+        color: clrDarkBg
     }
 
     // bands
@@ -107,7 +119,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[3] ?
-            ("#" + collectionInfo.colors[3]) : "#303030"
+            ("#" + collectionInfo.colors[3]) : crlBand4
     }
 
     Rectangle {
@@ -119,7 +131,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[2] ?
-            ("#" + collectionInfo.colors[2]) : "#FF0000"
+            ("#" + collectionInfo.colors[2]) : clrBand3 
     }
 
     Rectangle {
@@ -131,7 +143,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[1] ?
-            ("#" + collectionInfo.colors[1]) : "#800000"
+            ("#" + collectionInfo.colors[1]) : clrBand2
     }
 
     Rectangle {
@@ -143,7 +155,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[0] ?
-            ("#" + collectionInfo.colors[0]) : "#F6DD08"
+            ("#" + collectionInfo.colors[0]) : clrBand1
     }
 
     //
@@ -159,7 +171,7 @@ FocusScope {
             left: parent.left
         }
 
-        color: "#404040"
+        color: clrDarkBg
         height: vpx(115)
 
         Image {
@@ -225,7 +237,7 @@ FocusScope {
         }
         width: parent.width * 0.35
         height: parent.height
-        color: "#6D6D6D"
+        color: clrLightBg
         opacity: 0.95
 
 
@@ -239,25 +251,20 @@ FocusScope {
 
             delegate: Rectangle {
                 readonly property bool selected: ListView.isCurrentItem
-                readonly property color clrDark: "#000000"
-                readonly property color clrLight: "#00000000" // transparent, use gameListBg
-                readonly property color clrDarkText: "#000000"
-                readonly property color clrLightText: "#AFAFAF"
-                readonly property color clrUnfocused: "#4D4D4D"
 
                 width: ListView.view.width
                 height: gameTitle.height
-                color: if (selected) {
-                    if (gameList.activeFocus) { return clrDark; }
-                    else { return clrUnfocused; }
-                } else {
-                    return clrLight;
-                }
+                color: 
+                    if (selected) {
+                        gameList.activeFocus ? "black" : "transparent";
+                    } else {
+                        return "transparent";
+                    }
 
                 Text {
                     id: gameTitle
                     text: (modelData.favorite ? "★" : "") + " " + modelData.title
-                    color: parent.selected ? parent.clrLightText : parent.clrDarkText
+                    color: parent.selected ? clrLightText : "black"
 
                     font.pixelSize: vpx(20)
                     font.capitalization: Font.AllUppercase
@@ -304,7 +311,7 @@ FocusScope {
             bottom: footer.top
         }
 
-        color: "#6D6D6D"
+        color: clrLightBg
         opacity: 0.95
 
         RatingBar {
@@ -320,33 +327,25 @@ FocusScope {
             percentage: currentGame.rating
         }
 
-        Item {
+        Image {
             id: boxart
-
-            height: vpx(288)
-            width: vpx(384)
-
             anchors {
                 top: ratingBar.bottom;
                 topMargin: root.padding
                 left: parent.left;
                 leftMargin: root.padding
             }
+            height: vpx(288)
+            width: vpx(384)
 
-            Image {
-                id: boxartImage
-
-                anchors.fill: parent
-                anchors.centerIn: parent
-                asynchronous: true
-                // skyscraper screenshoot is nice mixed image 3:4 ratio
-                source: currentGame.assets.screenshot ||
-                        currentGame.assets.boxFront ||
-                        currentGame.assets.logo ||
-                        currentGame.assets.marquee
-                sourceSize { width: vpx(400); height: vpx(400) } // optimization (max size)
-                fillMode: Image.PreserveAspectFit
-            }
+            asynchronous: true
+            // skyscraper screenshoot is nice mixed image 3:4 ratio
+            source: currentGame.assets.screenshot ||
+                    currentGame.assets.boxFront ||
+                    currentGame.assets.logo ||
+                    currentGame.assets.marquee
+            sourceSize { width: vpx(400); height: vpx(400) } // optimization (max size)
+            fillMode: Image.PreserveAspectFit
         }
 
         // While the game details could be a grid, I've separated them to two
@@ -400,7 +399,7 @@ FocusScope {
             }
             width: parent.contentWidth
             height: parent.contentHeight
-            color: descriptionScroll.activeFocus ? "#7D7D7D" : "#00000000"
+            color: descriptionScroll.activeFocus ? clrFocusedBg : "transparent"
         }
 
         Flickable {
@@ -424,11 +423,10 @@ FocusScope {
                 text: currentGame.description
                 wrapMode: Text.WordWrap
                 width: descriptionScroll.width
-                //elide: Text.ElideRight
                 font.pixelSize: vpx(16)
                 font.family: "Open Sans"
                 font.weight: Font.DemiBold
-                color: "#000000"
+                color: "black"
             }
 
             ScrollBar.vertical: ScrollBar {
@@ -438,12 +436,14 @@ FocusScope {
             // Keybindings for descriptionScroll 
             // scroll description on up and down
             Keys.onUpPressed: 
+                // don't go past first line 
                 if ((contentY - 10) < 0) {
                     contentY = 0;
                 } else { 
                     contentY -= 10;
                 }
             Keys.onDownPressed: 
+                // don't go past last screenfull
                 if ((contentY + 10) > (gameDescription.height - height)) {
                     contentY = gameDescription.height - height;
                 } else {
@@ -472,7 +472,7 @@ FocusScope {
             rightMargin: root.padding
         }
         height: vpx(40)
-        color: "#00000000"
+        color: "transparent"
 
         FooterImage {
             id: leftRightButton

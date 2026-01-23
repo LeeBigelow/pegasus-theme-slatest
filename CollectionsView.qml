@@ -7,6 +7,20 @@ import "collections.js" as Collections // collection definitions
 FocusScope {
     id: root
 
+    // set from theme.qml
+    property var extendedCollections
+    property var lastPlayedCollection
+    property var favoritesCollection
+    property var clrDarkBg
+    property var clrSemiDarkBg 
+    property var clrLightBg
+    property var clrFocusedBg
+    property var clrLightText
+    property color clrBand1
+    property color clrBand2
+    property color clrBand3
+    property color clrBand4
+
     // This element has the same size as the whole screen (ie. its parent).
     // Because this screen itself will be moved around when a collection is
     // selected, I've used width/height instead of anchors.
@@ -22,11 +36,6 @@ FocusScope {
     property alias currentCollectionIndex: logoAxis.currentIndex
     readonly property var currentCollection: logoAxis.model.get(logoAxis.currentIndex)
     property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
-
-    // set from theme.qml
-    property var extendedCollections
-    property var lastPlayedCollection
-    property var favoritesCollection
 
     readonly property int padding: vpx(20)
 
@@ -91,7 +100,7 @@ FocusScope {
             // background
             Rectangle {
                 anchors.fill: parent
-                color: "#404040"
+                color: clrDarkBg
             }
 
             // bands
@@ -105,7 +114,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[3] ?
-                    ("#" + collectionInfo.colors[3]) : "#303030"
+                    ("#" + collectionInfo.colors[3]) : clrBand4
             }
 
             Rectangle {
@@ -117,7 +126,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[2] ?
-                    ("#" + collectionInfo.colors[2]) : "#FF0000"
+                    ("#" + collectionInfo.colors[2]) : clrBand3
             }
 
             Rectangle {
@@ -129,7 +138,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[1] ?
-                    ("#" + collectionInfo.colors[1]) : "#800000"
+                    ("#" + collectionInfo.colors[1]) : clrBand2
             }
 
             Rectangle {
@@ -141,7 +150,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[0] ?
-                    ("#" + collectionInfo.colors[0]) : "#F6DD08"
+                    ("#" + collectionInfo.colors[0]) : clrBand1
             }
 
             // controller
@@ -197,7 +206,7 @@ FocusScope {
         // Background
         Rectangle {
             anchors.fill: parent
-            color: "#747474"
+            color: clrFocusedBg
             opacity: 0.85
         }
 
@@ -243,7 +252,7 @@ FocusScope {
 
         Rectangle {
             anchors.fill: parent
-            color: "#555"
+            color: clrSemiDarkBg
             opacity: 0.85
         }
 
@@ -251,7 +260,7 @@ FocusScope {
             id: label
             anchors.centerIn: parent
             text: "%1 GAMES".arg(currentCollection.games.count)
-            color: "#c6c6c6"
+            color: clrLightText
             font.pixelSize: vpx(25)
             font.family: "Open Sans"
         }
@@ -270,7 +279,7 @@ FocusScope {
             id: collectionInfoLabel
             anchors.centerIn: parent
             text: collectionInfo.info.join("\n")
-            color: "#b6b6b6"
+            color: clrLightText
             font.pixelSize: vpx(12)
             font.family: "Open Sans"
         }
@@ -286,7 +295,7 @@ FocusScope {
             rightMargin: root.padding
         }
         height: vpx(40)
-        color: "#00000000"
+        color: "transparent"
 
         FooterImage {
             id: leftRightButton

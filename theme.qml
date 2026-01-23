@@ -1,10 +1,23 @@
 import QtQuick 2.0
 
 FocusScope {
+    id: root
     // Loading the fonts here makes them usable in the rest of the theme
     // and can be referred to using their name and weight.
     FontLoader { source: "fonts/OPENSANS.TTF" }
     FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
+
+    // Slate Colors
+    property color clrDarkBg: "#404040"
+    property color clrLightBg: "#6D6D6D"
+    property color clrSemiDarkBg: "#555555"
+    property color clrFocusedBg: "#7D7D7D"
+    property color clrLightText: "#AFAFAF"
+    // Default band colors if not in collections.js
+    property color clrBand1: "#F6DD08"
+    property color clrBand2: "#800000"
+    property color clrBand3: "#FF0000"
+    property color clrBand4: "#303030"
 
     // a empty collections model we can add to
     ListModel { id: extendedCollections }
@@ -19,9 +32,21 @@ FocusScope {
     CollectionsView {
         id: collectionsView
         anchors.bottom: parent.bottom
+
+        // pass shared variables
         extendedCollections: extendedCollections
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
+
+        clrDarkBg: root.clrDarkBg
+        clrSemiDarkBg: root.clrSemiDarkBg
+        clrLightBg: root.clrLightBg
+        clrFocusedBg: root.clrFocusedBg
+        clrLightText: root.clrLightText
+        clrBand1: root.clrBand1
+        clrBand2: root.clrBand2
+        clrBand3: root.clrBand3
+        clrBand4: root.clrBand4
 
         focus: true
         onCollectionSelected: detailsView.focus = true
@@ -31,9 +56,20 @@ FocusScope {
         id: detailsView
         anchors.top: collectionsView.bottom
 
+        // pass shared variables
         currentCollection: collectionsView.currentCollection
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
+
+        clrDarkBg: root.clrDarkBg
+        clrSemiDarkBg: root.clrSemiDarkBg
+        clrLightBg: root.clrLightBg
+        clrFocusedBg: root.clrFocusedBg
+        clrLightText: root.clrLightText
+        clrBand1: root.clrBand1
+        clrBand2: root.clrBand2
+        clrBand3: root.clrBand3
+        clrBand4: root.clrBand4
 
         onCancel: collectionsView.focus = true
         onNextCollection: {
