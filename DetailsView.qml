@@ -45,36 +45,30 @@ FocusScope {
     // Key handling. In addition, pressing left/right also moves to the prev/next collection.
     Keys.onLeftPressed: prevCollection()
     Keys.onRightPressed: nextCollection()
-    Keys.onPressed: {
-        if (event.isAutoRepeat)
+    Keys.onPressed: 
+        if (event.isAutoRepeat) {
             return;
-
-        if (api.keys.isAccept(event)) {
+        } else if (api.keys.isAccept(event)) {
             event.accepted = true;
             launchGame();
             return;
-        }
-        if (api.keys.isCancel(event)) {
+        } else if (api.keys.isCancel(event)) {
             event.accepted = true;
             cancel();
             return;
-        }
-        if (api.keys.isNextPage(event)) {
+        } else if (api.keys.isNextPage(event)) {
             event.accepted = true;
             nextCollection();
             return;
-        }
-        if (api.keys.isPrevPage(event)) {
+        } else if (api.keys.isPrevPage(event)) {
             event.accepted = true;
             prevCollection();
             return;
-        }
-        if (api.keys.isFilters(event)) {
+        } else if (api.keys.isFilters(event)) {
             event.accepted = true;
             toggleFavorite();
             return;
-        }
-        if (api.keys.isPageUp(event)) {
+        } else if (api.keys.isPageUp(event)) {
             event.accepted = true;
             if ( (currentGameIndex - 15) < 0 ) {
                 currentGameIndex = 0;
@@ -82,8 +76,7 @@ FocusScope {
                 currentGameIndex -= 15;
             }
             return;
-        }
-        if (api.keys.isPageDown(event)) {
+        } else if (api.keys.isPageDown(event)) {
             event.accepted = true;
             if ((currentGameIndex + 15) > (currentCollection.games.count - 1)) {
                 currentGameIndex = (currentCollection.games.count - 1);
@@ -92,7 +85,6 @@ FocusScope {
             }
             return;
         }
-    }
 
 
     Rectangle {
@@ -290,11 +282,14 @@ FocusScope {
 
             // toggle focus on tab and details key (i)
             KeyNavigation.tab: descriptionScroll
-            Keys.onPressed: if (api.keys.isDetails(event)) {
-                event.accepted = true;
-                descriptionScroll.forceActiveFocus();
-                return;
-            }
+            Keys.onPressed: 
+                if (event.isAutoRepeat) {
+                    return;
+                } else if (api.keys.isDetails(event)) {
+                    event.accepted = true;
+                    descriptionScroll.forceActiveFocus();
+                    return;
+                }
         }
     }
 
@@ -457,7 +452,9 @@ FocusScope {
             // Toggle focus on tab and details key (i)
             KeyNavigation.tab: gameList
             Keys.onPressed: 
-                if (api.keys.isDetails(event)) {
+                if (event.isAutoRepeat) {
+                    return;
+                } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
                     gameList.forceActiveFocus();
                     return;

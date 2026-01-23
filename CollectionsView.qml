@@ -94,17 +94,6 @@ FocusScope {
                 color: "#404040"
             }
 
-            Item {
-                id: hiddenBar
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
-                }
-                height: vpx(170)
-                visible: false
-            }
-
             // bands
             Rectangle {
                 id: band4
@@ -163,12 +152,13 @@ FocusScope {
                     topMargin: root.padding
                     right: band1.left
                     rightMargin: root.padding
-                    bottom: hiddenBar.top
-                    bottomMargin: root.padding
                 }
+                height: vpx(230)
                 fillMode: Image.PreserveAspectFit
                 source: model.shortName ? "controller/%1.svg".arg(model.shortName) : ""
                 asynchronous: true
+                horizontalAlignment: Image.AlignRight
+                verticalAlignment: Image.AlignBottom
             }
 
             // console + game
@@ -179,15 +169,15 @@ FocusScope {
                     topMargin: root.padding
                     left: parent.left
                     leftMargin: root.padding
-                    bottom: hiddenBar.top
-                    bottomMargin: root.padding
                     right: controllerImage.left
                 }
+                height: vpx(230)
                 fillMode: Image.PreserveAspectFit
                 source: model.shortName ? "consolegame/%1.svg".arg(model.shortName) : ""
                 asynchronous: true
                 sourceSize.height: 1024
                 horizontalAlignment: Image.AlignLeft
+                verticalAlignment: Image.AlignBottom
             }
         }
     }
@@ -226,19 +216,16 @@ FocusScope {
 
             focus: true
 
-            Keys.onPressed: {
-                if (event.isAutoRepeat)
+            Keys.onPressed: 
+                if (event.isAutoRepeat) {
                     return;
-
-                if (api.keys.isNextPage(event)) {
+                } else if (api.keys.isNextPage(event)) {
                     event.accepted = true;
                     incrementCurrentIndex();
-                }
-                else if (api.keys.isPrevPage(event)) {
+                } else if (api.keys.isPrevPage(event)) {
                     event.accepted = true;
                     decrementCurrentIndex();
                 }
-            }
 
             onItemSelected: root.collectionSelected()
         }
