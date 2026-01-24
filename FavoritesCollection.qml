@@ -2,8 +2,6 @@ import QtQuick 2.0
 import SortFilterProxyModel 0.2
 
 Item {
-    id: root
-
     readonly property var name: "Favorites"
     readonly property var shortName: "auto-favorites"
     readonly property var games: favoriteGames

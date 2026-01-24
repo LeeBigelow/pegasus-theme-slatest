@@ -11,15 +11,15 @@ FocusScope {
     property var extendedCollections
     property var lastPlayedCollection
     property var favoritesCollection
-    property color clrDarkBg
-    property color clrSemiDarkBg
-    property color clrLightBg
-    property color clrFocusedBg
-    property color clrLightText
-    property color clrBand1
-    property color clrBand2
-    property color clrBand3
-    property color clrBand4
+    property color colorDarkBg
+    property color colorSemiDarkBg
+    property color colorLightBg
+    property color colorFocusedBg
+    property color colorLightText
+    property color colorBand1
+    property color colorBand2
+    property color colorBand3
+    property color colorBand4
 
     // This element has the same size as the whole screen (ie. its parent).
     // Because this screen itself will be moved around when a collection is
@@ -85,7 +85,7 @@ FocusScope {
         delegate: bgAxisItem
         currentIndex: logoAxis.currentIndex
 
-        // highlightMoveDuration: 500 // it's moving a little bit slower than the main bar
+        // highlightMoveDuration: 500 // if it's moving a little bit slower than the main bar
     }
 
     Component {
@@ -100,7 +100,7 @@ FocusScope {
             // background
             Rectangle {
                 anchors.fill: parent
-                color: clrDarkBg
+                color: colorDarkBg
             }
 
             // bands
@@ -114,7 +114,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[3] ?
-                    ("#" + collectionInfo.colors[3]) : clrBand4
+                    ("#" + collectionInfo.colors[3]) : colorBand4
             }
 
             Rectangle {
@@ -126,7 +126,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[2] ?
-                    ("#" + collectionInfo.colors[2]) : clrBand3
+                    ("#" + collectionInfo.colors[2]) : colorBand3
             }
 
             Rectangle {
@@ -138,7 +138,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[1] ?
-                    ("#" + collectionInfo.colors[1]) : clrBand2
+                    ("#" + collectionInfo.colors[1]) : colorBand2
             }
 
             Rectangle {
@@ -150,7 +150,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[0] ?
-                    ("#" + collectionInfo.colors[0]) : clrBand1
+                    ("#" + collectionInfo.colors[0]) : colorBand1
             }
 
             // controller
@@ -184,7 +184,7 @@ FocusScope {
                 fillMode: Image.PreserveAspectFit
                 source: model.shortName ? "consolegame/%1.svg".arg(model.shortName) : ""
                 asynchronous: true
-                sourceSize.height: 1024
+                sourceSize.height: vpx(230)
                 horizontalAlignment: Image.AlignLeft
                 verticalAlignment: Image.AlignBottom
             }
@@ -206,7 +206,7 @@ FocusScope {
         // Background
         Rectangle {
             anchors.fill: parent
-            color: clrFocusedBg
+            color: colorFocusedBg
             opacity: 0.85
         }
 
@@ -252,7 +252,7 @@ FocusScope {
 
         Rectangle {
             anchors.fill: parent
-            color: clrSemiDarkBg
+            color: colorSemiDarkBg
             opacity: 0.85
         }
 
@@ -260,7 +260,7 @@ FocusScope {
             id: label
             anchors.centerIn: parent
             text: "%1 GAMES".arg(currentCollection.games.count)
-            color: clrLightText
+            color: colorLightText
             font.pixelSize: vpx(25)
             font.family: "Open Sans"
         }
@@ -279,7 +279,7 @@ FocusScope {
             id: collectionInfoLabel
             anchors.centerIn: parent
             text: collectionInfo.info.join("\n")
-            color: clrLightText
+            color: colorLightText
             font.pixelSize: vpx(12)
             font.family: "Open Sans"
         }

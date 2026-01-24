@@ -8,16 +8,16 @@ FocusScope {
     FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
 
     // Slate Colors
-    property color clrDarkBg: "#404040"
-    property color clrLightBg: "#6D6D6D"
-    property color clrSemiDarkBg: "#555555"
-    property color clrFocusedBg: "#7D7D7D"
-    property color clrLightText: "#AFAFAF"
+    property color colorDarkBg: "#404040"
+    property color colorLightBg: "#6D6D6D"
+    property color colorSemiDarkBg: "#555555"
+    property color colorFocusedBg: "#7D7D7D"
+    property color colorLightText: "#AFAFAF"
     // Default band colors if not in collections.js
-    property color clrBand1: "#F6DD08"
-    property color clrBand2: "#800000"
-    property color clrBand3: "#FF0000"
-    property color clrBand4: "#303030"
+    property color colorBand1: "#F6DD08"
+    property color colorBand2: "#800000"
+    property color colorBand3: "#FF0000"
+    property color colorBand4: "#303030"
 
     // Custom collections models we can add to.
     // Filling extendedCollections happens in collectionsView.
@@ -35,20 +35,20 @@ FocusScope {
         id: collectionsView
         anchors.bottom: parent.bottom
 
-        // pass shared variables
+        // pass global variables
         extendedCollections: extendedCollections
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
 
-        clrDarkBg: root.clrDarkBg
-        clrSemiDarkBg: root.clrSemiDarkBg
-        clrLightBg: root.clrLightBg
-        clrFocusedBg: root.clrFocusedBg
-        clrLightText: root.clrLightText
-        clrBand1: root.clrBand1
-        clrBand2: root.clrBand2
-        clrBand3: root.clrBand3
-        clrBand4: root.clrBand4
+        colorDarkBg: root.colorDarkBg
+        colorSemiDarkBg: root.colorSemiDarkBg
+        colorLightBg: root.colorLightBg
+        colorFocusedBg: root.colorFocusedBg
+        colorLightText: root.colorLightText
+        colorBand1: root.colorBand1
+        colorBand2: root.colorBand2
+        colorBand3: root.colorBand3
+        colorBand4: root.colorBand4
 
         focus: true
         onCollectionSelected: detailsView.focus = true
@@ -58,20 +58,20 @@ FocusScope {
         id: detailsView
         anchors.top: collectionsView.bottom
 
-        // pass shared variables
+        // pass global variables
         currentCollection: collectionsView.currentCollection
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
 
-        clrDarkBg: root.clrDarkBg
-        clrSemiDarkBg: root.clrSemiDarkBg
-        clrLightBg: root.clrLightBg
-        clrFocusedBg: root.clrFocusedBg
-        clrLightText: root.clrLightText
-        clrBand1: root.clrBand1
-        clrBand2: root.clrBand2
-        clrBand3: root.clrBand3
-        clrBand4: root.clrBand4
+        colorDarkBg: root.colorDarkBg
+        colorSemiDarkBg: root.colorSemiDarkBg
+        colorLightBg: root.colorLightBg
+        colorFocusedBg: root.colorFocusedBg
+        colorLightText: root.colorLightText
+        colorBand1: root.colorBand1
+        colorBand2: root.colorBand2
+        colorBand3: root.colorBand3
+        colorBand4: root.colorBand4
 
         onCancel: collectionsView.focus = true
         onNextCollection: {

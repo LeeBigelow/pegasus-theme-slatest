@@ -2,7 +2,6 @@ import QtQuick 2.0
 import SortFilterProxyModel 0.2
 
 Item {
-    id: root
     readonly property var name: "Last Played"
     readonly property var shortName: "auto-lastplayed"
     readonly property var games: gamesFiltered
@@ -25,5 +24,4 @@ Item {
         sourceModel: lastPlayedGames
         filters: IndexFilter { maximumIndex: 16 }
     }
-
 }

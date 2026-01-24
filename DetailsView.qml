@@ -1,5 +1,5 @@
 import QtQuick 2.15 // note the version: Text padding is used below and that was added in 2.7 as per docs
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.15 // for the ScrollBar
 import "utils.js" as Utils // some helper functions
 import "collections.js" as Collections // collection definitions
 
@@ -11,15 +11,15 @@ FocusScope {
     property var currentCollection
     property var favoritesCollection
     property var lastPlayedCollection
-    property color clrDarkBg
-    property color clrSemiDarkBg
-    property color clrLightBg
-    property color clrFocusedBg
-    property color clrLightText
-    property color clrBand1
-    property color clrBand2
-    property color clrBand3
-    property color clrBand4
+    property color colorDarkBg
+    property color colorSemiDarkBg
+    property color colorLightBg
+    property color colorFocusedBg
+    property color colorLightText
+    property color colorBand1
+    property color colorBand2
+    property color colorBand3
+    property color colorBand4
 
 
     property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
@@ -105,7 +105,7 @@ FocusScope {
         height: root.height
         // background
         anchors.fill: parent
-        color: clrDarkBg
+        color: colorDarkBg
     }
 
     // bands
@@ -131,7 +131,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[2] ?
-            ("#" + collectionInfo.colors[2]) : clrBand3
+            ("#" + collectionInfo.colors[2]) : colorBand3
     }
 
     Rectangle {
@@ -143,7 +143,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[1] ?
-            ("#" + collectionInfo.colors[1]) : clrBand2
+            ("#" + collectionInfo.colors[1]) : colorBand2
     }
 
     Rectangle {
@@ -155,7 +155,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[0] ?
-            ("#" + collectionInfo.colors[0]) : clrBand1
+            ("#" + collectionInfo.colors[0]) : colorBand1
     }
 
     //
@@ -171,7 +171,7 @@ FocusScope {
             left: parent.left
         }
 
-        color: clrDarkBg
+        color: colorDarkBg
         height: vpx(115)
 
         Image {
@@ -237,7 +237,7 @@ FocusScope {
         }
         width: parent.width * 0.35
         height: parent.height
-        color: clrLightBg
+        color: colorLightBg
         opacity: 0.95
 
 
@@ -264,7 +264,7 @@ FocusScope {
                 Text {
                     id: gameTitle
                     text: (modelData.favorite ? "★" : "") + " " + modelData.title
-                    color: parent.selected ? clrLightText : "black"
+                    color: parent.selected ? colorLightText : "black"
 
                     font.pixelSize: vpx(20)
                     font.capitalization: Font.AllUppercase
@@ -311,7 +311,7 @@ FocusScope {
             bottom: footer.top
         }
 
-        color: clrLightBg
+        color: colorLightBg
         opacity: 0.95
 
         RatingBar {
@@ -399,7 +399,7 @@ FocusScope {
             }
             width: parent.contentWidth
             height: parent.contentHeight
-            color: descriptionScroll.activeFocus ? clrFocusedBg : "transparent"
+            color: descriptionScroll.activeFocus ? colorFocusedBg : "transparent"
         }
 
         Flickable {

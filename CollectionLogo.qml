@@ -21,7 +21,7 @@ Item {
 
         source: shortName ? "logo/%1.svg".arg(shortName) : ""
         asynchronous: true
-        sourceSize { width: 256; height: 256 } // optimization: render SVGs in at most 256x256
+        sourceSize { width: vpx(480); height: vpx(120) } // optimization SVG max
 
         scale: selected ? 1.0 : 0.66
         Behavior on scale { NumberAnimation { duration: 200 } }
@@ -30,7 +30,7 @@ Item {
     Text {
         id: label
         anchors.centerIn: parent
-        color: "#000"
+        color: "black"
         font.family: "Open Sans"
         font.pixelSize: vpx(50)
         text: shortName || longName
