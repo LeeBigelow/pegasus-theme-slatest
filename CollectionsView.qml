@@ -12,7 +12,7 @@ FocusScope {
     property var lastPlayedCollection
     property var favoritesCollection
     property color clrDarkBg
-    property color clrSemiDarkBg 
+    property color clrSemiDarkBg
     property color clrLightBg
     property color clrFocusedBg
     property color clrLightText
@@ -58,7 +58,7 @@ FocusScope {
             detailsView.currentGameIndex = api.memory.get('gameIndex') || 0;
         }
         detailsView.focus = true;
-    } 
+    }
 
 
 
@@ -225,7 +225,7 @@ FocusScope {
 
             focus: true
 
-            Keys.onPressed: 
+            Keys.onPressed:
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isNextPage(event)) {
@@ -307,7 +307,7 @@ FocusScope {
 
         FooterImage {
             id: bButton
-            anchors.left: leftRightButton.right 
+            anchors.left: leftRightButton.right
             anchors.bottom: parent.bottom
             imageSource: "assets/button_b.svg"
             imageLabel: "Select"

@@ -14,7 +14,7 @@ Item {
     SortFilterProxyModel {
         id: lastPlayedGames
         sourceModel: api.allGames
-        sorters: RoleSorter { 
+        sorters: RoleSorter {
             roleName: "lastPlayed"
             sortOrder: Qt.DescendingOrder
         }

@@ -29,6 +29,6 @@ Item {
         color: "#FFFFFF"
         font.family: "Open Sans"
         font.pixelSize: vpx(18)
-        text: imageLabel 
+        text: imageLabel
     }
 }

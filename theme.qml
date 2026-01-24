@@ -88,7 +88,7 @@ FocusScope {
             currentGame.launch();
         }
         onToggleFavorite: {
-            currentGame.favorite = !currentGame.favorite; 
+            currentGame.favorite = !currentGame.favorite;
         }
     }
 
