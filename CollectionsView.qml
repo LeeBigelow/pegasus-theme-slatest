@@ -161,8 +161,6 @@ FocusScope {
                     topMargin: root.padding
                     right: band1.left
                     rightMargin: root.padding
-                    bottom: logoBar.top
-                    bottomMargin: root.padding
                 }
                 height:vpx(235) 
                 sourceSize.height: vpx(235)
@@ -183,8 +181,6 @@ FocusScope {
                     leftMargin: root.padding
                     right: controllerImage.left
                     rightMargin: root.padding
-                    bottom: logoBar.top
-                    bottomMargin: root.padding
                 }
                 height:vpx(235)
                 sourceSize.height: vpx(235)
