@@ -161,8 +161,11 @@ FocusScope {
                     topMargin: root.padding
                     right: band1.left
                     rightMargin: root.padding
+                    bottom: logoBar.top
+                    bottomMargin: root.padding
                 }
-                height: vpx(230)
+                height:vpx(235) 
+                sourceSize.height: vpx(235)
                 fillMode: Image.PreserveAspectFit
                 source: model.shortName ? "controller/%1.svg".arg(model.shortName) : ""
                 asynchronous: true
@@ -179,12 +182,15 @@ FocusScope {
                     left: parent.left
                     leftMargin: root.padding
                     right: controllerImage.left
+                    rightMargin: root.padding
+                    bottom: logoBar.top
+                    bottomMargin: root.padding
                 }
-                height: vpx(230)
+                height:vpx(235)
+                sourceSize.height: vpx(235)
                 fillMode: Image.PreserveAspectFit
                 source: model.shortName ? "consolegame/%1.svg".arg(model.shortName) : ""
                 asynchronous: true
-                sourceSize.height: vpx(230)
                 horizontalAlignment: Image.AlignLeft
                 verticalAlignment: Image.AlignBottom
             }
