@@ -1,5 +1,4 @@
 import QtQuick 2.15 // note the version: Text padding is used below and that was added in 2.7 as per docs
-import QtQuick.Controls 2.15 // for the ScrollBar
 import "utils.js" as Utils // some helper functions
 import "collections.js" as Collections // collection definitions
 
@@ -427,10 +426,6 @@ FocusScope {
                 font.family: "Open Sans"
                 font.weight: Font.DemiBold
                 color: "black"
-            }
-
-            ScrollBar.vertical: ScrollBar {
-                policy: descriptionScroll.activeFocus ? ScrollBar.AlwaysOn : ScrollBar.AsNeeded
             }
 
             // Keybindings for descriptionScroll
