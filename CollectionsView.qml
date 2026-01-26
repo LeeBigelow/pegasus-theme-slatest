@@ -165,7 +165,7 @@ FocusScope {
                 height:vpx(235) 
                 sourceSize.height: vpx(235)
                 fillMode: Image.PreserveAspectFit
-                source: model.shortName ? "controller/%1.svg".arg(model.shortName) : ""
+                source: currentCollection.shortName ? "controller/%1.svg".arg(currentCollection.shortName) : ""
                 asynchronous: true
                 horizontalAlignment: Image.AlignRight
                 verticalAlignment: Image.AlignBottom
@@ -185,7 +185,7 @@ FocusScope {
                 height:vpx(235)
                 sourceSize.height: vpx(235)
                 fillMode: Image.PreserveAspectFit
-                source: model.shortName ? "consolegame/%1.svg".arg(model.shortName) : ""
+                source: currentCollection.shortName ? "consolegame/%1.svg".arg(currentCollection.shortName) : ""
                 asynchronous: true
                 horizontalAlignment: Image.AlignLeft
                 verticalAlignment: Image.AlignBottom
