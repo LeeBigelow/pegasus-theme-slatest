@@ -348,7 +348,7 @@ FocusScope {
                 top: parent.top
                 topMargin: root.padding / 2
                 left: boxart.right
-                leftMargin: root.padding / 2
+                leftMargin: root.padding
             }
 
             percentage: currentGame.rating
