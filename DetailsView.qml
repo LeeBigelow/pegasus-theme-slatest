@@ -185,6 +185,10 @@ FocusScope {
             fillMode: Image.PreserveAspectFit
             source: currentCollection.shortName ?
                 "logo/%1.svg".arg(currentCollection.shortName) : undefined
+            sourceSize.height: parent.height
+            sourceSize.width: parent.width / 3
+            width: sourceSize.width
+            height: sourceSize.height
             asynchronous: true
         }
 
@@ -201,6 +205,8 @@ FocusScope {
             fillMode: Image.PreserveAspectFit
             source: currentCollection.shortName ?
                 "consolegame/%1.svg".arg(currentCollection.shortName) : ""
+            sourceSize.height: parent.height
+            height: sourceSize.height
             asynchronous: true
         }
 
@@ -217,6 +223,8 @@ FocusScope {
             fillMode: Image.PreserveAspectFit
             source: currentCollection.shortName ?
                 "controller/%1.svg".arg(currentCollection.shortName) : ""
+            sourceSize.height: parent.height
+            height: sourceSize.height
             asynchronous: true
         }
     }
@@ -338,6 +346,8 @@ FocusScope {
                         currentGame.assets.marquee
                 sourceSize.width: vpx(384)
                 sourceSize.height: vpx(288)
+                width: sourceSize.width
+                height: sourceSize.height
             }
         }
 
@@ -346,7 +356,7 @@ FocusScope {
 
             anchors {
                 top: parent.top
-                topMargin: root.padding / 2
+                topMargin: root.padding
                 left: boxart.right
                 leftMargin: root.padding
             }
@@ -359,7 +369,7 @@ FocusScope {
         Column {
             id: gameLabels
             anchors {
-                top: ratingBar.bottom 
+                top: ratingBar.bottom
                 topMargin: root.padding / 2
                 left: boxart.right;
                 leftMargin: root.padding
@@ -413,8 +423,8 @@ FocusScope {
             id: descriptionScroll
             anchors {
                 fill: descriptionBg
-                topMargin: root.padding
-                bottomMargin: root.padding
+                topMargin: root.padding / 2
+                bottomMargin: root.padding / 2
             }
             clip: true
             focus: true
