@@ -336,8 +336,8 @@ FocusScope {
                         currentGame.assets.boxFront ||
                         currentGame.assets.logo ||
                         currentGame.assets.marquee
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height 
+                sourceSize.width: vpx(384)
+                sourceSize.height: vpx(288)
             }
         }
 
