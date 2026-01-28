@@ -36,7 +36,6 @@ FocusScope {
     }
 
     readonly property int padding: vpx(20)
-    readonly property int halfPadding: vpx(10)
     readonly property int detailsTextHeight: vpx(30)
 
     // Nothing particularly interesting, see CollectionsView for more comments
@@ -313,38 +312,46 @@ FocusScope {
         color: colorLightBg
         opacity: 0.95
 
+        Item {
+            // need container to control boxart size
+            id: boxart
+            anchors {
+                top: parent.top;
+                topMargin: root.padding / 2
+                left: parent.left;
+                leftMargin: root.padding / 2
+            }
+            width: boxartImage.status === Image.Ready ? vpx(384) : 0
+            height: vpx(288)
+
+            Image {
+                id: boxartImage
+
+                anchors.fill: parent
+                anchors.centerIn: parent
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                // skyscraper screenshoot is nice mixed image 3:4 ratio
+                source: currentGame.assets.screenshot ||
+                        currentGame.assets.boxFront ||
+                        currentGame.assets.logo ||
+                        currentGame.assets.marquee
+                sourceSize.width: parent.width
+                sourceSize.height: parent.height 
+            }
+        }
+
         RatingBar {
             id: ratingBar
 
             anchors {
-                left: parent.left
-                leftMargin: root.halfPadding
                 top: parent.top
-                topMargin: root.halfPadding
+                topMargin: root.padding / 2
+                left: boxart.right
+                leftMargin: root.padding / 2
             }
 
             percentage: currentGame.rating
-        }
-
-        Image {
-            id: boxart
-            anchors {
-                top: ratingBar.bottom;
-                topMargin: root.padding
-                left: parent.left;
-                leftMargin: root.padding
-            }
-            height: vpx(288)
-            width: vpx(384)
-
-            asynchronous: true
-            // skyscraper screenshoot is nice mixed image 3:4 ratio
-            source: currentGame.assets.screenshot ||
-                    currentGame.assets.boxFront ||
-                    currentGame.assets.logo ||
-                    currentGame.assets.marquee
-            sourceSize { width: vpx(400); height: vpx(400) } // optimization (max size)
-            fillMode: Image.PreserveAspectFit
         }
 
         // While the game details could be a grid, I've separated them to two
@@ -352,7 +359,8 @@ FocusScope {
         Column {
             id: gameLabels
             anchors {
-                top: boxart.top
+                top: ratingBar.bottom 
+                topMargin: root.padding / 2
                 left: boxart.right;
                 leftMargin: root.padding
             }
