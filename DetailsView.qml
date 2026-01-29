@@ -408,7 +408,7 @@ FocusScope {
         }
 
         Rectangle {
-            // wrap description in a rectangle
+            id: descriptionBg
             anchors {
                 top: boxart.bottom
                 left: parent.left
@@ -418,64 +418,63 @@ FocusScope {
             width: parent.contentWidth
             height: parent.contentHeight
             color: descriptionScroll.activeFocus ? colorFocusedBg : "transparent"
+        }
 
-            Flickable {
-                id: descriptionScroll
-                anchors {
-                    fill: parent
-                    topMargin: root.padding / 2
-                    bottomMargin: root.padding / 2
-                    leftMargin: root.padding
-                    rightMargin: root.padding
+        Flickable {
+            id: descriptionScroll
+            anchors {
+                fill: descriptionBg
+                topMargin: root.padding / 2
+                bottomMargin: root.padding / 2
+            }
+            clip: true
+            focus: true
+            onFocusChanged: { contentY = 0; }
+            contentWidth: descriptionBg.width
+            contentHeight: gameDescription.height
+            flickableDirection: Flickable.VerticalFlick
+
+            Text {
+                id: gameDescription
+                leftPadding: root.padding
+                rightPadding: root.padding
+                text: currentGame.description
+                wrapMode: Text.WordWrap
+                width: descriptionScroll.width
+                font.pixelSize: vpx(16)
+                font.family: "Open Sans"
+                font.weight: Font.DemiBold
+                color: "black"
+            }
+
+            // Keybindings for descriptionScroll
+            // scroll description on up and down
+            Keys.onUpPressed:
+                // don't go past first line
+                if ((contentY - 10) < 0) {
+                    contentY = 0;
+                } else {
+                    contentY -= 10;
                 }
-                clip: true
-                focus: true
-                onFocusChanged: { contentY = 0; }
-                contentWidth: descriptionBg.width
-                contentHeight: gameDescription.height
-                flickableDirection: Flickable.VerticalFlick
-
-                Text {
-                    id: gameDescription
-                    text: currentGame.description
-                    wrapMode: Text.WordWrap
-                    width: descriptionScroll.width
-                    horizontalAlignment: Text.AlignJustify
-                    font.pixelSize: vpx(16)
-                    font.family: "Open Sans"
-                    font.weight: Font.DemiBold
-                    color: "black"
+            Keys.onDownPressed:
+                // don't go past last screenfull
+                if ((contentY + 10) > (gameDescription.height - height)) {
+                    contentY = gameDescription.height - height;
+                } else {
+                    contentY += 10;
                 }
-
-                // Keybindings for descriptionScroll
-                // scroll description on up and down
-                Keys.onUpPressed:
-                    // don't go past first line
-                    if ((contentY - 10) < 0) {
-                        contentY = 0;
-                    } else {
-                        contentY -= 10;
-                    }
-                Keys.onDownPressed:
-                    // don't go past last screenfull
-                    if ((contentY + 10) > (gameDescription.height - height)) {
-                        contentY = gameDescription.height - height;
-                    } else {
-                        contentY += 10;
-                    }
-                // Toggle focus on tab and details key (i)
-                KeyNavigation.tab: gameList
-                Keys.onPressed:
-                    if (event.isAutoRepeat) {
-                        return;
-                    } else if (api.keys.isDetails(event)) {
-                        event.accepted = true;
-                        gameList.forceActiveFocus();
-                        return;
-                    }
-            } // end flickable
-        } // end descriptionBg rectangle
-    } // end art, details, description background
+            // Toggle focus on tab and details key (i)
+            KeyNavigation.tab: gameList
+            Keys.onPressed:
+                if (event.isAutoRepeat) {
+                    return;
+                } else if (api.keys.isDetails(event)) {
+                    event.accepted = true;
+                    gameList.forceActiveFocus();
+                    return;
+                }
+        }
+    }
 
     Rectangle {
         id: footer
