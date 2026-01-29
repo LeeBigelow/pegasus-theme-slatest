@@ -2,7 +2,7 @@
 ![](screenshot1.png)
 ![](screenshot2.png)
 
-# Slatest theme for Pegasus
+# Slatest theme for [Pegasus Frontend](https://pegasus-frontend.org/)
 
 This is forked from the [nicjansma](https://github.com/nicjansma/pegasus-theme-slate-es-de) slate theme.
 

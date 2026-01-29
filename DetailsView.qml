@@ -338,7 +338,8 @@ FocusScope {
                 anchors.fill: parent
                 anchors.centerIn: parent
                 fillMode: Image.PreserveAspectFit
-                asynchronous: true
+                // async causing flickering, turn off
+                // asynchronous: true
                 // skyscraper screenshoot is nice mixed image 3:4 ratio
                 source: currentGame.assets.screenshot ||
                         currentGame.assets.boxFront ||
