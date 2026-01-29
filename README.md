@@ -13,6 +13,11 @@ So far I've added:
 * Last Played collection.
 * Game description is scrollable. Toggle between gamelist and description focus with Tab or Details Key (i)
 
+Todo:
+
+* On-Screen keyboard for searching/filtering?
+* All Games collection (only useful searching/filtering working)
+
 Notes:
 
 * Tested system art with *dummy roms* and all-in-one `metadata.pegasus.txt`: [pegasus-frontend-dummy-roms](https://github.com/LeeBigelow/pegasus-frontend-dummy-roms)
