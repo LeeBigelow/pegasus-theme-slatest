@@ -16,7 +16,7 @@ So far I've added:
 Todo:
 
 * On-Screen keyboard for searching/filtering?
-* All Games collection (only useful searching/filtering working)
+* All Games collection (only useful if searching/filtering working)
 
 Notes:
 
