@@ -11,12 +11,13 @@ So far I've added:
 * Some UI tweaks
 * Favorites Collection. Toggle a game's favorite status with F key
 * Last Played collection.
-* Game description is scrollable. Toggle between gamelist and description focus with Tab or Details Key (i)
+* Game description is scrollable. Toggle between gamelist and description focus with Tab or Details Key.
+* All Games collection and List Filtering added
+* Use TAB and SHIFT-TAB to cycle between gamelist, filter, and description focus. For now a keyboard is still need to type in the filter the gamepad's Details Key only toggles between the gamelist and description.
 
 Todo:
 
 * On-Screen keyboard for searching/filtering?
-* All Games collection (only useful if searching/filtering working)
 
 Notes:
 
