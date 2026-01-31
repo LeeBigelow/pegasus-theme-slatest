@@ -13,7 +13,7 @@ So far I've added:
 * Last Played collection.
 * Game description is scrollable. Toggle between gamelist and description focus with Tab or Details Key.
 * All Games collection and List Filtering added
-* Use TAB and SHIFT-TAB to cycle between gamelist, filter, and description focus. For now a keyboard is still need to type in the filter the gamepad's Details Key only toggles between the gamelist and description.
+* Use TAB and SHIFT-TAB to cycle between gamelist, filter, and description focus. A keyboard is needed to type in the filter so the gamepad's Details Key only toggles between the gamelist and description.
 
 Todo:
 
