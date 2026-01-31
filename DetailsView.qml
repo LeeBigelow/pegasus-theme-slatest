@@ -1,4 +1,5 @@
 import QtQuick 2.15 // note the version: Text padding is used below and that was added in 2.7 as per docs
+import SortFilterProxyModel 0.2
 import "utils.js" as Utils // some helper functions
 import "collections.js" as Collections // collection definitions
 
@@ -10,6 +11,7 @@ FocusScope {
     property var currentCollection
     property var favoritesCollection
     property var lastPlayedCollection
+    property var allGamesCollection
     property color colorDarkBg
     property color colorSemiDarkBg
     property color colorLightBg
@@ -20,19 +22,33 @@ FocusScope {
     property color colorBand3
     property color colorBand4
 
+    SortFilterProxyModel {
+        id: filteredGames
+        sourceModel: currentCollection.games
+        filters: RegExpFilter {
+                roleName: "title"
+                pattern: filterInput.text
+                caseSensitivity: Qt.CaseInsensitive
+        }
+    }
 
+    // needed for band colors
     property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
 
     // Shortcuts for the game list's currently selected game
     readonly property var gameList: gameList
     property alias currentGameIndex: gameList.currentIndex
-    readonly property var currentGame: switch(currentCollection.shortName) {
-        case "auto-lastplayed":
-            return lastPlayedCollection.sourceGame(currentGameIndex);
-        case "auto-favorites":
-            return favoritesCollection.sourceGame(currentGameIndex);
-        default:
-            return currentCollection.games.get(currentGameIndex);
+    property alias filterText: filterInput.text
+    property var filteredSourceIndex: filteredGames.mapToSource(currentGameIndex)
+    readonly property var currentGame: {
+        switch(currentCollection.shortName) {
+            case "auto-lastplayed":
+                return lastPlayedCollection.sourceGame(filteredSourceIndex);
+            case "auto-favorites":
+                return favoritesCollection.sourceGame(filteredSourceIndex);
+            default:
+                return currentCollection.games.get(filteredSourceIndex);
+        }
     }
 
     readonly property int padding: vpx(20)
@@ -95,7 +111,6 @@ FocusScope {
             }
             return;
         }
-
 
     Rectangle {
         // dark background
@@ -240,12 +255,13 @@ FocusScope {
             left: parent.left
             leftMargin: root.padding
             bottom: footer.top
+            // space for filter box
+            bottomMargin: vpx(30)
         }
         width: parent.width * 0.35
         height: parent.height
         color: colorLightBg
         opacity: 0.95
-
 
         ListView {
             id: gameList
@@ -253,7 +269,7 @@ FocusScope {
             anchors.fill: parent
             focus: true
 
-            model: currentCollection.games
+            model: filteredGames
 
             delegate: Rectangle {
                 readonly property bool selected: ListView.isCurrentItem
@@ -285,7 +301,7 @@ FocusScope {
                     leftPadding: vpx(10)
                     rightPadding: leftPadding
                 }
-            }
+            } // end gameList delegate
 
             clip: true
             highlightMoveDuration: 0
@@ -294,7 +310,7 @@ FocusScope {
             preferredHighlightEnd: height * 0.5 + vpx(15)
 
             // toggle focus on tab and details key (i)
-            KeyNavigation.tab: descriptionScroll
+            KeyNavigation.tab: filterInput
             Keys.onPressed:
                 if (event.isAutoRepeat) {
                     return;
@@ -303,8 +319,70 @@ FocusScope {
                     descriptionScroll.forceActiveFocus();
                     return;
                 }
+        } // end gameList ListView
+    } // end gameListBg
+
+    Item {
+        // box for filterLabel and filterInput
+        anchors {
+            top: gameListBg.bottom
+            topMargin: vpx(5)
+            bottom: footer.top 
+            left: parent.left
+            leftMargin: root.padding
         }
-    }
+        width: gameListBg.width
+
+        Text {
+            id: filterLabel
+            anchors {
+                top: parent.top
+                left: parent.left
+                verticalCenter: parent.verticalCenter
+            }
+            verticalAlignment: Text.AlignVCenter
+            font.family: "Open Sans"
+            font.pixelSize: vpx(20)
+            font.weight: Font.DemiBold
+            color: colorLightBg
+            text: "Filter:"
+
+        }
+
+        Rectangle {
+            id: filterInputBg
+            color: filterInput.activeFocus ? colorFocusedBg : colorLightBg
+            anchors {
+                top: parent.top
+                left: filterLabel.right
+                leftMargin: vpx(5)
+                bottom: parent.bottom
+                right: parent.right
+            }
+
+            TextInput {
+                id: filterInput
+                anchors {
+                    fill: parent
+                    leftMargin: vpx(5)
+                    rightMargin: vpx(5)
+                }
+                focus: true
+                color: "black"
+                font.family: "Open Sans"
+                font.pixelSize: vpx(20)
+                KeyNavigation.tab: descriptionScroll
+                Keys.onUpPressed: {
+                    if (currentGameIndex > 0) currentGameIndex--;
+                    gameList.forceActiveFocus();
+                }
+                Keys.onDownPressed: {
+                    if (currentGameIndex < gameList.count - 1) currentGameIndex++;
+                    gameList.forceActiveFocus();
+                }
+            }
+        }
+    } //end box for filterInput
 
     Rectangle {
         // art, details, description background

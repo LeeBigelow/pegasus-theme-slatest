@@ -11,6 +11,7 @@ FocusScope {
     property var extendedCollections
     property var lastPlayedCollection
     property var favoritesCollection
+    property var allGamesCollection
     property color colorDarkBg
     property color colorSemiDarkBg
     property color colorLightBg
@@ -44,6 +45,7 @@ FocusScope {
         for (var i = 0; i < api.collections.count; i++) {
             extendedCollections.append(api.collections.get(i));
         }
+        extendedCollections.append(allGamesCollection);
         extendedCollections.append(lastPlayedCollection);
         extendedCollections.append(favoritesCollection);
         // only attach model after it's filled

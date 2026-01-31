@@ -24,6 +24,11 @@ FocusScope {
     // It needs to be filled before being attached to a ListView or
     // you get incomplete views on start.
     ListModel { id: extendedCollections }
+    ListModel { id: allGamesCollection
+        readonly property var name: "All Games"
+        readonly property var shortName: "auto-allgames"
+        readonly property var games: api.allGames
+    }
     FavoritesCollection { id: favoritesCollection }
     LastPlayedCollection { id: lastPlayedCollection }
 
@@ -39,6 +44,7 @@ FocusScope {
         extendedCollections: extendedCollections
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
+        allGamesCollection: allGamesCollection
 
         colorDarkBg: root.colorDarkBg
         colorSemiDarkBg: root.colorSemiDarkBg
@@ -62,6 +68,7 @@ FocusScope {
         currentCollection: collectionsView.currentCollection
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
+        allGamesCollection: allGamesCollection
 
         colorDarkBg: root.colorDarkBg
         colorSemiDarkBg: root.colorSemiDarkBg
@@ -73,18 +80,25 @@ FocusScope {
         colorBand3: root.colorBand3
         colorBand4: root.colorBand4
 
-        onCancel: collectionsView.focus = true
+        onCancel: {
+            filterText="";
+            collectionsView.focus = true
+        }
         onNextCollection: {
+            gameList.forceActiveFocus();
+            filterText="";
+            currentGameIndex=0;
             collectionsView.selectNext();
-            detailsView.gameList.forceActiveFocus();
         }
         onPrevCollection: {
+            gameList.forceActiveFocus();
+            filterText="";
+            currentGameIndex=0;
             collectionsView.selectPrev();
-            detailsView.gameList.forceActiveFocus();
         }
         onLaunchGame: {
             api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
-            api.memory.set('gameIndex', currentGameIndex);
+            api.memory.set('gameIndex', filteredSourceIndex);
             currentGame.launch();
         }
         onToggleFavorite: {
