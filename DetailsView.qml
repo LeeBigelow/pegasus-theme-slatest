@@ -316,7 +316,7 @@ FocusScope {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    descriptionScroll.forceActiveFocus();
+                    filterInput.forceActiveFocus();
                     return;
                 }
         } // end gameList ListView
@@ -384,8 +384,19 @@ FocusScope {
                     gameList.forceActiveFocus();
                 }
                 Keys.onPressed: {
-                    // keep game index on last item or details don't refresh?
-                    currentGameIndex = gameList.count - 1;
+                    // keep game index on last item when typing or details don't refresh?
+                    // but not when switching focus
+                    if (event.key != Qt.Key_Tab && !api.keys.isDetails(event))
+                        currentGameIndex = gameList.count - 1;
+                    if (event.key == Qt.Key_I) {
+                        // catch i key so it doesn't shift focus as Details Key
+                        event.accepted= true;
+                        filterInput.insert(filterInput.length,"i");
+                        return;
+                    } else if (api.keys.isDetails(event)) {
+                        event.accepted = true;
+                        descriptionScroll.forceActiveFocus();
+                    }
                 }
             }
         }
