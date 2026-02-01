@@ -327,7 +327,7 @@ FocusScope {
         anchors {
             top: gameListBg.bottom
             topMargin: vpx(5)
-            bottom: footer.top 
+            bottom: footer.top
             left: parent.left
             leftMargin: root.padding
         }
@@ -366,11 +366,14 @@ FocusScope {
                     fill: parent
                     leftMargin: vpx(5)
                     rightMargin: vpx(5)
+                    verticalCenter: parent.verticalCenter
                 }
                 focus: true
                 color: "black"
                 font.family: "Open Sans"
-                font.pixelSize: vpx(20)
+                font.pixelSize: vpx(16)
+                font.capitalization: Font.AllUppercase
+                verticalAlignment: Text.AlignVCenter
                 KeyNavigation.tab: descriptionScroll
                 Keys.onUpPressed: {
                     if (currentGameIndex > 0) currentGameIndex--;
@@ -379,6 +382,10 @@ FocusScope {
                 Keys.onDownPressed: {
                     if (currentGameIndex < gameList.count - 1) currentGameIndex++;
                     gameList.forceActiveFocus();
+                }
+                Keys.onPressed: {
+                    // keep game index on last item or details don't refresh?
+                    currentGameIndex = gameList.count - 1;
                 }
             }
         }
