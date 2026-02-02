@@ -8,13 +8,14 @@ This is forked from the [nicjansma](https://github.com/nicjansma/pegasus-theme-s
 
 So far I've added:
 
-* Some UI tweaks
-* Favorites Collection. Toggle a game's favorite status with F key
+* Favorites Collection. Toggle a game's favorite status with F key.
 * Last Played collection.
-* Game description is scrollable. Toggle between gamelist and description focus with Tab or Details Key.
-* All Games collection and List Filtering.
-* Focus Box Art and cycle through other images (if available) with Enter key or Select button.
-* Use TAB, or Details button, to cycle focus between gamelist, filter, description, and box art.
+* Game description can be focused and scrolled.
+* All Games collection
+* Game List filtering
+* Focus Game Art and cycle through other images (if available) with Enter key or Select button.
+* Use TAB, or Details button, to cycle focus between gamelist, filter, description, and game art.
+* Some layout tweaks
 
 Notes:
 
