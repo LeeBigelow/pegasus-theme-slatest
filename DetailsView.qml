@@ -489,7 +489,7 @@ FocusScope {
                 width: sourceSize.width
                 height: sourceSize.height
             } // end boxartImage
-        } // end baxart container
+        } // end baxart rectangle
 
         RatingBar {
             id: ratingBar

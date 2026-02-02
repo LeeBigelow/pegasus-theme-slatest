@@ -10,7 +10,7 @@ So far I've added:
 
 * Favorites Collection. Toggle a game's favorite status with the "F" key or filter button.
 * Last Played collection.
-* Game description can be focused and scrolled.
+* Game Description can be focused and scrolled.
 * All Games collection
 * Game List filtering
 * Focus Game Art and cycle through other images (if available) with Enter key or Select button.
