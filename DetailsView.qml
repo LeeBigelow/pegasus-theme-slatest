@@ -450,7 +450,7 @@ FocusScope {
             Keys.onPressed:
                 if (api.keys.isAccept(event)) {
                     event.accepted = true;
-                    (order < 3) ? order++ : order=0
+                    (order < 2) ? order++ : order = 0
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
@@ -467,22 +467,21 @@ FocusScope {
                 // switching art preference
                 source:
                     switch (boxart.order) {
-                        case 0: return ( currentGame.assets.boxFront ||
-                            currentGame.assets.screenshot ||
-                            currentGame.assets.logo ||
-                            currentGame.assets.marquee );
-                        case 1: return ( currentGame.assets.screenshot ||
+                        case 0: return (
                             currentGame.assets.boxFront ||
-                            currentGame.assets.logo ||
-                            currentGame.assets.marquee );
-                        case 2: return ( currentGame.assets.logo ||
                             currentGame.assets.screenshot ||
-                            currentGame.assets.boxFront ||
-                            currentGame.assets.marquee );
-                        case 3: return ( currentGame.assets.marquee ||
+                            currentGame.assets.marquee
+                        );
+                        case 1: return (
                             currentGame.assets.screenshot ||
-                            currentGame.assets.boxFront ||
-                            currentGame.assets.logo );
+                            currentGame.assets.marquee ||
+                            currentGame.assets.boxFront
+                        );
+                        case 2: return (
+                            currentGame.assets.marquee ||
+                            currentGame.assets.screenshot ||
+                            currentGame.assets.boxFront
+                        );
                     }
                 sourceSize.width: vpx(384)
                 sourceSize.height: vpx(288)
