@@ -346,7 +346,6 @@ FocusScope {
             font.weight: Font.DemiBold
             color: colorLightBg
             text: "Filter:"
-
         }
 
         Rectangle {
@@ -384,9 +383,10 @@ FocusScope {
                     gameList.forceActiveFocus();
                 }
                 Keys.onPressed: {
-                    // keep game index on last item when typing or details don't refresh?
-                    // but not when switching focus
+                    if (event.isAutoRepeat) return;
                     if (event.key != Qt.Key_Tab && !api.keys.isDetails(event))
+                        // keep game index on last item when typing so details refresh properly
+                        // but dont move index when switching focus
                         currentGameIndex = gameList.count - 1;
                     if (event.key == Qt.Key_I) {
                         // catch i key so it doesn't shift focus as Details Key
@@ -405,10 +405,10 @@ FocusScope {
                         event.accepted = true;
                         descriptionScroll.forceActiveFocus();
                     }
-                }
-            }
-        }
-    } //end box for filterInput
+                } // end Keys.onPressed
+            } // end filterInput
+        } // end filterInputBg
+    } // end box for filterLabel and filterInput
 
     Rectangle {
         // art, details, description background
@@ -424,7 +424,7 @@ FocusScope {
         color: colorLightBg
         opacity: 0.95
 
-        Item {
+        Rectangle {
             // need container to control boxart size
             id: boxart
             anchors {
@@ -433,39 +433,72 @@ FocusScope {
                 left: parent.left;
                 leftMargin: root.padding / 2
             }
-            width: boxartImage.status === Image.Ready ? vpx(384) : 0
+            focus: true
+            property var order: 0
+            width: boxartImage.status === Image.Ready ? vpx(384) : vpx(5)
             height: vpx(288)
+            color: activeFocus ? colorFocusedBg : "transparent"
+            KeyNavigation.tab: gameList
+            Keys.onUpPressed: {
+                if (currentGameIndex > 0) currentGameIndex--;
+                gameList.forceActiveFocus();
+            }
+            Keys.onDownPressed: {
+                if (currentGameIndex < gameList.count - 1) currentGameIndex++;
+                gameList.forceActiveFocus();
+            }
+            Keys.onPressed:
+                if (api.keys.isAccept(event)) {
+                    event.accepted = true;
+                    (order < 3) ? order++ : order=0
+                    return;
+                } else if (api.keys.isDetails(event)) {
+                    event.accepted = true;
+                    gameList.forceActiveFocus();
+                    return;
+                }
 
             Image {
                 id: boxartImage
-
                 anchors.fill: parent
                 anchors.centerIn: parent
                 fillMode: Image.PreserveAspectFit
-                // async causing flickering, turn off
-                // asynchronous: true
-                // skyscraper screenshoot is nice mixed image 3:4 ratio
-                source: currentGame.assets.boxFront ||
-                        currentGame.assets.screenshot ||
-                        currentGame.assets.logo ||
-                        currentGame.assets.marquee
+                // keep alternative images available when
+                // switching art preference
+                source:
+                    switch (boxart.order) {
+                        case 0: return ( currentGame.assets.boxFront ||
+                            currentGame.assets.screenshot ||
+                            currentGame.assets.logo ||
+                            currentGame.assets.marquee );
+                        case 1: return ( currentGame.assets.screenshot ||
+                            currentGame.assets.boxFront ||
+                            currentGame.assets.logo ||
+                            currentGame.assets.marquee );
+                        case 2: return ( currentGame.assets.logo ||
+                            currentGame.assets.screenshot ||
+                            currentGame.assets.boxFront ||
+                            currentGame.assets.marquee );
+                        case 3: return ( currentGame.assets.marquee ||
+                            currentGame.assets.screenshot ||
+                            currentGame.assets.boxFront ||
+                            currentGame.assets.logo );
+                    }
                 sourceSize.width: vpx(384)
                 sourceSize.height: vpx(288)
                 width: sourceSize.width
                 height: sourceSize.height
-            }
-        }
+            } // end boxartImage
+        } // end baxart container
 
         RatingBar {
             id: ratingBar
-
             anchors {
                 top: parent.top
                 topMargin: root.padding
                 left: boxart.right
                 leftMargin: root.padding
             }
-
             percentage: currentGame.rating
         }
 
@@ -568,17 +601,17 @@ FocusScope {
                     contentY += 10;
                 }
             // Toggle focus on tab and details key (i)
-            KeyNavigation.tab: gameList
+            KeyNavigation.tab: boxart
             Keys.onPressed:
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    gameList.forceActiveFocus();
+                    boxart.forceActiveFocus();
                     return;
                 }
-        }
-    }
+        } // end Flickable
+    } // end art, details, description background
 
     Rectangle {
         id: footer
