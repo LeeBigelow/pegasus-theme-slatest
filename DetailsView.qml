@@ -391,7 +391,15 @@ FocusScope {
                     if (event.key == Qt.Key_I) {
                         // catch i key so it doesn't shift focus as Details Key
                         event.accepted= true;
-                        filterInput.insert(filterInput.length,"i");
+                        filterInput.insert(cursorPosition,"i");
+                        return;
+                    } else if (event.key == Qt.Key_Left && cursorPosition == 0) {
+                        // catch left key to stop acidental collection switching
+                        event.accepted=true;
+                        return;
+                    } else if (event.key == Qt.Key_Right && cursorPosition == text.length) {
+                        // catch right key to stop acidental collection switching
+                        event.accepted=true;
                         return;
                     } else if (api.keys.isDetails(event)) {
                         event.accepted = true;
@@ -437,8 +445,8 @@ FocusScope {
                 // async causing flickering, turn off
                 // asynchronous: true
                 // skyscraper screenshoot is nice mixed image 3:4 ratio
-                source: currentGame.assets.screenshot ||
-                        currentGame.assets.boxFront ||
+                source: currentGame.assets.boxFront ||
+                        currentGame.assets.screenshot ||
                         currentGame.assets.logo ||
                         currentGame.assets.marquee
                 sourceSize.width: vpx(384)
