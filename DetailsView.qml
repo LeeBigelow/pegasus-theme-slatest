@@ -452,6 +452,7 @@ FocusScope {
             Image {
                 id: boxartImage
                 anchors.fill: parent
+                anchors.margins: vpx(2)
                 anchors.centerIn: parent
                 fillMode: Image.PreserveAspectFit
                 // keep alternative images available when
@@ -567,6 +568,7 @@ FocusScope {
                 rightPadding: root.padding
                 text: currentGame.description
                 wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignJustify
                 width: descriptionScroll.width
                 font.pixelSize: vpx(16)
                 font.family: "Open Sans"
