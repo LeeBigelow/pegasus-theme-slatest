@@ -2,6 +2,7 @@ import QtQuick 2.15 // note the version: Text padding is used below and that was
 import SortFilterProxyModel 0.2
 import "utils.js" as Utils // some helper functions
 import "collections.js" as Collections // collection definitions
+import "colors.js" as Colors
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
 FocusScope {
@@ -12,15 +13,6 @@ FocusScope {
     property var favoritesCollection
     property var lastPlayedCollection
     property var allGamesCollection
-    property color colorDarkBg
-    property color colorSemiDarkBg
-    property color colorLightBg
-    property color colorFocusedBg
-    property color colorLightText
-    property color colorBand1
-    property color colorBand2
-    property color colorBand3
-    property color colorBand4
 
     SortFilterProxyModel {
         id: filteredGames
@@ -118,7 +110,7 @@ FocusScope {
         height: root.height
         // background
         anchors.fill: parent
-        color: colorDarkBg
+        color: Colors.darkBg
     }
 
     // bands
@@ -144,7 +136,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[2] ?
-            ("#" + collectionInfo.colors[2]) : colorBand3
+            ("#" + collectionInfo.colors[2]) : Colors.band3
     }
 
     Rectangle {
@@ -156,7 +148,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[1] ?
-            ("#" + collectionInfo.colors[1]) : colorBand2
+            ("#" + collectionInfo.colors[1]) : Colors.band2
     }
 
     Rectangle {
@@ -168,7 +160,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[0] ?
-            ("#" + collectionInfo.colors[0]) : colorBand1
+            ("#" + collectionInfo.colors[0]) : Colors.band1
     }
 
     //
@@ -184,7 +176,7 @@ FocusScope {
             left: parent.left
         }
 
-        color: colorDarkBg
+        color: Colors.darkBg
         height: vpx(115)
 
         Image {
@@ -260,7 +252,7 @@ FocusScope {
         }
         width: parent.width * 0.35
         height: parent.height
-        color: colorLightBg
+        color: Colors.lightBg
         opacity: 0.95
 
         ListView {
@@ -286,7 +278,7 @@ FocusScope {
                 Text {
                     id: gameTitle
                     text: (modelData.favorite ? "★" : "") + " " + modelData.title
-                    color: parent.selected ? colorLightText : "black"
+                    color: parent.selected ? Colors.lightText : "black"
 
                     font.pixelSize: vpx(20)
                     font.capitalization: Font.AllUppercase
@@ -344,13 +336,13 @@ FocusScope {
             font.family: "Open Sans"
             font.pixelSize: vpx(20)
             font.weight: Font.DemiBold
-            color: colorLightBg
+            color: Colors.lightBg
             text: "Filter:"
         }
 
         Rectangle {
             id: filterInputBg
-            color: filterInput.activeFocus ? colorFocusedBg : colorLightBg
+            color: filterInput.activeFocus ? Colors.focusedBg : Colors.lightBg
             anchors {
                 top: parent.top
                 left: filterLabel.right
@@ -421,7 +413,7 @@ FocusScope {
             bottom: footer.top
         }
 
-        color: colorLightBg
+        color: Colors.lightBg
         opacity: 0.95
 
         Rectangle {
@@ -437,7 +429,7 @@ FocusScope {
             property var order: 0
             width: boxartImage.status === Image.Ready ? vpx(384) : vpx(5)
             height: vpx(288)
-            color: activeFocus ? colorFocusedBg : "transparent"
+            color: activeFocus ? Colors.focusedBg : "transparent"
             KeyNavigation.tab: gameList
             Keys.onUpPressed: {
                 if (currentGameIndex > 0) currentGameIndex--;
@@ -553,7 +545,7 @@ FocusScope {
             }
             width: parent.contentWidth
             height: parent.contentHeight
-            color: descriptionScroll.activeFocus ? colorFocusedBg : "transparent"
+            color: descriptionScroll.activeFocus ? Colors.focusedBg : "transparent"
         }
 
         Flickable {

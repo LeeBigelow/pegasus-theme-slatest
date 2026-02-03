@@ -1,4 +1,4 @@
-var COLLECTIONS = {
+const COLLECTIONS = {
     "3do": {
         "colors": [
             "FF0000",
