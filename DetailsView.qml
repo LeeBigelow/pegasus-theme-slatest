@@ -12,7 +12,6 @@ FocusScope {
     property var currentCollection
     property var favoritesCollection
     property var lastPlayedCollection
-    property var allGamesCollection
 
     SortFilterProxyModel {
         id: filteredGames
@@ -124,7 +123,7 @@ FocusScope {
         }
         width: root.padding
         color: collectionInfo.colors[3] ?
-            ("#" + collectionInfo.colors[3]) : crlBand4
+            ("#" + collectionInfo.colors[3]) : Colors.band4
     }
 
     Rectangle {

@@ -8,15 +8,16 @@ FocusScope {
     FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
 
     // Custom collections models we can add to.
-    // Filling extendedCollections happens in collectionsView.
-    // It needs to be filled before being attached to a ListView or
-    // you get incomplete views on start.
+    // Defined here and shared with CollectionsView and DetailsView
+    // Filled in CollectionsView before being attached to ListViews
+    // to avoid incomplete views on start.
     ListModel { id: extendedCollections }
     ListModel { id: allGamesCollection
         readonly property var name: "All Games"
         readonly property var shortName: "auto-allgames"
         readonly property var games: api.allGames
     }
+    // auto collections defined in their own QML files.
     FavoritesCollection { id: favoritesCollection }
     LastPlayedCollection { id: lastPlayedCollection }
 
@@ -46,7 +47,6 @@ FocusScope {
         currentCollection: collectionsView.currentCollection
         favoritesCollection: favoritesCollection
         lastPlayedCollection: lastPlayedCollection
-        allGamesCollection: allGamesCollection
 
         onCancel: {
             filterText="";
