@@ -19,14 +19,28 @@ FocusScope {
     FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
 
     // Custom collections models we can add to.
-    // Defined here and shared with CollectionsView and DetailsView
+    // extendedCollections ListModel won't hold item functions, will
+    // need to reference them directly.
     // Filled in CollectionsView before being attached to ListViews
     // to avoid incomplete views on start.
-    ListModel { id: extendedCollections }
     AllGamesCollection { id: allGamesCollection }
     // auto collections defined in their own QML files.
     FavoritesCollection { id: favoritesCollection }
     LastPlayedCollection { id: lastPlayedCollection }
+    ListModel {
+        id: extendedCollections
+        Component.onCompleted: {
+            // clone collections so we can add to it
+            for (var i = 0; i < api.collections.count; i++) {
+                append(api.collections.get(i));
+            }
+            append(allGamesCollection);
+            append(lastPlayedCollection);
+            append(favoritesCollection);
+            // attach model and resume position after it's filled
+            collectionsView.attachModelsResume();
+        }
+    }
 
     // The actual views are defined in their own QML files. They activate
     // each other by setting the focus. The details view is glued to the bottom

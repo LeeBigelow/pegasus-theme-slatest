@@ -25,26 +25,19 @@ FocusScope {
 
     readonly property int padding: vpx(20)
 
-    Component.onCompleted: {
-        // clone collections so we can add to it
-        for (var i = 0; i < api.collections.count; i++) {
-            extendedCollections.append(api.collections.get(i));
-        }
-        extendedCollections.append(allGamesCollection);
-        extendedCollections.append(lastPlayedCollection);
-        extendedCollections.append(favoritesCollection);
-        // only attach model after it's filled
+    // called from theme.qml after custom ListModel filled
+    function attachModelsResume() {
         bgAxis.model = extendedCollections;
         logoAxis.model = extendedCollections;
-        // When the theme loads, try to restore the last selected game
+        // restore saved settings
         currentCollectionIndex = api.memory.get('collectionIndex') || 0;
+        detailsView.focus = true;
         if (extendedCollections.get(currentCollectionIndex).shortName == "auto-lastplayed") {
             // if lauched from lastplayed game will be at top of list on return
             detailsView.currentGameIndex = 0
         } else {
             detailsView.currentGameIndex = api.memory.get('gameIndex') || 0;
         }
-        detailsView.focus = true;
     }
 
     // These functions can be called by other elements of the theme if the collection
