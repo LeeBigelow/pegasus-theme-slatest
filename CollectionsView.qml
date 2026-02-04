@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import "collections.js" as Collections // collection definitions
-import "colors.js" as Colors
 
 // The collections view consists of two carousels, one for the collection logo bar
 // and one for the background images. They should have the same number of elements
@@ -94,7 +93,7 @@ FocusScope {
             // background
             Rectangle {
                 anchors.fill: parent
-                color: Colors.darkBg
+                color: colorDarkBg
             }
 
             // bands
@@ -108,7 +107,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[3] ?
-                    ("#" + collectionInfo.colors[3]) : Colors.band4
+                    ("#" + collectionInfo.colors[3]) : colorBand4
             }
 
             Rectangle {
@@ -120,7 +119,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[2] ?
-                    ("#" + collectionInfo.colors[2]) : Colors.band3
+                    ("#" + collectionInfo.colors[2]) : colorBand3
             }
 
             Rectangle {
@@ -132,7 +131,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[1] ?
-                    ("#" + collectionInfo.colors[1]) : Colors.band2
+                    ("#" + collectionInfo.colors[1]) : colorBand2
             }
 
             Rectangle {
@@ -144,7 +143,7 @@ FocusScope {
                 }
                 width: root.padding
                 color: collectionInfo.colors[0] ?
-                    ("#" + collectionInfo.colors[0]) : Colors.band1
+                    ("#" + collectionInfo.colors[0]) : colorBand1
             }
 
             // controller
@@ -204,7 +203,7 @@ FocusScope {
         // Background
         Rectangle {
             anchors.fill: parent
-            color: Colors.focusedBg
+            color: colorFocusedBg
             opacity: 0.85
         }
 
@@ -250,7 +249,7 @@ FocusScope {
 
         Rectangle {
             anchors.fill: parent
-            color: Colors.semiDarkBg
+            color: colorSemiDarkBg
             opacity: 0.85
         }
 
@@ -258,7 +257,7 @@ FocusScope {
             id: label
             anchors.centerIn: parent
             text: "%1 GAMES".arg(currentCollection.games.count)
-            color: Colors.lightText
+            color: colorLightText
             font.pixelSize: vpx(25)
             font.family: "Open Sans"
         }
@@ -277,7 +276,7 @@ FocusScope {
             id: collectionInfoLabel
             anchors.centerIn: parent
             text: collectionInfo.info.join("\n")
-            color: Colors.lightText
+            color: colorLightText
             font.pixelSize: vpx(12)
             font.family: "Open Sans"
         }

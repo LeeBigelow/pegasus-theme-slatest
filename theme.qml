@@ -2,6 +2,17 @@ import QtQuick 2.0
 
 FocusScope {
     id: root
+    // Slate Colors
+    readonly property color colorDarkBg: "#404040"
+    readonly property color colorLightBg: "#6D6D6D"
+    readonly property color colorSemiDarkBg: "#555555"
+    readonly property color colorFocusedBg: "#7D7D7D"
+    readonly property color colorLightText: "#AFAFAF"
+    readonly property color colorBand1: "#F6DD08"
+    readonly property color colorBand2: "#800000"
+    readonly property color colorBand3: "#FF0000"
+    readonly property color colorBand4: "#303030"
+
     // Loading the fonts here makes them usable in the rest of the theme
     // and can be referred to using their name and weight.
     FontLoader { source: "fonts/OPENSANS.TTF" }
