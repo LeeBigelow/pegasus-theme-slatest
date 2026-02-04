@@ -26,7 +26,7 @@ FocusScope {
     readonly property int padding: vpx(20)
 
     // called from theme.qml after custom ListModel filled
-    function attachModelsResume() {
+    function attachModelsRestore() {
         bgAxis.model = extendedCollections;
         logoAxis.model = extendedCollections;
         // restore saved settings
@@ -38,6 +38,8 @@ FocusScope {
         } else {
             detailsView.currentGameIndex = api.memory.get('gameIndex') || 0;
         }
+        // scroll gameList to selection
+        detailsView.gameList.positionViewAtIndex(detailsView.currentGameIndex, ListView.Center);
     }
 
     // These functions can be called by other elements of the theme if the collection

@@ -37,8 +37,8 @@ FocusScope {
             append(allGamesCollection);
             append(lastPlayedCollection);
             append(favoritesCollection);
-            // attach model and resume position after it's filled
-            collectionsView.attachModelsResume();
+            // attach model and restore saved position after it's filled
+            collectionsView.attachModelsRestore();
         }
     }
 
