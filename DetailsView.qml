@@ -15,11 +15,11 @@ FocusScope {
 
     readonly property int padding: vpx(20)
     readonly property int detailsTextHeight: vpx(30)
-    property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
+    readonly property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
     property var currentCollection: collectionsView.currentCollection
     // for theme.qml access
-    property var filterText: filterInput.text
-    readonly property var gameList: gameList
+    property alias filterText: filterInput.text
+    property alias gameList: gameList
     property alias currentGameIndex: gameList.currentIndex
     property var filteredSourceIndex: filteredGames.mapToSource(currentGameIndex)
     readonly property var currentGame: {
