@@ -21,7 +21,7 @@ FocusScope {
     // by the Details view too, for example to show the collection's logo.
     property alias currentCollectionIndex: logoAxis.currentIndex
     readonly property var currentCollection: logoAxis.model.get(logoAxis.currentIndex)
-    property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
+    readonly property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
 
     readonly property int padding: vpx(20)
 
@@ -40,6 +40,9 @@ FocusScope {
         }
         // scroll gameList to selection
         detailsView.gameList.positionViewAtIndex(detailsView.currentGameIndex, ListView.Center);
+        // still won't scroll if game is on the las screenfull of games in a long list
+        // so force redraw
+        detailsView.gameList.forceLayout();
     }
 
     // These functions can be called by other elements of the theme if the collection
