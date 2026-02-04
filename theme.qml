@@ -21,10 +21,10 @@ FocusScope {
     // Custom collections models we can add to.
     // extendedCollections ListModel won't hold item functions, will
     // need to reference them directly.
-    // Filled in CollectionsView before being attached to ListViews
+    // Fill extendedCollections before attaching to ListViews
     // to avoid incomplete views on start.
+    // Auto collections defined in their own QML files.
     AllGamesCollection { id: allGamesCollection }
-    // auto collections defined in their own QML files.
     FavoritesCollection { id: favoritesCollection }
     LastPlayedCollection { id: lastPlayedCollection }
     ListModel {
