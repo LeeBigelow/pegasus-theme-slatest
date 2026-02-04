@@ -22,6 +22,6 @@ Item {
     SortFilterProxyModel {
         id: gamesFiltered
         sourceModel: lastPlayedGames
-        filters: IndexFilter { maximumIndex: 16 }
+        filters: IndexFilter { maximumIndex: 19 }
     }
 }

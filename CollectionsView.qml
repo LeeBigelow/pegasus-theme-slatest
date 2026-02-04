@@ -9,10 +9,10 @@ FocusScope {
     id: root
 
     // set from theme.qml
-    property var extendedCollections
-    property var lastPlayedCollection
-    property var favoritesCollection
-    property var allGamesCollection
+    // property var extendedCollections
+    // property var lastPlayedCollection
+    // property var favoritesCollection
+    // property var allGamesCollection
 
     // This element has the same size as the whole screen (ie. its parent).
     // Because this screen itself will be moved around when a collection is

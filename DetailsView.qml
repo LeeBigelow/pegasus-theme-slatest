@@ -10,8 +10,6 @@ FocusScope {
 
     // set from theme.qml
     property var currentCollection
-    property var favoritesCollection
-    property var lastPlayedCollection
 
     SortFilterProxyModel {
         id: filteredGames

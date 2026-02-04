@@ -29,12 +29,6 @@ FocusScope {
         id: collectionsView
         anchors.bottom: parent.bottom
 
-        // pass global variables
-        extendedCollections: extendedCollections
-        favoritesCollection: favoritesCollection
-        lastPlayedCollection: lastPlayedCollection
-        allGamesCollection: allGamesCollection
-
         focus: true
         onCollectionSelected: detailsView.focus = true
     }
@@ -43,10 +37,7 @@ FocusScope {
         id: detailsView
         anchors.top: collectionsView.bottom
 
-        // pass global variables
         currentCollection: collectionsView.currentCollection
-        favoritesCollection: favoritesCollection
-        lastPlayedCollection: lastPlayedCollection
 
         onCancel: {
             filterText="";
