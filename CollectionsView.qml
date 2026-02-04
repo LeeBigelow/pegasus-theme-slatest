@@ -7,12 +7,6 @@ import "collections.js" as Collections // collection definitions
 FocusScope {
     id: root
 
-    // set from theme.qml
-    // property var extendedCollections
-    // property var lastPlayedCollection
-    // property var favoritesCollection
-    // property var allGamesCollection
-
     // This element has the same size as the whole screen (ie. its parent).
     // Because this screen itself will be moved around when a collection is
     // selected, I've used width/height instead of anchors.
@@ -52,8 +46,6 @@ FocusScope {
         }
         detailsView.focus = true;
     }
-
-
 
     // These functions can be called by other elements of the theme if the collection
     // has to be changed manually. See the connection between the Collection and

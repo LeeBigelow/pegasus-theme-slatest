@@ -23,11 +23,7 @@ FocusScope {
     // Filled in CollectionsView before being attached to ListViews
     // to avoid incomplete views on start.
     ListModel { id: extendedCollections }
-    ListModel { id: allGamesCollection
-        readonly property var name: "All Games"
-        readonly property var shortName: "auto-allgames"
-        readonly property var games: api.allGames
-    }
+    AllGamesCollection { id: allGamesCollection }
     // auto collections defined in their own QML files.
     FavoritesCollection { id: favoritesCollection }
     LastPlayedCollection { id: lastPlayedCollection }
@@ -47,8 +43,6 @@ FocusScope {
     DetailsView {
         id: detailsView
         anchors.top: collectionsView.bottom
-
-        currentCollection: collectionsView.currentCollection
 
         onCancel: {
             filterText="";
