@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- More examples can be found in '~/.skyscraper'. Be sure to check the full artwork documentation here: https://gemba.github.io/skyscraper/ARTWORK -->
+<artwork>
+  <output type="screenshot" width="640" height="480">
+    <layer resource="screenshot" x="20" width="520" height="390" align="center" valign="middle" aspect="keep">
+      <rounded radius="10"/>
+      <stroke width="5"/>
+    </layer>
+    <layer resource="cover" width="250" height="250" aspect="keep" x="0" y="-10" valign="bottom">
+      <gamebox side="wheel" rotate="90"/>
+      <shadow distance="5" softness="5" opacity="70"/>
+    </layer>
+    <layer resource="wheel" width="250" x="-10" align="right">
+      <shadow distance="5" softness="5" opacity="70"/>
+    </layer>
+    <layer resource="texture" width="150" height="150" aspect="keep" y="-10" align="right" valign="bottom">
+      <shadow distance="5" softness="5" opacity="70"/>
+    </layer>
+  </output>
+  <output type="marquee" resource="wheel"/>
+</artwork>
