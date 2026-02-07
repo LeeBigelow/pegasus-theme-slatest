@@ -458,8 +458,8 @@ FocusScope {
             }
             focus: true
             property var order: 0
-            width: boxartImage.status === Image.Ready ? vpx(384) : vpx(5)
-            height: vpx(288)
+            width: boxartImage.status === Image.Ready ? vpx(452) : vpx(5)
+            height: vpx(339)
             color: activeFocus ? colorFocusedBg : "transparent"
             KeyNavigation.tab: gameList
             Keys.onUpPressed: {
@@ -503,7 +503,6 @@ FocusScope {
                 anchors.fill: parent
                 anchors.margins: vpx(2)
                 anchors.centerIn: parent
-                fillMode: Image.PreserveAspectFit
                 // keep alternative images available when
                 // switching art preference
                 source:
@@ -524,8 +523,9 @@ FocusScope {
                             currentGame.assets.boxFront
                         );
                     }
-                sourceSize.width: vpx(384)
-                sourceSize.height: vpx(288)
+                fillMode: Image.PreserveAspectFit
+                sourceSize.width: vpx(452)
+                sourceSize.height: vpx(339)
                 width: sourceSize.width
                 height: sourceSize.height
             } // end boxartImage
@@ -550,7 +550,7 @@ FocusScope {
                 top: ratingBar.bottom
                 topMargin: root.padding / 2
                 left: boxart.right;
-                leftMargin: root.padding
+                leftMargin: root.padding / 2
             }
 
             GameInfoLabel { text: "Released:" }
@@ -567,9 +567,9 @@ FocusScope {
             anchors {
                 top: gameLabels.top
                 left: gameLabels.right
-                leftMargin: root.padding
+                leftMargin: root.padding / 2
                 right: parent.right
-                rightMargin: root.padding
+                rightMargin: root.padding / 2
             }
 
             // 'width' is set so if the text is too long it will be cut. I also use some
