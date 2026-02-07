@@ -209,11 +209,15 @@ FocusScope {
             delegate: CollectionLogo {
                 longName: model.name
                 shortName: model.shortName
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: root.collectionSelected()
+                }
             }
 
             focus: true
 
-            Keys.onPressed:
+            Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isNextPage(event)) {
@@ -223,14 +227,9 @@ FocusScope {
                     event.accepted = true;
                     decrementCurrentIndex();
                 }
-
-            onItemSelected: root.collectionSelected()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: root.collectionSelected()
             }
 
+            onItemSelected: root.collectionSelected()
         }
     }
 
