@@ -16,7 +16,14 @@ So far I've added:
 - Focus Game Art and cycle through other images (if available) with Enter key or Select button
 - Use TAB, or Details button, to cycle focus between Game List, Filter, Description, and Game Art
 - Converted svg css styles to svg attributes for Android compatability
-- Add mouse and touch gestures
+- Add mouse and touch gestures:
+    - Collections View:
+        - Swipe up on system info to switch to Details View
+    - Details View:
+        - Swipe Down on the header to switch to Collections View
+        - Swipe Left/Right on the header to change current colleciton
+        - Swipe Left/Right on Game Art to cycle through images
+        - Footer help images provide their function on click (if possible)
 - Some layout tweaks
 
 Notes:
