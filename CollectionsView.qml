@@ -273,7 +273,8 @@ FocusScope {
             anchors.centerIn: parent
             text: collectionInfo.info.join("\n")
             color: colorLightText
-            font.pixelSize: vpx(12)
+            font.pixelSize: vpx(15)
+            lineHeight: 0.8
             font.family: "Open Sans"
         }
 

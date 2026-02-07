@@ -619,7 +619,7 @@ FocusScope {
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignJustify
                 width: descriptionScroll.width
-                font.pixelSize: vpx(16)
+                font.pixelSize: vpx(18)
                 font.family: "Open Sans"
                 font.weight: Font.DemiBold
                 color: "black"
