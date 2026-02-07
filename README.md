@@ -14,8 +14,8 @@ So far I've added:
 - Game Description can be focused and scrolled
 - Game List regex filtering
 - Focus Game Art and cycle through other images (if available) with Enter key or Select button
+    - Swiping Left/Right on the game art now also cycles through the images
 - Use TAB, or Details button, to cycle focus between Game List, Filter, Description, and Game Art
-- Converted svg css styles to svg attributes for Android compatability
 - Added mouse and touch gestures:
     - Collections View:
         - Swipe up on system info to switch to Details View
@@ -25,7 +25,9 @@ So far I've added:
         - Swipe Left/Right on the header to change current colleciton
         - Swipe Left/Right on game art to cycle through images
         - Footer help images provide their function on click (if possible)
-- Some layout tweaks
+- Converted svg css styles to line attributes for Android compatability
+- Some layout tweaks for tablet use
+- Included my [Pegasus notes](pegasus-notes.md) and [Skyscraper notes](skyscraper-notes.md). Might be of use?
 
 Notes:
 
