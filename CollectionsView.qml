@@ -175,8 +175,9 @@ FocusScope {
                 horizontalAlignment: Image.AlignLeft
                 verticalAlignment: Image.AlignBottom
             }
-        }
-    }
+
+        } // end Item
+    } // end bgAxisItem scomponent
 
     // I've put the main bar's parts inside this wrapper item to change the opacity
     // of the background separately from the carousel. You could also use a Rectangle
@@ -224,6 +225,12 @@ FocusScope {
                 }
 
             onItemSelected: root.collectionSelected()
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: root.collectionSelected()
+            }
+
         }
     }
 
@@ -259,7 +266,7 @@ FocusScope {
             left: parent.left
             right: parent.right
             top: gameCountBar.bottom
-            bottom: parent.bottom
+            bottom: footer.top
         }
 
         Text {
@@ -269,6 +276,14 @@ FocusScope {
             color: colorLightText
             font.pixelSize: vpx(12)
             font.family: "Open Sans"
+        }
+
+        MouseArea {
+            // swipe up on colleciton info area to switch to detailsView
+            anchors.fill: parent
+            property int startY
+            onPressed: startY = mouse.y;
+            onReleased: if (startY - mouse.y > vpx(100)) root.collectionSelected();
         }
     }
 
@@ -290,6 +305,10 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/dpad_leftright.svg"
             imageLabel: "Collection Switch"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: selectNext()
+            }
         }
 
         FooterImage {
@@ -298,9 +317,15 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_b.svg"
             imageLabel: "Select"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: root.collectionSelected()
+            }
         }
 
         FooterImage {
+            // swiping in from right edge opens pegasus settings
+            // not sure how to trigger that with a different mouse action
             id: startButton
             anchors.left: bButton.right
             anchors.bottom: parent.bottom

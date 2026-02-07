@@ -58,7 +58,7 @@ FocusScope {
     // Key handling. In addition, pressing left/right also moves to the prev/next collection.
     Keys.onLeftPressed: prevCollection()
     Keys.onRightPressed: nextCollection()
-    Keys.onPressed:
+    Keys.onPressed: {
         if (event.isAutoRepeat) {
             return;
         } else if (api.keys.isAccept(event)) {
@@ -100,6 +100,7 @@ FocusScope {
             }
             return;
         }
+    } // end Keys.onPressed
 
     // dark background
     Rectangle {
@@ -172,8 +173,30 @@ FocusScope {
             left: parent.left
         }
 
+
         color: colorDarkBg
         height: vpx(115)
+
+        MouseArea {
+            // swipe gestures for detailsView header
+            // left and right swipe switches current collection
+            // down swipe switches to collectionsView
+            anchors.fill: parent
+            property int startX
+            property int startY
+            onPressed: {
+                startX = mouse.x;
+                startY = mouse.y;
+            }
+            onReleased: {
+                if (mouse.y - startY > vpx(100)) {
+                    cancel();
+                    return;
+                }
+                if (mouse.x - startX > vpx(50)) nextCollection();
+                else if (startX - mouse.x > vpx(50)) prevCollection();
+            }
+        }
 
         Image {
             id: logo
@@ -289,17 +312,28 @@ FocusScope {
                     leftPadding: vpx(10)
                     rightPadding: leftPadding
                 }
+
+                MouseArea {
+                    // gameList mouse actions
+                    // focus on click, launch on double click
+                    anchors.fill: parent
+                    onClicked: {
+                        gameList.currentIndex=index;
+                        gameList.forceActiveFocus();
+                    }
+                    onDoubleClicked: launchGame()
+                }
             } // end gameList delegate
 
             clip: true
             highlightMoveDuration: 0
-            highlightRangeMode: ListView.ApplyRange
-            preferredHighlightBegin: height * 0.5 - vpx(15)
-            preferredHighlightEnd: height * 0.5 + vpx(15)
+            // highlightRangeMode: ListView.ApplyRange
+            // preferredHighlightBegin: height * 0.5 - vpx(15)
+            // preferredHighlightEnd: height * 0.5 + vpx(15)
 
             // focus filterInput on tab and details key (i)
             KeyNavigation.tab: filterInput
-            Keys.onPressed:
+            Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isDetails(event)) {
@@ -307,6 +341,7 @@ FocusScope {
                     filterInput.forceActiveFocus();
                     return;
                 }
+            }
         } // end gameList ListView
     } // end gameListBg
 
@@ -435,16 +470,33 @@ FocusScope {
                 if (currentGameIndex < gameList.count - 1) currentGameIndex++;
                 gameList.forceActiveFocus();
             }
-            Keys.onPressed:
+            Keys.onPressed: {
                 if (api.keys.isAccept(event)) {
                     event.accepted = true;
-                    (order < 2) ? order++ : order = 0
+                    (order < 2) ? order++ : order=0;
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
                     gameList.forceActiveFocus();
                     return;
                 }
+            }
+
+            MouseArea {
+                // swipe gestures for box art
+                // left, right, and double click switches art
+                anchors.fill: parent
+                property int startX
+                onPressed: startX = mouse.x
+                onReleased: {
+                    if (mouse.x - startX > vpx(50))
+                        (boxart.order < 2) ? boxart.order++ : boxart.order=0;
+                    else if (startX - mouse.x > vpx(50))
+                        (boxart.order > 0) ? boxart.order-- : boxart.order=2;
+                }
+                onClicked: boxart.forceActiveFocus()
+                onDoubleClicked: (boxart.order < 2) ? boxart.order++ : boxart.order=0;
+            }
 
             Image {
                 id: boxartImage
@@ -591,7 +643,7 @@ FocusScope {
                 }
             // Toggle focus on tab and details key (i)
             KeyNavigation.tab: boxart
-            Keys.onPressed:
+            Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isDetails(event)) {
@@ -599,6 +651,13 @@ FocusScope {
                     boxart.forceActiveFocus();
                     return;
                 }
+            }
+
+            MouseArea {
+                // just focus description on click
+                anchors.fill: parent
+                onClicked: descriptionScroll.forceActiveFocus()
+            }
         } // end Flickable
     } // end art, details, description background
 
@@ -620,6 +679,11 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/dpad_leftright.svg"
             imageLabel: "Collection Switch"
+            MouseArea {
+                // can also swipe header area
+                anchors.fill: parent
+                onClicked: nextCollection()
+            }
         }
 
         FooterImage {
@@ -636,6 +700,11 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_b.svg"
             imageLabel: "Select"
+            MouseArea {
+                // can also double click game in list
+                anchors.fill: parent
+                onClicked: launchGame()
+            }
         }
 
         FooterImage {
@@ -644,6 +713,11 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_a.svg"
             imageLabel: "Back"
+            MouseArea {
+                // can also swipe down on header area
+                anchors.fill: parent
+                onClicked: cancel()
+            }
         }
 
         FooterImage {
@@ -652,6 +726,10 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_x.svg"
             imageLabel: "Toggle Favorite"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: toggleFavorite()
+            }
         }
 
         FooterImage {
@@ -663,6 +741,8 @@ FocusScope {
         }
 
         FooterImage {
+            // can swipe in from right to get pegasus settions
+            // not sure how to trigger that with alternate mouse action?
             id: startButton
             anchors.left: yButton.right
             anchors.bottom: parent.bottom
