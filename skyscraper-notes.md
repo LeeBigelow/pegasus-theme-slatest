@@ -1,7 +1,7 @@
 # Skyscraper Notes
 
 - Using this maintained fork: [Skyscraper - Gemba fork](https://github.com/Gemba/skyscraper)
-- Skyscraper directory contains:
+- [Skyscraper directory](skyscraper/) contains:
     - my Skyscraper config.ini
         - usefully commented?
         - using retroarch cores
