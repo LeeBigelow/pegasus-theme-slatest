@@ -20,6 +20,7 @@ So far I've added:
     - Collections View:
         - Swipe up on system info to switch to Details View
     - Details View:
+        - Double click game title to launch
         - Swipe Down on the header to switch to Collections View
         - Swipe Left/Right on the header to change current colleciton
         - Swipe Left/Right on game art to cycle through images
