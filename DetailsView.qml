@@ -18,6 +18,7 @@ FocusScope {
     readonly property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
     property var currentCollection: collectionsView.currentCollection
     // for theme.qml access
+    property alias boxartOrder: boxart.order
     property alias filterText: filterInput.text
     property alias gameList: gameList
     property alias currentGameIndex: gameList.currentIndex

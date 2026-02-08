@@ -32,6 +32,8 @@ FocusScope {
         // restore saved settings
         currentCollectionIndex = api.memory.get('collectionIndex') || 0;
         detailsView.focus = true;
+        // force redraw
+        detailsView.gameList.forceLayout();
         if (extendedCollections.get(currentCollectionIndex).shortName == "auto-lastplayed") {
             // if lauched from lastplayed game will be at top of list on return
             detailsView.currentGameIndex = 0
@@ -40,9 +42,7 @@ FocusScope {
         }
         // scroll gameList to selection
         detailsView.gameList.positionViewAtIndex(detailsView.currentGameIndex, ListView.Center);
-        // still won't scroll if game is on the las screenfull of games in a long list
-        // so force redraw
-        detailsView.gameList.forceLayout();
+        detailsView.boxartOrder = api.memory.get('boxartOrder') || 0;
     }
 
     // These functions can be called by other elements of the theme if the collection
