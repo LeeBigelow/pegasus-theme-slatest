@@ -288,12 +288,9 @@ FocusScope {
 
                 width: ListView.view.width
                 height: gameTitle.height
-                color:
-                    if (selected) {
-                        gameList.activeFocus ? "black" : "transparent";
-                    } else {
-                        return "transparent";
-                    }
+                color: selected ?
+                    (gameList.activeFocus ? "black" : "transparent") :
+                    "transparent"
 
                 Text {
                     id: gameTitle
@@ -538,7 +535,7 @@ FocusScope {
                 top: parent.top
                 topMargin: root.padding
                 left: boxart.right
-                leftMargin: root.padding
+                leftMargin: root.padding / 2
             }
             percentage: currentGame.rating
         }
@@ -563,6 +560,52 @@ FocusScope {
             GameInfoLabel { text: "Play time:" }
         }
 
+        Rectangle {
+            id: launchButton
+            anchors {
+                top: gameLabels.bottom
+                topMargin: root.padding
+                left: boxart.right
+                leftMargin: root.padding / 2
+                right: parent.right
+                rightMargin: root.padding
+            }
+            focus: true
+            color: activeFocus ? "black" :
+                (launchButtonArea.containsMouse ? "black" : colorDarkBg)
+            height: vpx(30)
+
+            Text {
+                anchors.centerIn: parent
+                text: "LAUNCH"
+                color: parent.activeFocus ? colorLightText :
+                    (launchButtonArea.containsMouse ? colorLightText : colorLightBg)
+                font.family: "Open Sans"
+                font.weight: Font.Bold
+                font.pixelSize: vpx(20)
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            MouseArea {
+                id: launchButtonArea
+                anchors.fill: parent
+                onClicked: launchGame()
+                hoverEnabled: true
+            }
+
+            // Toggle focus on tab and details key (i)
+            KeyNavigation.tab: boxart
+            Keys.onPressed: {
+                if (event.isAutoRepeat) {
+                    return;
+                } else if (api.keys.isDetails(event)) {
+                    event.accepted = true;
+                    boxart.forceActiveFocus();
+                    return;
+                }
+            }
+        }
+
         Column {
             id: gameDetails
             anchors {
@@ -583,7 +626,9 @@ FocusScope {
             GameInfoText { text: Utils.formatPlayers(currentGame.players) }
             GameInfoText { text: Utils.formatLastPlayed(currentGame.lastPlayed) }
             GameInfoText { text: Utils.formatPlayTime(currentGame.playTime) }
+
         }
+
 
         Rectangle {
             id: descriptionBg
@@ -643,13 +688,13 @@ FocusScope {
                     contentY += 10;
                 }
             // Toggle focus on tab and details key (i)
-            KeyNavigation.tab: boxart
+            KeyNavigation.tab: launchButton
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    boxart.forceActiveFocus();
+                    launchButton.forceActiveFocus();
                     return;
                 }
             }
