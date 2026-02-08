@@ -289,7 +289,7 @@ FocusScope {
                 width: ListView.view.width
                 height: gameTitle.height
                 color: selected ?
-                    (gameList.activeFocus ? "black" : "transparent") :
+                    (gameList.activeFocus ? "black" : colorSemiDarkBg ) :
                     "transparent"
 
                 Text {
@@ -580,10 +580,8 @@ FocusScope {
             Text {
                 anchors.centerIn: parent
                 text: "LAUNCH"
-                color: parent.activeFocus ? colorLightText :
-                    (launchButtonArea.containsMouse ? colorLightText : colorLightBg)
+                color: colorLightText
                 font.family: "Open Sans"
-                font.weight: Font.Bold
                 font.pixelSize: vpx(20)
                 verticalAlignment: Text.AlignVCenter
             }
@@ -597,6 +595,14 @@ FocusScope {
 
             // Toggle focus on tab and details key (i)
             KeyNavigation.tab: boxart
+            Keys.onUpPressed: {
+                if (currentGameIndex > 0) currentGameIndex--;
+                gameList.forceActiveFocus();
+            }
+            Keys.onDownPressed: {
+                if (currentGameIndex < gameList.count - 1) currentGameIndex++;
+                gameList.forceActiveFocus();
+            }
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
