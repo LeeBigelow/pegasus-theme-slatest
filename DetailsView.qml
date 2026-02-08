@@ -455,9 +455,11 @@ FocusScope {
                 leftMargin: root.padding / 2
             }
             focus: true
-            property var order: 0
-            width: boxartImage.status === Image.Ready ? vpx(452) : vpx(5)
-            height: vpx(339)
+            property int order: 0
+            property var boxWidth: vpx(452)
+            property var boxHeight: vpx(339)
+            width: boxartImage.status === Image.Ready ? boxWidth : vpx(5)
+            height: boxHeight 
             color: activeFocus ? colorFocusedBg : "transparent"
             KeyNavigation.tab: gameList
             Keys.onUpPressed: {
@@ -522,8 +524,8 @@ FocusScope {
                         );
                     }
                 fillMode: Image.PreserveAspectFit
-                sourceSize.width: vpx(452)
-                sourceSize.height: vpx(339)
+                sourceSize.width: boxart.boxWidth
+                sourceSize.height: boxart.boxHeight
                 width: sourceSize.width
                 height: sourceSize.height
             } // end boxartImage
