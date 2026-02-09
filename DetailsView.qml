@@ -425,9 +425,13 @@ FocusScope {
                     } else if (api.keys.isDetails(event)) {
                         event.accepted = true;
                         descriptionScroll.forceActiveFocus();
+                    } else if (api.keys.isAccept(event)) {
+                        event.accepted = true;
+                        currentGameIndex = gameList.count - 1;
+                        gameList.forceActiveFocus();
                     }
                 } // end Keys.onPressed
-            } // end filterInput
+            } // end filterInput TextInput
         } // end filterInputBg
     } // end box for filterLabel and filterInput
 
@@ -593,7 +597,7 @@ FocusScope {
                 hoverEnabled: true
             }
 
-            // Toggle focus on tab and details key (i)
+            // Move focus on tab and details key (i)
             KeyNavigation.tab: boxart
             Keys.onUpPressed: {
                 if (currentGameIndex > 0) currentGameIndex--;
@@ -612,7 +616,7 @@ FocusScope {
                     return;
                 }
             }
-        }
+        } // end launchButton
 
         Column {
             id: gameDetails
@@ -695,7 +699,7 @@ FocusScope {
                 } else {
                     contentY += 10;
                 }
-            // Toggle focus on tab and details key (i)
+            // Move focus on tab and details key (i)
             KeyNavigation.tab: launchButton
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
