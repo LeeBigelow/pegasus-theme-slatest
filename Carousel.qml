@@ -3,8 +3,6 @@ import QtQuick 2.0
 // A carousel is a PathView that goes horizontally and keeps its
 // current item in the center.
 PathView {
-    id: root
-
     property int itemWidth
     readonly property int pathWidth: pathItemCount * itemWidth
 
@@ -29,11 +27,11 @@ PathView {
     pathItemCount: Math.ceil(width / itemWidth) + 2
 
     path: Path {
-        startX: (root.width - root.pathWidth) / 2
-        startY: root.height / 2
+        startX: (width - pathWidth) / 2
+        startY: height / 2
         PathLine {
-            x: root.path.startX + root.pathWidth
-            y: root.path.startY
+            x: path.startX + pathWidth
+            y: path.startY
         }
     }
 }

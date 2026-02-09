@@ -1,12 +1,9 @@
 import QtQuick 2.0
-import "collections.js" as Collections // collection definitions
 
 // The collections view consists of two carousels, one for the collection logo bar
 // and one for the background images. They should have the same number of elements
 // to be kept in sync.
 FocusScope {
-    id: root
-
     // This element has the same size as the whole screen (ie. its parent).
     // Because this screen itself will be moved around when a collection is
     // selected, I've used width/height instead of anchors.
@@ -21,9 +18,8 @@ FocusScope {
     // by the Details view too, for example to show the collection's logo.
     property alias currentCollectionIndex: logoAxis.currentIndex
     readonly property var currentCollection: logoAxis.model.get(logoAxis.currentIndex)
-    readonly property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
-
-    readonly property int padding: vpx(20)
+    // collectionsData set in theme.qml
+    readonly property var collectionInfo: collectionsData.COLLECTIONS[currentCollection.shortName]
 
     // called from theme.qml after custom ListModel filled
     function attachModelsRestore() {

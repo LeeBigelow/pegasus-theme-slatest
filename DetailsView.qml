@@ -1,12 +1,9 @@
-import QtQuick 2.15 // note the version: Text padding is used below and that was added in 2.7 as per docs
+import QtQuick 2.15 // Text padding is used below, only added in 2.7
 import SortFilterProxyModel 0.2
 import "utils.js" as Utils // some helper functions
-import "collections.js" as Collections // collection definitions
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
 FocusScope {
-    id: root
-
     // Nothing particularly interesting, see CollectionsView for more comments
     width: parent.width
     height: parent.height
@@ -15,7 +12,8 @@ FocusScope {
 
     readonly property int padding: vpx(20)
     readonly property int detailsTextHeight: vpx(30)
-    readonly property var collectionInfo: Collections.COLLECTIONS[currentCollection.shortName]
+    // collectionsData set in theme.qml
+    readonly property var collectionInfo: collectionsData.COLLECTIONS[currentCollection.shortName]
     property var currentCollection: collectionsView.currentCollection
     // for theme.qml access
     property alias boxartOrder: boxart.order

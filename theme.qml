@@ -1,7 +1,10 @@
 import QtQuick 2.0
+import "collections.js" as Collections // sys info and band colors
 
 FocusScope {
     id: root
+    // Platform info
+    readonly property var collectionsData: Collections
     // Slate Colors
     readonly property color colorDarkBg: "#404040"
     readonly property color colorLightBg: "#6D6D6D"
@@ -12,6 +15,8 @@ FocusScope {
     readonly property color colorBand2: "#800000"
     readonly property color colorBand3: "#FF0000"
     readonly property color colorBand4: "#303030"
+
+    readonly property int padding: vpx(20)
 
     // Loading the fonts here makes them usable in the rest of the theme
     // and can be referred to using their name and weight.
