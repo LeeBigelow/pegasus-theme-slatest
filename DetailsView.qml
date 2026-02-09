@@ -172,7 +172,6 @@ FocusScope {
             left: parent.left
         }
 
-
         color: colorDarkBg
         height: vpx(115)
 
@@ -183,15 +182,9 @@ FocusScope {
             anchors.fill: parent
             property int startX
             property int startY
-            onPressed: {
-                startX = mouse.x;
-                startY = mouse.y;
-            }
+            onPressed: { startX = mouse.x; startY = mouse.y; }
             onReleased: {
-                if (mouse.y - startY > vpx(100)) {
-                    cancel();
-                    return;
-                }
+                if (mouse.y - startY > vpx(100)) { cancel(); return; }
                 if (mouse.x - startX > vpx(50)) nextCollection();
                 else if (startX - mouse.x > vpx(50)) prevCollection();
             }
@@ -287,7 +280,7 @@ FocusScope {
                 width: ListView.view.width
                 height: gameTitle.height
                 color: selected ?
-                    (gameList.activeFocus ? "black" : colorSemiDarkBg ) :
+                    (gameList.activeFocus ? "black" : colorSemiDarkBg) :
                     "transparent"
 
                 Text {
@@ -403,12 +396,12 @@ FocusScope {
                 }
                 Keys.onPressed: {
                     if (event.isAutoRepeat) return;
+                    // keep game index on last item when typing so details refresh properly
+                    // but dont move index when switching focus
                     if (event.key != Qt.Key_Tab && !api.keys.isDetails(event))
-                        // keep game index on last item when typing so details refresh properly
-                        // but dont move index when switching focus
                         currentGameIndex = gameList.count - 1;
+                    // catch i key so it doesn't shift focus as Details Key
                     if (event.key == Qt.Key_I) {
-                        // catch i key so it doesn't shift focus as Details Key
                         event.accepted= true;
                         filterInput.insert(cursorPosition,"i");
                         return;
@@ -464,6 +457,7 @@ FocusScope {
             height: boxHeight 
             color: activeFocus ? colorFocusedBg : "transparent"
             KeyNavigation.tab: gameList
+            // move focus to gameList on boxart up/down
             Keys.onUpPressed: {
                 if (currentGameIndex > 0) currentGameIndex--;
                 gameList.forceActiveFocus();
@@ -474,6 +468,7 @@ FocusScope {
             }
             Keys.onPressed: {
                 if (api.keys.isAccept(event)) {
+                    // cycle art on boxart select
                     event.accepted = true;
                     (order < 2) ? order++ : order=0;
                     return;
@@ -507,7 +502,7 @@ FocusScope {
                 anchors.centerIn: parent
                 // keep alternative images available when
                 // switching art preference
-                source:
+                source: {
                     switch (boxart.order) {
                         case 0: return (
                             currentGame.assets.boxFront ||
@@ -525,6 +520,7 @@ FocusScope {
                             currentGame.assets.boxFront
                         );
                     }
+                }
                 fillMode: Image.PreserveAspectFit
                 sourceSize.width: boxart.boxWidth
                 sourceSize.height: boxart.boxHeight
@@ -636,9 +632,7 @@ FocusScope {
             GameInfoText { text: Utils.formatPlayers(currentGame.players) }
             GameInfoText { text: Utils.formatLastPlayed(currentGame.lastPlayed) }
             GameInfoText { text: Utils.formatPlayTime(currentGame.playTime) }
-
         }
-
 
         Rectangle {
             id: descriptionBg
@@ -683,20 +677,12 @@ FocusScope {
 
             // Keybindings for descriptionScroll
             // scroll description on up and down
-            Keys.onUpPressed:
-                // don't go past first line
-                if ((contentY - 10) < 0) {
-                    contentY = 0;
-                } else {
-                    contentY -= 10;
-                }
-            Keys.onDownPressed:
-                // don't go past last screenfull
-                if ((contentY + 10) > (gameDescription.height - height)) {
-                    contentY = gameDescription.height - height;
-                } else {
-                    contentY += 10;
-                }
+            // don't go back past first line
+            Keys.onUpPressed: (contentY - 10) < 0 ? contentY = 0 : contentY -= 10
+            // don't go past last screenfull
+            Keys.onDownPressed: (contentY + 10) > (gameDescription.height - height) ?
+                    contentY = gameDescription.height - height :
+                    contentY += 10
             // Move focus on tab and details key (i)
             KeyNavigation.tab: launchButton
             Keys.onPressed: {
