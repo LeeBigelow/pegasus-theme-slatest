@@ -1,4 +1,4 @@
-const COLLECTIONS = {
+var COLLECTIONS = {
     "3do": {
         "colors": [
             "FF0000",
@@ -122,7 +122,8 @@ const COLLECTIONS = {
             "RAM:  2 MB",
             "ROM:  1 MB Kickstart w/ CD32 firmware, 1 KB EEPROM for game saves",
             "Chipset:  Advanced Graphics Architecture (AGA)",
-            "Graphics:  Lisa, 320×200 to 1280×400i (NTSC), 320×256 to 1280×512i (PAL)",
+            "Graphics:  Lisa, 320×200 to 1280×400i (NTSC), 320×256 to",
+            "           1280×512i (PAL)",
             "Sound:  Paula, 4 channels, 8-bit stereo PCM"
         ]
     },
@@ -158,6 +159,30 @@ const COLLECTIONS = {
             "the popularity of the platform there is a rich",
             "library of games available, some even rivalling",
             "those on dedicated game consoles."
+        ]
+    },
+    "androidapps": {
+        "colors": [
+            "4086F4",
+            "EB4132",
+            "FBBD00",
+            "31AA52"
+        ],
+        "info": [
+            "Apps for the Android operating system developed by",
+            "Android Inc. and later acquired by Google.",
+        ]
+    },
+    "androidgames": {
+        "colors": [
+            "4086F4",
+            "EB4132",
+            "FBBD00",
+            "31AA52"
+        ],
+        "info": [
+            "Games for the Android operating system developed by",
+            "Android Inc. and later acquired by Google.",
         ]
     },
     "apple2": {
@@ -208,9 +233,9 @@ const COLLECTIONS = {
             "machine. Most arcade games are video games, pinball machines,",
             "electro-mechanical games, redemption games or merchandisers.",
             "While exact dates are debated, the golden age of arcade video games",
-            "is usually defined as a period beginning sometime in the late 1970s and",
-            "ending sometime in the mid-1980s. Excluding a brief resurgence in the",
-            "early 1990s, the arcade industry subsequently declined in the",
+            "is usually defined as a period beginning sometime in the late 1970s",
+            "and ending sometime in the mid-1980s. Excluding a brief resurgence",
+            "in the early 1990s, the arcade industry subsequently declined in the",
             "Western hemisphere as competing home video game consoles increased",
             "in their graphics and game-play capability and decreased in cost."
         ]
@@ -338,7 +363,8 @@ const COLLECTIONS = {
             "RAM:  4 KB",
             "Cartridge ROM:  48 KB",
             "Audio/Video processor:  TIA/MARIA custom graphics controller",
-            "Ports:  2 joystick ports, 1 cartridge port, 1 expansion connector, power in, RF output"
+            "Ports:  2 joystick ports, 1 cartridge port, 1 expansion connector,",
+            "        power in, RF output"
         ]
     },
     "atari800": {
@@ -426,7 +452,8 @@ const COLLECTIONS = {
             "CPU:  16/32-bit Motorola 68000 @ 8 MHz",
             "RAM:  512 KB or 1 MB",
             "Low resolution mode:  320×200 pixels, 16 colors, (512 color palette)",
-            "Medium resolution mode:  640×200 pixels, 4 colors, (512 color palette)",
+            "Medium resolution mode:  640×200 pixels, 4 colors,",
+            "                         (512 color palette)",
             "Sound:  Yamaha YM2149 3-voice square wave",
             "Media:  Single-sided 3½-inch floppy disk"
         ]
@@ -804,9 +831,9 @@ const COLLECTIONS = {
             "id Software. The series focuses on the exploits of an unnamed space",
             "marine operating under the UAC, who fights hordes of demons in order",
             "to survive. Doom is one of the pioneering FPS games, introducing to",
-            "IBM-compatible computers features such as 3D graphics, third dimension",
-            "spatiality and support for player-created modifications with the Doom",
-            "WAD format."
+            "IBM-compatible computers features such as 3D graphics, third",
+            "dimension spatiality and support for player-created modifications",
+            "with the Doom WAD format."
         ]
     },
     "dos": {
@@ -841,7 +868,8 @@ const COLLECTIONS = {
             "CPU:  Motorola 6809E @ 0.89 MHz",
             "RAM:  32 or 64 KB",
             "Resolution:  Max. 256×192 pixels, 8 colours",
-            "Sound:  1 voice, 5 octaves (BASIC) or 4 voices, 7 octaves (machine code)"
+            "Sound:  1 voice, 5 octaves (BASIC) or 4 voices, 7 octaves",
+            "        (machine code)"
         ]
     },
     "dreamcast": {
@@ -1247,7 +1275,8 @@ const COLLECTIONS = {
             "CPU:  8-bit Zilog Z80A @ 4 MHz",
             "RAM:  64 KB / VRAM:  16 KB",
             "ROM:  32 KB",
-            "Resolution:  160×200 to 640×200 pixels, 32 colours (4096 colour palette)",
+            "Resolution:  160×200 to 640×200 pixels, 32 colours",
+            "             (4096 colour palette)",
             "Sound:  General Instrument AY-3-8912, 3 channels, stereo"
         ]
     },
@@ -1295,14 +1324,16 @@ const COLLECTIONS = {
             "BF2E31"
         ],
         "info": [
-            "Kodi (formerly XBMC) is a free and open source media player application developed",
-            "by the XBMC/Kodi Foundation, a non-profit technology consortium. Kodi is available for",
-            "multiple operating-systems and hardware platforms, featuring a 10-foot user interface",
-            "for use with televisions and remote controls.",
-            "It allows users to play and view most videos, music, podcasts, and other digital media",
-            "from local and network storage media and the internet.",
-            "Kodi has a gigantic catalog of community add-ons available for you to customize",
-            "and tweak your perfect entertainment setup."
+            "Kodi (formerly XBMC) is a free and open source media player",
+            "application developed by the XBMC/Kodi Foundation, a non-profit",
+            "technology consortium.  Kodi is available for multiple",
+            "operating-systems and hardware platforms, featuring a 10-foot",
+            "user interface for use with televisions and remote controls.  It",
+            "allows users to play and view most videos, music, podcasts, and",
+            "other digital media from local and network storage media and the",
+            "internet.  Kodi has a gigantic catalog of community add-ons",
+            "available for you to customize and tweak your perfect",
+            "entertainment setup."
         ]
     },
     "laserdisc": {
@@ -1377,7 +1408,8 @@ const COLLECTIONS = {
             "00007f"
         ],
         "info": [
-            "Lutro is an experimental lua game framework for libretro following the LÖVE API."
+            "Lutro is an experimental lua game framework",
+            "for libretro following the LÖVE API."
         ]
     },
     "macintosh": {
@@ -1691,7 +1723,8 @@ const COLLECTIONS = {
             "RAM:  256 KB (FS-A1ST) or 512 KB (FS-A1GT) / VRAM:  128 KB",
             "ROM:  96 KB",
             "Graphics:  Yamaha V9958",
-            "Resolution:  512×212 pixels, 4 or 16 colors / 256×212 pixels, 16 to 19268 colors",
+            "Resolution:  512×212 pixels, 4 or 16 colors / 256×212 pixels,",
+            "             16 to 19268 colors",
             "Sound:  PSG (AY-3-8910 compatible), MSX-MUSIC, PCM, MSX-MIDI"
         ]
     },
@@ -2063,8 +2096,9 @@ const COLLECTIONS = {
             "The IBM Personal Computer, or IBM PC, is the original version and",
             "progenitor of the PC compatible hardware platform.",
             "The initial release was on August 12, 1981 with the IBM model 5150.",
-            "It was created by a team of engineers and designers under the direction",
-            "of Don Estridge of the IBM Entry Systems Division in Boca Raton, Florida."
+            "It was created by a team of engineers and designers under the",
+            "direction of Don Estridge of the IBM Entry Systems Division in",
+            "Boca Raton, Florida."
         ]
     },
     "pc88": {
@@ -2180,8 +2214,10 @@ const COLLECTIONS = {
         "info": [
             "Creator:  Lexaloffle Games",
             "Initial release:  2015",
-            "PICO-8 is a fantasy console for making, playing and sharing tiny games.",
-            "Built-in features:  Code editor, Sprite Editor, Tile Map Editor, SFX Editor",
+            "PICO-8 is a fantasy console for making, playing",
+            "and sharing tiny games.",
+            "Built-in features:  Code editor, Sprite Editor,",
+            "                    Tile Map Editor, SFX Editor",
             "Resolution:  128×128 pixels, 16 colors",
             "Sound:  4 channels"
         ]
@@ -2762,8 +2798,8 @@ const COLLECTIONS = {
             "Media:  SuFami Turbo Application Cartridge +  Game Cartridges",
             "Bandai's SuFami Turbo gave developers cheaper ways to produce and",
             "release a small handful of Super Famicom games.",
-            "The two cartridge slots are designed to share data between the games.",
-            "Slot A will be played, while slot B supplies additional data."
+            "The two cartridge slots are designed to share data between the",
+            "games. Slot A will be played, while slot B supplies additional data."
         ]
     },
     "supergrafx": {
@@ -2868,7 +2904,8 @@ const COLLECTIONS = {
             "CPU:  Motorola 6809E @ 0.89 MHz",
             "RAM:  32 or 64 KB",
             "Resolution:  Max. 256×192 pixels, 8 colors",
-            "Sound:  1 voice, 5 octaves (BASIC) or 4 voices, 7 octaves (machine code)"
+            "Sound:  1 voice, 5 octaves (BASIC) or 4 voices, 7 octaves",
+            "        (machine code)"
         ]
     },
     "tg-cd": {
@@ -2938,8 +2975,10 @@ const COLLECTIONS = {
             "Author:  Vadim Grigoruk",
             "Initial release:  2017",
             "Website:  https://tic.computer/",
-            "TIC-80 is a fantasy computer for making, playing and sharing tiny games.",
-            "Built-in features:  Code editor, Sprite Editor, Tile Map Editor, SFX Editor",
+            "TIC-80 is a fantasy computer for making,",
+            "playing and sharing tiny games.",
+            "Built-in features:  Code editor, Sprite Editor,",
+            "                    Tile Map Editor, SFX Editor",
             "Graphics:  256 8×8 foreground sprites, 256 8×8 background tiles",
             "Resolution:  240×136 pixels, 16 color palette",
             "Sound:  4 channels (with editable waveform envelopes)"
@@ -3029,7 +3068,8 @@ const COLLECTIONS = {
             "CPU:  Amtel ATmega644 @ 28.6 MHz",
             "RAM:  4 KB",
             "Program Memory:  64 KB",
-            "Resolution:  Max. 360×224 pixels in tiles-only mode, 256 colors in 3:3:2 color space",
+            "Resolution:  Max. 360×224 pixels in tiles-only mode,",
+            "             256 colors in 3:3:2 color space",
             "Sound:  5 channels, wavetable synthesis, 8-bit mono",
             "Media:  SD memory card"
         ]
