@@ -10,7 +10,6 @@ FocusScope {
     enabled: focus
     visible: y < parent.height
 
-    readonly property int padding: vpx(20)
     readonly property int detailsTextHeight: vpx(30)
     // collectionsData set in theme.qml
     readonly property var collectionInfo: collectionsData.COLLECTIONS[currentCollection.shortName]
@@ -86,54 +85,14 @@ FocusScope {
         color: colorDarkBg
     }
 
-    // bands
-    Rectangle {
-        id: band4
+    ColorBands {
+        id: colorBands
         anchors {
             top: parent.top
             bottom: parent.bottom
             right: parent.right
             rightMargin: vpx(80)
         }
-        width: root.padding
-        color: collectionInfo.colors[3] ?
-            ("#" + collectionInfo.colors[3]) : colorBand4
-    }
-
-    Rectangle {
-        id: band3
-        anchors {
-            top: parent.top
-            bottom: parent.bottom
-            right: band4.left
-        }
-        width: root.padding
-        color: collectionInfo.colors[2] ?
-            ("#" + collectionInfo.colors[2]) : colorBand3
-    }
-
-    Rectangle {
-        id: band2
-        anchors {
-            top: parent.top
-            bottom: parent.bottom
-            right: band3.left
-        }
-        width: root.padding
-        color: collectionInfo.colors[1] ?
-            ("#" + collectionInfo.colors[1]) : colorBand2
-    }
-
-    Rectangle {
-        id: band1
-        anchors {
-            top: parent.top
-            bottom: parent.bottom
-            right: band2.left
-        }
-        width: root.padding
-        color: collectionInfo.colors[0] ?
-            ("#" + collectionInfo.colors[0]) : colorBand1
     }
 
     //
@@ -145,7 +104,7 @@ FocusScope {
         id: header
         anchors {
             top: parent.top
-            right: band1.left
+            right: colorBands.left
             left: parent.left
         }
 
