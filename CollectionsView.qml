@@ -207,7 +207,7 @@ FocusScope {
                 shortName: model.shortName
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: root.collectionSelected()
+                    onClicked: collectionSelected()
                 }
             }
 
@@ -225,7 +225,7 @@ FocusScope {
                 }
             }
 
-            onItemSelected: root.collectionSelected()
+            onItemSelected: collectionSelected()
         }
     }
 
@@ -279,7 +279,7 @@ FocusScope {
             anchors.fill: parent
             property int startY
             onPressed: startY = mouse.y;
-            onReleased: if (startY - mouse.y > vpx(100)) root.collectionSelected();
+            onReleased: if (startY - mouse.y > vpx(100)) collectionSelected();
         }
     }
 
@@ -315,7 +315,7 @@ FocusScope {
             imageLabel: "Select"
             MouseArea {
                 anchors.fill: parent
-                onClicked: root.collectionSelected()
+                onClicked: collectionSelected()
             }
         }
 
