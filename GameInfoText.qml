@@ -7,7 +7,7 @@ Text {
     font.capitalization: Font.Capitalize
     font.family: "Open Sans"
     color: "black"
-    height: root.detailsTextHeight
+    height: detailsTextHeight
     width: parent.width
     elide: Text.ElideRight
 }
