@@ -329,14 +329,14 @@ FocusScope {
             // preferredHighlightBegin: height * 0.5 - vpx(15)
             // preferredHighlightEnd: height * 0.5 + vpx(15)
 
-            // focus filterInput on tab and details key (i)
+            // move focus on tab and details key (i)
             KeyNavigation.tab: filterInput
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    filterInput.forceActiveFocus();
+                    boxart.forceActiveFocus();
                     return;
                 }
             }
@@ -424,7 +424,7 @@ FocusScope {
                         return;
                     } else if (api.keys.isDetails(event)) {
                         event.accepted = true;
-                        descriptionScroll.forceActiveFocus();
+                        gameList.forceActiveFocus();
                     } else if (api.keys.isAccept(event)) {
                         event.accepted = true;
                         currentGameIndex = gameList.count - 1;
@@ -481,7 +481,7 @@ FocusScope {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    gameList.forceActiveFocus();
+                    launchButton.forceActiveFocus();
                     return;
                 }
             }
@@ -612,7 +612,7 @@ FocusScope {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    boxart.forceActiveFocus();
+                    descriptionScroll.forceActiveFocus();
                     return;
                 }
             }
@@ -706,7 +706,7 @@ FocusScope {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    launchButton.forceActiveFocus();
+                    filterInput.forceActiveFocus();
                     return;
                 }
             }
