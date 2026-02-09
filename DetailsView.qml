@@ -57,46 +57,23 @@ FocusScope {
     // Key handling. In addition, pressing left/right also moves to the prev/next collection.
     Keys.onLeftPressed: prevCollection()
     Keys.onRightPressed: nextCollection()
-    Keys.onPressed: {
-        if (event.isAutoRepeat) {
-            return;
-        } else if (api.keys.isAccept(event)) {
+    Keys.onPressed: switch (true) {
+        case (event.isAutoRepeat): return;
+        case (api.keys.isAccept(event)):   { event.accepted = true; launchGame(); return;}
+        case (api.keys.isCancel(event)):   { event.accepted = true; cancel(); return; }
+        case (api.keys.isNextPage(event)): { event.accepted = true; nextCollection(); return; }
+        case (api.keys.isPrevPage(event)): { event.accepted = true; prevCollection(); return; }
+        case (api.keys.isFilters(event)):  { event.accepted = true; toggleFavorite(); return; }
+        case (api.keys.isPageUp(event)): {
             event.accepted = true;
-            launchGame();
+            (currentGameIndex - 15) < 0 ?  currentGameIndex = 0 : currentGameIndex -= 15;
             return;
-        } else if (api.keys.isCancel(event)) {
+        }
+        case (api.keys.isPageDown(event)): {
             event.accepted = true;
-            cancel();
-            return;
-        } else if (api.keys.isNextPage(event)) {
-            event.accepted = true;
-            nextCollection();
-            return;
-        } else if (api.keys.isPrevPage(event)) {
-            event.accepted = true;
-            prevCollection();
-            return;
-        } else if (api.keys.isFilters(event)) {
-            event.accepted = true;
-            toggleFavorite();
-            return;
-        } else if (api.keys.isPageUp(event)) {
-            event.accepted = true;
-            // don't go past first game
-            if ( (currentGameIndex - 15) < 0 ) {
-                currentGameIndex = 0;
-            } else {
-                currentGameIndex -= 15;
-            }
-            return;
-        } else if (api.keys.isPageDown(event)) {
-            event.accepted = true;
-            // dont go past last game
-            if ((currentGameIndex + 15) > (currentCollection.games.count - 1)) {
-                currentGameIndex = (currentCollection.games.count - 1);
-            } else {
+            (currentGameIndex + 15) > (currentCollection.games.count - 1) ?
+                currentGameIndex = (currentCollection.games.count - 1) :
                 currentGameIndex += 15;
-            }
             return;
         }
     } // end Keys.onPressed
@@ -395,12 +372,11 @@ FocusScope {
                     gameList.forceActiveFocus();
                 }
                 Keys.onPressed: {
-                    if (event.isAutoRepeat) return;
-                    // keep game index on last item when typing so details refresh properly
-                    // but dont move index when switching focus
+                    // focus game index on last item on each keypress so detials refresh
+                    // but ignore focus switching keys
                     if (event.key != Qt.Key_Tab && !api.keys.isDetails(event))
                         currentGameIndex = gameList.count - 1;
-                    // catch i key so it doesn't shift focus as Details Key
+                    if (event.isAutoRepeat) return;
                     if (event.key == Qt.Key_I) {
                         event.accepted= true;
                         filterInput.insert(cursorPosition,"i");
@@ -417,11 +393,12 @@ FocusScope {
                         event.accepted = true;
                         gameList.forceActiveFocus();
                     } else if (api.keys.isAccept(event)) {
+                        // focus gameList on enter (nice for tablets onscreen keyboards)
                         event.accepted = true;
                         currentGameIndex = gameList.count - 1;
                         gameList.forceActiveFocus();
                     }
-                } // end Keys.onPressed
+                } // end filterInput Keys.onPressed
             } // end filterInput TextInput
         } // end filterInputBg
     } // end box for filterLabel and filterInput
@@ -535,7 +512,7 @@ FocusScope {
                 top: parent.top
                 topMargin: root.padding
                 left: boxart.right
-                leftMargin: root.padding / 2
+                leftMargin: root.padding
             }
             percentage: currentGame.rating
         }
@@ -548,7 +525,7 @@ FocusScope {
                 top: ratingBar.bottom
                 topMargin: root.padding / 2
                 left: boxart.right;
-                leftMargin: root.padding / 2
+                leftMargin: root.padding
             }
 
             GameInfoLabel { text: "Released:" }
@@ -566,7 +543,7 @@ FocusScope {
                 top: gameLabels.bottom
                 topMargin: root.padding
                 left: boxart.right
-                leftMargin: root.padding / 2
+                leftMargin: root.padding
                 right: parent.right
                 rightMargin: root.padding
             }
