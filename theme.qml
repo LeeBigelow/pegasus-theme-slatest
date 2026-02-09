@@ -1,10 +1,7 @@
 import QtQuick 2.0
-import "collections.js" as Collections // sys info and band colors
 
 FocusScope {
     id: root
-    // Platform info
-    readonly property var collectionsData: Collections
     // Slate Colors
     readonly property color colorDarkBg: "#404040"
     readonly property color colorLightBg: "#6D6D6D"

@@ -1,4 +1,4 @@
-import QtQuick 2.15 // Text padding is used below, only added in 2.7
+import QtQuick 2.7 // Text padding is used below, only added in 2.7
 import SortFilterProxyModel 0.2
 import "utils.js" as Utils // some helper functions
 
@@ -11,8 +11,7 @@ FocusScope {
     visible: y < parent.height
 
     readonly property int detailsTextHeight: vpx(30)
-    // collectionsData set in theme.qml
-    readonly property var collectionInfo: collectionsData.COLLECTIONS[currentCollection.shortName]
+    readonly property var collectionInfo: collectionsView.collectionInfo
     property var currentCollection: collectionsView.currentCollection
     // for theme.qml access
     property alias boxartOrder: boxart.order

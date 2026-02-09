@@ -1,4 +1,15 @@
 var COLLECTIONS = {
+    "DUMMY": {
+        "colors": [
+            "00000000",
+            "00000000",
+            "00000000",
+            "00000000"
+        ],
+        "info": [
+            ""
+        ]
+    },
     "3do": {
         "colors": [
             "FF0000",
@@ -146,10 +157,10 @@ var COLLECTIONS = {
     },
     "android": {
         "colors": [
-            "4086F4",
-            "EB4132",
-            "FBBD00",
-            "31AA52"
+            "A7C83F",
+            "FFFFFF",
+            "3AAB5A",
+            "333333"
         ],
         "info": [
             "The Android operating system, developed by",
@@ -163,26 +174,24 @@ var COLLECTIONS = {
     },
     "androidapps": {
         "colors": [
-            "4086F4",
-            "EB4132",
-            "FBBD00",
-            "31AA52"
+            "A7C83F",
+            "FFFFFF",
+            "3AAB5A",
+            "333333"
         ],
         "info": [
-            "Apps for the Android operating system developed by",
-            "Android Inc. and later acquired by Google.",
+            "Apps for the Android operating system.",
         ]
     },
     "androidgames": {
         "colors": [
-            "4086F4",
-            "EB4132",
-            "FBBD00",
-            "31AA52"
+            "A7C83F",
+            "FFFFFF",
+            "3AAB5A",
+            "333333"
         ],
         "info": [
-            "Games for the Android operating system developed by",
-            "Android Inc. and later acquired by Google.",
+            "Games for the Android operating system.",
         ]
     },
     "apple2": {
