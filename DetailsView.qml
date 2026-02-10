@@ -1,6 +1,8 @@
 import QtQuick 2.7 // Text padding is used below, only added in 2.7
 import SortFilterProxyModel 0.2
-import "utils.js" as Utils // some helper functions
+import "view_details/utils.js" as Utils // some helper functions
+import "view_details"
+import "view_shared"
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
 FocusScope {
@@ -143,7 +145,7 @@ FocusScope {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
                 source: currentCollection.shortName ?
-                    "logo/%1.svg".arg(currentCollection.shortName) : undefined
+                    "images/logo/%1.svg".arg(currentCollection.shortName) : undefined
                 sourceSize.height: parent.height
                 sourceSize.width: parent.width
                 width: sourceSize.width
@@ -177,7 +179,7 @@ FocusScope {
             }
             fillMode: Image.PreserveAspectFit
             source: currentCollection.shortName ?
-                "consolegame/%1.svg".arg(currentCollection.shortName) : ""
+                "images/consolegame/%1.svg".arg(currentCollection.shortName) : ""
             sourceSize.height: parent.height
             height: sourceSize.height
             asynchronous: true
@@ -195,7 +197,7 @@ FocusScope {
             }
             fillMode: Image.PreserveAspectFit
             source: currentCollection.shortName ?
-                "controller/%1.svg".arg(currentCollection.shortName) : ""
+                "images/controller/%1.svg".arg(currentCollection.shortName) : ""
             sourceSize.height: parent.height
             height: sourceSize.height
             asynchronous: true
@@ -554,7 +556,8 @@ FocusScope {
                 Image {
                     anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
-                    source: currentGame.favorite ? "assets/fav_filled.svg" : "assets/fav_hollow.svg"
+                    source: currentGame.favorite ?
+                        "images/assets/fav_filled.svg" : "images/assets/fav_hollow.svg"
                     sourceSize.height: detailsTextHeight
                     height: vpx(20)
                 }
@@ -739,7 +742,7 @@ FocusScope {
             id: leftRightButton
             anchors.left: parent.left
             anchors.bottom: parent.bottom
-            imageSource: "assets/dpad_leftright.svg"
+            imageSource: "images/assets/dpad_leftright.svg"
             imageLabel: "Collection Switch"
             opacity: switchHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
@@ -755,7 +758,7 @@ FocusScope {
             id: upDownButton
             anchors.left: leftRightButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/dpad_updown.svg"
+            imageSource: "images/assets/dpad_updown.svg"
             imageLabel: "Scroll"
         }
 
@@ -763,7 +766,7 @@ FocusScope {
             id: bButton
             anchors.left: upDownButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_b.svg"
+            imageSource: "images/assets/button_b.svg"
             imageLabel: "Select"
             opacity: selectHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
@@ -779,7 +782,7 @@ FocusScope {
             id: aButton
             anchors.left: bButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_a.svg"
+            imageSource: "images/assets/button_a.svg"
             imageLabel: "Back"
             opacity: backHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
@@ -795,7 +798,7 @@ FocusScope {
             id: xButton
             anchors.left: aButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_x.svg"
+            imageSource: "images/assets/button_x.svg"
             imageLabel: "Toggle Favorite"
             opacity: favoriteHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
@@ -810,7 +813,7 @@ FocusScope {
             id: yButton
             anchors.left: xButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_y.svg"
+            imageSource: "images/assets/button_y.svg"
             imageLabel: "Move Focus"
         }
 
@@ -820,7 +823,7 @@ FocusScope {
             id: startButton
             anchors.left: yButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_start.svg"
+            imageSource: "images/assets/button_start.svg"
             imageLabel: "Settings"
         }
     }

@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import "collections.js" as CollectionsData // platform info and band colors
+import "view_collections"
+import "view_shared"
 
 // The collections view consists of two carousels, one for the collection logo bar
 // and one for the background images. They should have the same number of elements
@@ -105,7 +107,8 @@ FocusScope {
                     rightMargin: root.padding
                 }
                 fillMode: Image.PreserveAspectFit
-                source: currentCollection.shortName ? "controller/%1.svg".arg(currentCollection.shortName) : ""
+                source: currentCollection.shortName ?
+                    "images/controller/%1.svg".arg(currentCollection.shortName) : ""
                 sourceSize.width: vpx(150)
                 sourceSize.height: vpx(235)
                 width: sourceSize.width
@@ -127,7 +130,8 @@ FocusScope {
                     rightMargin: root.padding
                 }
                 fillMode: Image.PreserveAspectFit
-                source: currentCollection.shortName ? "consolegame/%1.svg".arg(currentCollection.shortName) : ""
+                source: currentCollection.shortName ?
+                    "images/consolegame/%1.svg".arg(currentCollection.shortName) : ""
                 sourceSize.height: vpx(235)
                 height: sourceSize.height
                 asynchronous: true
@@ -262,7 +266,7 @@ FocusScope {
             id: leftRightButton
             anchors.left: parent.left
             anchors.bottom: parent.bottom
-            imageSource: "assets/dpad_leftright.svg"
+            imageSource: "images/assets/dpad_leftright.svg"
             imageLabel: "Collection Switch"
             opacity: switchHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
@@ -277,7 +281,7 @@ FocusScope {
             id: bButton
             anchors.left: leftRightButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_b.svg"
+            imageSource: "images/assets/button_b.svg"
             imageLabel: "Select"
             opacity: selectHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
@@ -294,7 +298,7 @@ FocusScope {
             id: startButton
             anchors.left: bButton.right
             anchors.bottom: parent.bottom
-            imageSource: "assets/button_start.svg"
+            imageSource: "images/assets/button_start.svg"
             imageLabel: "Settings"
         }
     }

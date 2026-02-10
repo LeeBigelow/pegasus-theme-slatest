@@ -15,7 +15,7 @@ Item {
         width: parent.width * percentage
         height: parent.height
 
-        source: "assets/star_filled.svg"
+        source: "../images/assets/star_filled.svg"
         sourceSize { width: starHeight; height: starHeight } // to make tiling work, the heights must match
         asynchronous: true
 
@@ -29,7 +29,7 @@ Item {
         height: parent.height
         anchors.right: parent.right
 
-        source: "assets/star_hollow.svg"
+        source: "../images/assets/star_hollow.svg"
         sourceSize { width: starHeight; height: starHeight }
         asynchronous: true
 

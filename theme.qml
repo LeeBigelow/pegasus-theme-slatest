@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "custom_collections"
 
 FocusScope {
     id: root
