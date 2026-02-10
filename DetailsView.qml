@@ -183,7 +183,7 @@ FocusScope {
     }
 
     //
-    // Main content
+    // Game List and Filter
     //
     Rectangle {
         // gamelist background
@@ -361,6 +361,9 @@ FocusScope {
         } // end filterInputBg
     } // end box for filterLabel and filterInput
 
+    //
+    // Details and Game Art
+    //
     Rectangle {
         // art, details, description background
         anchors {
@@ -389,7 +392,7 @@ FocusScope {
             property var boxWidth: vpx(452)
             property var boxHeight: vpx(339)
             width: boxartImage.status === Image.Ready ? boxWidth : vpx(5)
-            height: boxHeight 
+            height: boxHeight
             color: activeFocus ? colorFocusedBg : "transparent"
             KeyNavigation.tab: gameList
             // move focus to gameList on boxart up/down
@@ -409,7 +412,7 @@ FocusScope {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    launchButton.forceActiveFocus();
+                    favoriteButton.forceActiveFocus();
                     return;
                 }
             }
@@ -493,13 +496,87 @@ FocusScope {
             GameInfoLabel { text: "Players:" }
             GameInfoLabel { text: "Last played:" }
             GameInfoLabel { text: "Play time:" }
+            GameInfoLabel { text: "Favorite:" }
         }
+
+        Column {
+            id: gameDetails
+            anchors {
+                top: gameLabels.top
+                left: gameLabels.right
+                leftMargin: root.padding / 2
+                right: parent.right
+                rightMargin: root.padding
+            }
+
+            // 'width' is set so if the text is too long it will be cut. I also use some
+            // JavaScript code to make some text pretty.
+
+            GameInfoText { text: Utils.formatDate(currentGame.release) || "unknown" }
+            GameInfoText { text: currentGame.developer || "unknown" }
+            GameInfoText { text: currentGame.publisher || "unknown" }
+            GameInfoText { text: currentGame.genre || "unknown" }
+            GameInfoText { text: Utils.formatPlayers(currentGame.players) }
+            GameInfoText { text: Utils.formatLastPlayed(currentGame.lastPlayed) }
+            GameInfoText { text: Utils.formatPlayTime(currentGame.playTime) }
+            Rectangle {
+                id: favoriteButton
+                focus: true
+                anchors {
+                    left: parent.left
+                    right:  parent.right
+                }
+
+                height: detailsTextHeight
+                color: activeFocus ? "black" :
+                    (favoriteButtonArea.containsMouse ? "black" : colorDarkBg)
+
+                Image {
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: currentGame.favorite ? "assets/favs_filled.svg" : "assets/favs_hollow.svg"
+                    sourceSize.height: detailsTextHeight
+                    height: vpx(20)
+                }
+
+                MouseArea {
+                    id: favoriteButtonArea
+                    anchors.fill: parent
+                    onClicked: toggleFavorite()
+                    hoverEnabled: true
+                }
+
+                // favoriteButton move focus
+                KeyNavigation.tab: boxart
+                Keys.onUpPressed: {
+                    if (currentGameIndex > 0) currentGameIndex--;
+                    gameList.forceActiveFocus();
+                }
+                Keys.onDownPressed: {
+                    if (currentGameIndex < gameList.count - 1) currentGameIndex++;
+                    gameList.forceActiveFocus();
+                }
+                Keys.onPressed: {
+                    if (event.isAutoRepeat) {
+                        return;
+                    } else if (api.keys.isAccept(event)) {
+                        event.accepted = true;
+                        toggleFavorite();
+                        return;
+                    } else if (api.keys.isDetails(event)) {
+                        event.accepted = true;
+                        launchButton.forceActiveFocus();
+                        return;
+                    }
+                }
+            } // end favoriteButton rectangle
+        } // end gameDetails column
 
         Rectangle {
             id: launchButton
             anchors {
                 top: gameLabels.bottom
-                topMargin: root.padding
+                topMargin: root.padding / 2
                 left: boxart.right
                 leftMargin: root.padding
                 right: parent.right
@@ -527,7 +604,7 @@ FocusScope {
             }
 
             // Move focus on tab and details key (i)
-            KeyNavigation.tab: boxart
+            KeyNavigation.tab: favoriteButton
             Keys.onUpPressed: {
                 if (currentGameIndex > 0) currentGameIndex--;
                 gameList.forceActiveFocus();
@@ -539,6 +616,10 @@ FocusScope {
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
+                } else if (api.keys.isAccept(event)) {
+                    event.accepted = true;
+                    launchGame();
+                    return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
                     descriptionScroll.forceActiveFocus();
@@ -547,28 +628,9 @@ FocusScope {
             }
         } // end launchButton
 
-        Column {
-            id: gameDetails
-            anchors {
-                top: gameLabels.top
-                left: gameLabels.right
-                leftMargin: root.padding / 2
-                right: parent.right
-                rightMargin: root.padding / 2
-            }
-
-            // 'width' is set so if the text is too long it will be cut. I also use some
-            // JavaScript code to make some text pretty.
-
-            GameInfoText { text: Utils.formatDate(currentGame.release) || "unknown" }
-            GameInfoText { text: currentGame.developer || "unknown" }
-            GameInfoText { text: currentGame.publisher || "unknown" }
-            GameInfoText { text: currentGame.genre || "unknown" }
-            GameInfoText { text: Utils.formatPlayers(currentGame.players) }
-            GameInfoText { text: Utils.formatLastPlayed(currentGame.lastPlayed) }
-            GameInfoText { text: Utils.formatPlayTime(currentGame.playTime) }
-        }
-
+        //
+        // Game Description
+        //
         Rectangle {
             id: descriptionBg
             anchors {
@@ -638,6 +700,9 @@ FocusScope {
         } // end Flickable
     } // end art, details, description background
 
+    //
+    // Help Footer
+    //
     Rectangle {
         id: footer
         anchors {
@@ -656,10 +721,13 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/dpad_leftright.svg"
             imageLabel: "Collection Switch"
+            opacity: switchHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
+                id: switchHelpArea
                 // can also swipe header area
                 anchors.fill: parent
                 onClicked: nextCollection()
+                hoverEnabled: true
             }
         }
 
@@ -677,10 +745,13 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_b.svg"
             imageLabel: "Select"
+            opacity: selectHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
+                id: selectHelpArea
                 // can also double click game in list
                 anchors.fill: parent
                 onClicked: launchGame()
+                hoverEnabled: true
             }
         }
 
@@ -690,10 +761,13 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_a.svg"
             imageLabel: "Back"
+            opacity: backHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
+                id: backHelpArea
                 // can also swipe down on header area
                 anchors.fill: parent
                 onClicked: cancel()
+                hoverEnabled: true
             }
         }
 
@@ -703,9 +777,12 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_x.svg"
             imageLabel: "Toggle Favorite"
+            opacity: favoriteHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
+                id: favoriteHelpArea
                 anchors.fill: parent
                 onClicked: toggleFavorite()
+                hoverEnabled: true
             }
         }
 
@@ -714,7 +791,7 @@ FocusScope {
             anchors.left: xButton.right
             anchors.bottom: parent.bottom
             imageSource: "assets/button_y.svg"
-            imageLabel: "Toggle Focus"
+            imageLabel: "Move Focus"
         }
 
         FooterImage {

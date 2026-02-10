@@ -264,9 +264,12 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/dpad_leftright.svg"
             imageLabel: "Collection Switch"
+            opacity: switchHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
+                id: switchHelpArea
                 anchors.fill: parent
                 onClicked: selectNext()
+                hoverEnabled: true
             }
         }
 
@@ -276,9 +279,12 @@ FocusScope {
             anchors.bottom: parent.bottom
             imageSource: "assets/button_b.svg"
             imageLabel: "Select"
+            opacity: selectHelpArea.containsMouse ? 1 : 0.45
             MouseArea {
+                id: selectHelpArea
                 anchors.fill: parent
                 onClicked: collectionSelected()
+                hoverEnabled: true
             }
         }
 
