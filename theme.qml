@@ -62,18 +62,18 @@ FocusScope {
         anchors.top: collectionsView.bottom
 
         onCancel: {
-            filterText="";
+            filterBox.filterInput.text="";
             collectionsView.focus = true
         }
         onNextCollection: {
             gameList.forceActiveFocus();
-            filterText="";
+            filterBox.filterInput.text="";
             currentGameIndex=0;
             collectionsView.selectNext();
         }
         onPrevCollection: {
             gameList.forceActiveFocus();
-            filterText="";
+            filterBox.filterInput.text="";
             currentGameIndex=0;
             collectionsView.selectPrev();
         }

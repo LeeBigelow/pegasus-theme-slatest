@@ -17,8 +17,8 @@ FocusScope {
     property var currentCollection: collectionsView.currentCollection
     // for theme.qml access
     property alias boxartOrder: boxart.order
-    property alias filterText: filterInput.text
     property alias gameList: gameList
+    property alias filterBox: filterBox
     property alias currentGameIndex: gameList.currentIndex
     property var filteredSourceIndex: filteredGames.mapToSource(currentGameIndex)
     readonly property var currentGame: {
@@ -43,7 +43,7 @@ FocusScope {
         sourceModel: currentCollection.games
         filters: RegExpFilter {
                 roleName: "title"
-                pattern: filterText
+                pattern: filterBox.filterInput.text
                 caseSensitivity: Qt.CaseInsensitive
         }
     }
@@ -124,7 +124,7 @@ FocusScope {
     }
 
     //
-    // Game List and Filter
+    // Game List
     //
     Rectangle {
         // gamelist background
@@ -159,7 +159,7 @@ FocusScope {
             //referredHighlightEnd: height * 0.5 + vpx(15)
 
             // move focus on tab and details key (i)
-            KeyNavigation.tab: filterInput
+            KeyNavigation.tab: filterBox.filterInput
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
                     return;
@@ -172,8 +172,11 @@ FocusScope {
         } // end gameList ListView
     } // end gameListBg
 
-    Item {
-        // box for filterLabel and filterInput
+    //
+    // Game Filter
+    //
+    Text {
+        id: filterLabel
         anchors {
             top: gameListBg.bottom
             topMargin: vpx(5)
@@ -181,88 +184,26 @@ FocusScope {
             left: parent.left
             leftMargin: root.padding
         }
-        width: gameListBg.width
+        verticalAlignment: Text.AlignVCenter
+        font.family: "Open Sans"
+        font.pixelSize: vpx(20)
+        font.weight: Font.DemiBold
+        color: colorLightBg
+        text: "Filter:"
+    }
 
-        Text {
-            id: filterLabel
-            anchors {
-                top: parent.top
-                left: parent.left
-                verticalCenter: parent.verticalCenter
-            }
-            verticalAlignment: Text.AlignVCenter
-            font.family: "Open Sans"
-            font.pixelSize: vpx(20)
-            font.weight: Font.DemiBold
-            color: colorLightBg
-            text: "Filter:"
+    FilterBox {
+        id: filterBox
+        // has property alias filterInput
+        anchors {
+            top: gameListBg.bottom
+            topMargin: vpx(5)
+            left: filterLabel.right
+            leftMargin: vpx(5)
+            bottom: footer.top 
+            right: gameListBg.right
         }
-
-        Rectangle {
-            id: filterInputBg
-            color: filterInput.activeFocus ? colorFocusedBg : colorLightBg
-            anchors {
-                top: parent.top
-                left: filterLabel.right
-                leftMargin: vpx(5)
-                bottom: parent.bottom
-                right: parent.right
-            }
-
-            TextInput {
-                id: filterInput
-                anchors {
-                    fill: parent
-                    leftMargin: vpx(5)
-                    rightMargin: vpx(5)
-                    verticalCenter: parent.verticalCenter
-                }
-                focus: true
-                color: "black"
-                font.family: "Open Sans"
-                font.pixelSize: vpx(16)
-                font.capitalization: Font.AllUppercase
-                verticalAlignment: Text.AlignVCenter
-                KeyNavigation.tab: descriptionScroll
-                Keys.onUpPressed: {
-                    if (currentGameIndex > 0) currentGameIndex--;
-                    gameList.forceActiveFocus();
-                }
-                Keys.onDownPressed: {
-                    if (currentGameIndex < gameList.count - 1) currentGameIndex++;
-                    gameList.forceActiveFocus();
-                }
-                Keys.onPressed: {
-                    // focus game index on last item on each keypress so detials refresh
-                    // but ignore focus switching keys
-                    if (event.key != Qt.Key_Tab && !api.keys.isDetails(event))
-                        currentGameIndex = gameList.count - 1;
-                    if (event.isAutoRepeat) return;
-                    if (event.key == Qt.Key_I) {
-                        event.accepted= true;
-                        filterInput.insert(cursorPosition,"i");
-                        return;
-                    } else if (event.key == Qt.Key_Left && cursorPosition == 0) {
-                        // catch left key to stop acidental collection switching
-                        event.accepted=true;
-                        return;
-                    } else if (event.key == Qt.Key_Right && cursorPosition == text.length) {
-                        // catch right key to stop acidental collection switching
-                        event.accepted=true;
-                        return;
-                    } else if (api.keys.isDetails(event)) {
-                        event.accepted = true;
-                        gameList.forceActiveFocus();
-                    } else if (api.keys.isAccept(event)) {
-                        // focus gameList on enter (nice for tablets onscreen keyboards)
-                        event.accepted = true;
-                        currentGameIndex = gameList.count - 1;
-                        gameList.forceActiveFocus();
-                    }
-                } // end filterInput Keys.onPressed
-            } // end filterInput TextInput
-        } // end filterInputBg
-    } // end box for filterLabel and filterInput
+    }
 
     //
     // Details and Game Art
@@ -591,7 +532,7 @@ FocusScope {
                     return;
                 } else if (api.keys.isDetails(event)) {
                     event.accepted = true;
-                    filterInput.forceActiveFocus();
+                    filterBox.filterInput.forceActiveFocus();
                     return;
                 }
             }
