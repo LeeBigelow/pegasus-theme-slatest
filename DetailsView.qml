@@ -534,7 +534,7 @@ FocusScope {
                 Image {
                     anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
-                    source: currentGame.favorite ? "assets/favs_filled.svg" : "assets/favs_hollow.svg"
+                    source: currentGame.favorite ? "assets/fav_filled.svg" : "assets/fav_hollow.svg"
                     sourceSize.height: detailsTextHeight
                     height: vpx(20)
                 }
