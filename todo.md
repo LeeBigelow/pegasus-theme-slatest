@@ -1,5 +1,6 @@
 # Slatest Pegaus Theme Todo
 
+- [ ] detailsView show name if logo not available
 - [ ] enter on description moves focus to gameList (better for tablet)
 - [x] change opacity of help on focus/press (better tablet use)
 - [x] favorite checkbox above launch button (focusable)

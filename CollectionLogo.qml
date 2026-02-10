@@ -20,7 +20,8 @@ Item {
         fillMode: Image.PreserveAspectFit
 
         source: shortName ? "logo/%1.svg".arg(shortName) : ""
-        asynchronous: true
+        // asnyc causing text label to flash
+        // asynchronous: true
         sourceSize { width: vpx(480); height: vpx(120) } // optimization SVG max
 
         scale: selected ? 1.0 : 0.66
@@ -32,8 +33,10 @@ Item {
         anchors.centerIn: parent
         color: "black"
         font.family: "Open Sans"
-        font.pixelSize: vpx(50)
-        text: shortName || longName
+        font.pixelSize: vpx(30)
+        font.weight: Font.Bold
+        horizontalAlignment: Text.AlignHCenter
+        text: longName + "\n (" + shortName + ")"
 
         visible: image.status != Image.Ready
 

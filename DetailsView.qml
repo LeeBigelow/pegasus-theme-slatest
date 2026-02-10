@@ -125,8 +125,8 @@ FocusScope {
             }
         }
 
-        Image {
-            id: logo
+        Item {
+            id: logoOrLabel
             anchors {
                 top: parent.top
                 topMargin: root.padding
@@ -135,14 +135,34 @@ FocusScope {
                 bottom: parent.bottom
                 bottomMargin: root.padding
             }
-            fillMode: Image.PreserveAspectFit
-            source: currentCollection.shortName ?
-                "logo/%1.svg".arg(currentCollection.shortName) : undefined
-            sourceSize.height: parent.height
-            sourceSize.width: parent.width / 3
-            width: sourceSize.width
-            height: sourceSize.height
-            asynchronous: true
+            height: parent.height
+            width: parent.width / 3
+
+            Image {
+                id: logo
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                source: currentCollection.shortName ?
+                    "logo/%1.svg".arg(currentCollection.shortName) : undefined
+                sourceSize.height: parent.height
+                sourceSize.width: parent.width
+                width: sourceSize.width
+                height: sourceSize.height
+                // async causing text label to flash
+                // asynchronous: true
+            }
+
+            Text {
+                id: logoLabel
+                anchors.centerIn: parent
+                color: "black"
+                font.family: "Open Sans"
+                font.pixelSize: vpx(28)
+                font.weight: Font.Bold
+                text: currentCollection.name + "\n (" + currentCollection.shortName + ")"
+                horizontalAlignment: Text.AlignHCenter
+                visible: logo.status != Image.Ready
+            }
         }
 
         Image {
