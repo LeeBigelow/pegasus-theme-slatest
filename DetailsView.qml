@@ -78,7 +78,7 @@ FocusScope {
         }
     } // end Keys.onPressed
 
-    // dark background
+    // Background
     Rectangle {
         width: root.width
         height: root.height
@@ -149,52 +149,14 @@ FocusScope {
             focus: true
 
             model: filteredGames
-
-            delegate: Rectangle {
-                readonly property bool selected: ListView.isCurrentItem
-
-                width: ListView.view.width
-                height: gameTitle.height
-                color: selected ?
-                    (gameList.activeFocus ? "black" : colorSemiDarkBg) :
-                    "transparent"
-
-                Text {
-                    id: gameTitle
-                    text: (modelData.favorite ? "★" : "") + " " + modelData.title
-                    color: parent.selected ? colorLightText : "black"
-
-                    font.pixelSize: vpx(20)
-                    font.capitalization: Font.AllUppercase
-                    font.family: "Open Sans"
-                    font.weight: Font.DemiBold
-
-                    lineHeight: 1.2
-                    verticalAlignment: Text.AlignVCenter
-
-                    width: parent.width
-                    elide: Text.ElideRight
-                    leftPadding: vpx(10)
-                    rightPadding: leftPadding
-                }
-
-                MouseArea {
-                    // gameList mouse actions
-                    // focus on click, launch on double click
-                    anchors.fill: parent
-                    onClicked: {
-                        gameList.currentIndex=index;
-                        gameList.forceActiveFocus();
-                    }
-                    onDoubleClicked: launchGame()
-                }
-            } // end gameList delegate
+            delegate: GameListDelegate {}
 
             clip: true
             highlightMoveDuration: 0
-            // highlightRangeMode: ListView.ApplyRange
-            // preferredHighlightBegin: height * 0.5 - vpx(15)
-            // preferredHighlightEnd: height * 0.5 + vpx(15)
+            // highlightRange not behaving on resume so disabled
+            //highlightRangeMode: ListView.ApplyRange
+            //preferredHighlightBegin: height * 0.5 - vpx(15)
+            //referredHighlightEnd: height * 0.5 + vpx(15)
 
             // move focus on tab and details key (i)
             KeyNavigation.tab: filterInput
