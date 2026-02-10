@@ -532,7 +532,7 @@ var COLLECTIONS = {
             "303030"
         ],
         "info": [
-            "Find the 50 latest games you played in this list."
+            "Find the 20 latest games you played in this list."
         ]
     },
     "bbcmicro": {
