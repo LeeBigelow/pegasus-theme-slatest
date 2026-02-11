@@ -187,7 +187,7 @@ FocusScope {
             topMargin: vpx(5)
             left: filterLabel.right
             leftMargin: vpx(5)
-            bottom: footer.top 
+            bottom: footer.top
             right: gameListBg.right
         }
     }

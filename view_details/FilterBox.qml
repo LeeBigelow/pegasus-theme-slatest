@@ -16,6 +16,7 @@ Rectangle {
             verticalCenter: parent.verticalCenter
         }
         focus: true
+        clip: true
         color: "black"
         font.family: "Open Sans"
         font.pixelSize: vpx(16)
