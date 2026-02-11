@@ -19,13 +19,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/dpad_leftright.svg"
         imageLabel: "Collection Switch"
-        opacity: switchHelpArea.containsMouse ? 1 : 0.45
-        MouseArea {
-            id: switchHelpArea
-            anchors.fill: parent
-            onClicked: selectNext()
-            hoverEnabled: true
-        }
+        function imageAction() { selectNext(); }
     }
 
     FooterImage {
@@ -34,13 +28,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_b.svg"
         imageLabel: "Select"
-        opacity: selectHelpArea.containsMouse ? 1 : 0.45
-        MouseArea {
-            id: selectHelpArea
-            anchors.fill: parent
-            onClicked: collectionSelected()
-            hoverEnabled: true
-        }
+        function imageAction() { collectionSelected(); }
     }
 
     FooterImage {
@@ -51,5 +39,6 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_start.svg"
         imageLabel: "Settings"
+        opacity: 0.45
     }
 }

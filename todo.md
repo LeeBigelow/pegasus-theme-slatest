@@ -1,6 +1,8 @@
 # Slatest Pegaus Theme Todo
 
 - [ ] change extended model to hold only names, dont need whole collection clone?
+- [ ] move mouseArea to FooterImage
+- [ ] dummy game info if no currentGame
 - [x] boxart to external qml
 - [x] favorite button to external qml
 - [x] launch button to external qml

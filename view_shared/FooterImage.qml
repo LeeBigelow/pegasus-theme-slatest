@@ -6,7 +6,7 @@ Item {
     property string imageLabel
     height: vpx(40)
     width: vpx(15) + label.contentWidth + image.paintedWidth
-    opacity: 0.45
+    opacity: mouseArea.containsMouse ? 1 : 0.45
 
     Image {
         id: image
@@ -30,5 +30,12 @@ Item {
         font.family: "Open Sans"
         font.pixelSize: vpx(16)
         text: imageLabel
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: imageAction()
+        hoverEnabled: true
     }
 }

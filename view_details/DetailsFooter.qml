@@ -13,14 +13,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/dpad_leftright.svg"
         imageLabel: "Collection Switch"
-        opacity: switchHelpArea.containsMouse ? 1 : 0.45
-        MouseArea {
-            id: switchHelpArea
-            // can also swipe header area
-            anchors.fill: parent
-            onClicked: nextCollection()
-            hoverEnabled: true
-        }
+        function imageAction() { nextCollection(); }
     }
 
     // Up/Down Scroll
@@ -30,6 +23,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/dpad_updown.svg"
         imageLabel: "Scroll"
+        opacity: 0.45 // no need to scroll with button
     }
 
     // Select/Accept
@@ -39,14 +33,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_b.svg"
         imageLabel: "Select"
-        opacity: selectHelpArea.containsMouse ? 1 : 0.45
-        MouseArea {
-            id: selectHelpArea
-            // can also double click game in list
-            anchors.fill: parent
-            onClicked: launchGame()
-            hoverEnabled: true
-        }
+        function imageAction() { launchGame(); }
     }
 
     // Back
@@ -56,14 +43,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_a.svg"
         imageLabel: "Back"
-        opacity: backHelpArea.containsMouse ? 1 : 0.45
-        MouseArea {
-            id: backHelpArea
-            // can also swipe down on header area
-            anchors.fill: parent
-            onClicked: cancel()
-            hoverEnabled: true
-        }
+        function imageAction() { cancel(); }
     }
 
     // Favorite
@@ -73,13 +53,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_x.svg"
         imageLabel: "Toggle Favorite"
-        opacity: favoriteHelpArea.containsMouse ? 1 : 0.45
-        MouseArea {
-            id: favoriteHelpArea
-            anchors.fill: parent
-            onClicked: toggleFavorite()
-            hoverEnabled: true
-        }
+        function imageAction() { toggleFavorite(); }
     }
 
     // Focus
@@ -89,6 +63,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_y.svg"
         imageLabel: "Move Focus"
+        opacity: 0.45 // need to figure out how to trigger details button
     }
 
     // Pegasus Settings
@@ -100,5 +75,6 @@ Rectangle {
         anchors.bottom: parent.bottom
         imageSource: "images/assets/button_start.svg"
         imageLabel: "Settings"
+        opacity: 0.45 // need to figure out how to trigger esc
     }
 }

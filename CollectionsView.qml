@@ -22,10 +22,11 @@ FocusScope {
     // by the Details view too, for example to show the collection's logo.
     property alias currentCollectionIndex: logoAxis.currentIndex
     readonly property var currentCollection: logoAxis.model.get(logoAxis.currentIndex)
+    // if system isn't in collections.js show the "DUMMY" empty system
     readonly property var collectionInfo:
-        (CollectionsData.COLLECTIONS[currentCollection.shortName] !== undefined) ?
-            CollectionsData.COLLECTIONS[currentCollection.shortName] :
-            CollectionsData.COLLECTIONS["DUMMY"]
+        (CollectionsData.COLLECTIONS[currentCollection.shortName] === undefined) ?
+            CollectionsData.COLLECTIONS["DUMMY"] :
+            CollectionsData.COLLECTIONS[currentCollection.shortName]
 
     // called from theme.qml after custom ListModel filled
     function attachModelsRestore() {
