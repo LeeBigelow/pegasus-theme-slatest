@@ -1,8 +1,7 @@
 import QtQuick 2.0
-
-// All the game detail labels text have the same basic properties
-// so I've moved them into a new QML type.
+// GameInfoLabel: Labels for the game details
 Text {
+    id: root
     font.pixelSize: vpx(16)
     font.capitalization: Font.AllUppercase
     font.family: "Open Sans"

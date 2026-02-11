@@ -1,5 +1,7 @@
 import QtQuick 2.7 // need verstion 2.7+ for text padding
+// GameListDelegate: Shows game title in a rectangle and alters colors based on focus
 Rectangle {
+    id: root
     readonly property bool selected: ListView.isCurrentItem
 
     width: ListView.view.width

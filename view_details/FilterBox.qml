@@ -1,6 +1,7 @@
 import QtQuick 2.0
-
+// FilterBox: Text input box that catches some of the UI nav keys
 Rectangle {
+    id: root
     // alias for assigning focus and collecting text
     property alias filterInput: filterInput
     // filterInput background

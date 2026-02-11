@@ -6,6 +6,7 @@ import "view_shared"
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
 FocusScope {
+    id: root
     // Nothing particularly interesting, see CollectionsView for more comments
     width: parent.width
     height: parent.height
@@ -107,20 +108,6 @@ FocusScope {
             right: colorBands.left
             left: parent.left
         }
-
-        MouseArea {
-            // left and right swipe switches collection
-            // down swipe focuses collectionsView
-            anchors.fill: parent
-            property int startX
-            property int startY
-            onPressed: { startX = mouse.x; startY = mouse.y; }
-            onReleased: {
-                if (mouse.y - startY > vpx(100)) { cancel(); return; }
-                if (mouse.x - startX > vpx(50)) nextCollection();
-                else if (startX - mouse.x > vpx(50)) prevCollection();
-            }
-        }
     }
 
     //
@@ -132,7 +119,7 @@ FocusScope {
         anchors {
             top: header.bottom
             left: parent.left
-            leftMargin: root.padding
+            leftMargin: defaultPadding
             bottom: footer.top
             // space for filter box
             bottomMargin: vpx(30)
@@ -182,7 +169,7 @@ FocusScope {
             topMargin: vpx(5)
             bottom: footer.top
             left: parent.left
-            leftMargin: root.padding
+            leftMargin: defaultPadding
         }
         verticalAlignment: Text.AlignVCenter
         font.family: "Open Sans"
@@ -209,115 +196,35 @@ FocusScope {
     // Details and Game Art
     //
     Rectangle {
-        // art, details, description background
+        // boxart, details, description background
         anchors {
             top: header.bottom
             left: gameListBg.right
-            leftMargin: root.padding
+            leftMargin: defaultPadding
             right: parent.right
-            rightMargin: root.padding
+            rightMargin: defaultPadding
             bottom: footer.top
         }
-
         color: colorLightBg
         opacity: 0.95
 
-        Rectangle {
-            // need container to control boxart size
+        Boxart {
             id: boxart
             anchors {
                 top: parent.top;
-                topMargin: root.padding / 2
+                topMargin: defaultPadding / 2
                 left: parent.left;
-                leftMargin: root.padding / 2
+                leftMargin: defaultPadding / 2
             }
-            focus: true
-            property int order: 0
-            property var boxWidth: vpx(452)
-            property var boxHeight: vpx(339)
-            width: boxartImage.status === Image.Ready ? boxWidth : vpx(5)
-            height: boxHeight
-            color: activeFocus ? colorFocusedBg : "transparent"
-            KeyNavigation.tab: gameList
-            // move focus to gameList on boxart up/down
-            Keys.onUpPressed: {
-                if (currentGameIndex > 0) currentGameIndex--;
-                gameList.forceActiveFocus();
-            }
-            Keys.onDownPressed: {
-                if (currentGameIndex < gameList.count - 1) currentGameIndex++;
-                gameList.forceActiveFocus();
-            }
-            Keys.onPressed: {
-                if (api.keys.isAccept(event)) {
-                    // cycle art on boxart select
-                    event.accepted = true;
-                    (order < 2) ? order++ : order=0;
-                    return;
-                } else if (api.keys.isDetails(event)) {
-                    event.accepted = true;
-                    favoriteButton.forceActiveFocus();
-                    return;
-                }
-            }
-
-            MouseArea {
-                // swipe gestures for box art
-                // left, right, and double click switches art
-                anchors.fill: parent
-                property int startX
-                onPressed: startX = mouse.x
-                onReleased: {
-                    if (mouse.x - startX > vpx(50))
-                        (boxart.order < 2) ? boxart.order++ : boxart.order=0;
-                    else if (startX - mouse.x > vpx(50))
-                        (boxart.order > 0) ? boxart.order-- : boxart.order=2;
-                }
-                onClicked: boxart.forceActiveFocus()
-                onDoubleClicked: (boxart.order < 2) ? boxart.order++ : boxart.order=0;
-            }
-
-            Image {
-                id: boxartImage
-                anchors.fill: parent
-                anchors.margins: vpx(2)
-                anchors.centerIn: parent
-                // keep alternative images available when
-                // switching art preference
-                source: {
-                    switch (boxart.order) {
-                        case 0: return (
-                            currentGame.assets.boxFront ||
-                            currentGame.assets.screenshot ||
-                            currentGame.assets.marquee
-                        );
-                        case 1: return (
-                            currentGame.assets.screenshot ||
-                            currentGame.assets.marquee ||
-                            currentGame.assets.boxFront
-                        );
-                        case 2: return (
-                            currentGame.assets.marquee ||
-                            currentGame.assets.screenshot ||
-                            currentGame.assets.boxFront
-                        );
-                    }
-                }
-                fillMode: Image.PreserveAspectFit
-                sourceSize.width: boxart.boxWidth
-                sourceSize.height: boxart.boxHeight
-                width: sourceSize.width
-                height: sourceSize.height
-            } // end boxartImage
-        } // end baxart rectangle
+        }
 
         RatingBar {
             id: ratingBar
             anchors {
                 top: parent.top
-                topMargin: root.padding
+                topMargin: defaultPadding
                 left: boxart.right
-                leftMargin: root.padding
+                leftMargin: defaultPadding
             }
             percentage: currentGame.rating
         }
@@ -328,9 +235,9 @@ FocusScope {
             id: gameLabels
             anchors {
                 top: ratingBar.bottom
-                topMargin: root.padding / 2
+                topMargin: defaultPadding / 2
                 left: boxart.right;
-                leftMargin: root.padding
+                leftMargin: defaultPadding
             }
 
             GameInfoLabel { text: "Released:" }
@@ -348,9 +255,9 @@ FocusScope {
             anchors {
                 top: gameLabels.top
                 left: gameLabels.right
-                leftMargin: root.padding / 2
+                leftMargin: defaultPadding / 2
                 right: parent.right
-                rightMargin: root.padding
+                rightMargin: defaultPadding
             }
 
             // 'width' is set so if the text is too long it will be cut. I also use some
@@ -363,115 +270,20 @@ FocusScope {
             GameInfoText { text: Utils.formatPlayers(currentGame.players) }
             GameInfoText { text: Utils.formatLastPlayed(currentGame.lastPlayed) }
             GameInfoText { text: Utils.formatPlayTime(currentGame.playTime) }
-            Rectangle {
-                id: favoriteButton
-                focus: true
-                anchors {
-                    left: parent.left
-                    right:  parent.right
-                }
-
-                height: detailsTextHeight
-                color: activeFocus ? "black" :
-                    (favoriteButtonArea.containsMouse ? "black" : colorDarkBg)
-
-                Image {
-                    anchors.centerIn: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: currentGame.favorite ?
-                        "images/assets/fav_filled.svg" : "images/assets/fav_hollow.svg"
-                    sourceSize.height: detailsTextHeight
-                    height: vpx(20)
-                }
-
-                MouseArea {
-                    id: favoriteButtonArea
-                    anchors.fill: parent
-                    onClicked: toggleFavorite()
-                    hoverEnabled: true
-                }
-
-                // favoriteButton move focus
-                KeyNavigation.tab: boxart
-                Keys.onUpPressed: {
-                    if (currentGameIndex > 0) currentGameIndex--;
-                    gameList.forceActiveFocus();
-                }
-                Keys.onDownPressed: {
-                    if (currentGameIndex < gameList.count - 1) currentGameIndex++;
-                    gameList.forceActiveFocus();
-                }
-                Keys.onPressed: {
-                    if (event.isAutoRepeat) {
-                        return;
-                    } else if (api.keys.isAccept(event)) {
-                        event.accepted = true;
-                        toggleFavorite();
-                        return;
-                    } else if (api.keys.isDetails(event)) {
-                        event.accepted = true;
-                        launchButton.forceActiveFocus();
-                        return;
-                    }
-                }
-            } // end favoriteButton rectangle
+            FavoriteButton { id: favoriteButton }
         } // end gameDetails column
 
-        Rectangle {
+        LaunchButton {
             id: launchButton
             anchors {
                 top: gameLabels.bottom
-                topMargin: root.padding / 2
+                topMargin: defaultPadding / 2
                 left: boxart.right
-                leftMargin: root.padding
+                leftMargin: defaultPadding
                 right: parent.right
-                rightMargin: root.padding
+                rightMargin: defaultPadding
             }
-            focus: true
-            color: activeFocus ? "black" :
-                (launchButtonArea.containsMouse ? "black" : colorDarkBg)
-            height: vpx(30)
-
-            Text {
-                anchors.centerIn: parent
-                text: "LAUNCH"
-                color: colorLightText
-                font.family: "Open Sans"
-                font.pixelSize: vpx(20)
-                verticalAlignment: Text.AlignVCenter
-            }
-
-            MouseArea {
-                id: launchButtonArea
-                anchors.fill: parent
-                onClicked: launchGame()
-                hoverEnabled: true
-            }
-
-            // Move focus on tab and details key (i)
-            KeyNavigation.tab: favoriteButton
-            Keys.onUpPressed: {
-                if (currentGameIndex > 0) currentGameIndex--;
-                gameList.forceActiveFocus();
-            }
-            Keys.onDownPressed: {
-                if (currentGameIndex < gameList.count - 1) currentGameIndex++;
-                gameList.forceActiveFocus();
-            }
-            Keys.onPressed: {
-                if (event.isAutoRepeat) {
-                    return;
-                } else if (api.keys.isAccept(event)) {
-                    event.accepted = true;
-                    launchGame();
-                    return;
-                } else if (api.keys.isDetails(event)) {
-                    event.accepted = true;
-                    descriptionScroll.forceActiveFocus();
-                    return;
-                }
-            }
-        } // end launchButton
+        }
 
         //
         // Game Description
@@ -489,164 +301,27 @@ FocusScope {
             color: descriptionScroll.activeFocus ? colorFocusedBg : "transparent"
         }
 
-        Flickable {
+        DescriptionScroll {
             id: descriptionScroll
             anchors {
                 fill: descriptionBg
-                topMargin: root.padding / 2
-                bottomMargin: root.padding / 2
+                topMargin: defaultPadding / 2
+                bottomMargin: defaultPadding / 2
             }
-            clip: true
-            focus: true
-            onFocusChanged: { contentY = 0; }
-            contentWidth: descriptionBg.width
-            contentHeight: gameDescription.height
-            flickableDirection: Flickable.VerticalFlick
-
-            Text {
-                id: gameDescription
-                leftPadding: root.padding
-                rightPadding: root.padding
-                text: currentGame.description
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignJustify
-                width: descriptionScroll.width
-                font.pixelSize: vpx(18)
-                font.family: "Open Sans"
-                font.weight: Font.DemiBold
-                color: "black"
-            }
-
-            // Keybindings for descriptionScroll
-            // scroll description on up and down
-            // don't go back past first line
-            Keys.onUpPressed: (contentY - 10) < 0 ? contentY = 0 : contentY -= 10
-            // don't go past last screenfull
-            Keys.onDownPressed: (contentY + 10) > (gameDescription.height - height) ?
-                    contentY = gameDescription.height - height :
-                    contentY += 10
-            // Move focus on tab and details key (i)
-            KeyNavigation.tab: launchButton
-            Keys.onPressed: {
-                if (event.isAutoRepeat) {
-                    return;
-                } else if (api.keys.isDetails(event)) {
-                    event.accepted = true;
-                    filterBox.filterInput.forceActiveFocus();
-                    return;
-                }
-            }
-
-            MouseArea {
-                // just focus description on click
-                anchors.fill: parent
-                onClicked: descriptionScroll.forceActiveFocus()
-            }
-        } // end Flickable
+        }
     } // end art, details, description background
 
     //
     // Help Footer
     //
-    Rectangle {
+    DetailsFooter {
         id: footer
         anchors {
             bottom: parent.bottom
             left: parent.left
-            leftMargin: root.padding
+            leftMargin: defaultPadding
             right: parent.right
-            rightMargin: root.padding
-        }
-        height: vpx(40)
-        color: "transparent"
-
-        FooterImage {
-            id: leftRightButton
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/dpad_leftright.svg"
-            imageLabel: "Collection Switch"
-            opacity: switchHelpArea.containsMouse ? 1 : 0.45
-            MouseArea {
-                id: switchHelpArea
-                // can also swipe header area
-                anchors.fill: parent
-                onClicked: nextCollection()
-                hoverEnabled: true
-            }
-        }
-
-        FooterImage {
-            id: upDownButton
-            anchors.left: leftRightButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/dpad_updown.svg"
-            imageLabel: "Scroll"
-        }
-
-        FooterImage {
-            id: bButton
-            anchors.left: upDownButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_b.svg"
-            imageLabel: "Select"
-            opacity: selectHelpArea.containsMouse ? 1 : 0.45
-            MouseArea {
-                id: selectHelpArea
-                // can also double click game in list
-                anchors.fill: parent
-                onClicked: launchGame()
-                hoverEnabled: true
-            }
-        }
-
-        FooterImage {
-            id: aButton
-            anchors.left: bButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_a.svg"
-            imageLabel: "Back"
-            opacity: backHelpArea.containsMouse ? 1 : 0.45
-            MouseArea {
-                id: backHelpArea
-                // can also swipe down on header area
-                anchors.fill: parent
-                onClicked: cancel()
-                hoverEnabled: true
-            }
-        }
-
-        FooterImage {
-            id: xButton
-            anchors.left: aButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_x.svg"
-            imageLabel: "Toggle Favorite"
-            opacity: favoriteHelpArea.containsMouse ? 1 : 0.45
-            MouseArea {
-                id: favoriteHelpArea
-                anchors.fill: parent
-                onClicked: toggleFavorite()
-                hoverEnabled: true
-            }
-        }
-
-        FooterImage {
-            id: yButton
-            anchors.left: xButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_y.svg"
-            imageLabel: "Move Focus"
-        }
-
-        FooterImage {
-            // can swipe in from right to get pegasus settions
-            // not sure how to trigger that with alternate mouse action?
-            id: startButton
-            anchors.left: yButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_start.svg"
-            imageLabel: "Settings"
+            rightMargin: defaultPadding
         }
     }
 }

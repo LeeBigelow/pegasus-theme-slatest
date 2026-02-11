@@ -1,10 +1,13 @@
 # Slatest Pegaus Theme Todo
 
-- [ ] enter on description moves focus to gameList (better for tablet)
-- [ ] description scroll to external qml
-- [ ] launch button to external qml
-- [ ] favorite button to external qml
-- [ ] filterInput to external qml
+- [ ] change extended model to hold only names, dont need whole collection clone?
+- [x] boxart to external qml
+- [x] favorite button to external qml
+- [x] launch button to external qml
+- [x] description scroll to external qml
+- [x] footer to external qml
+- [x] 'accept' on description moves focus to gameList (better for tablet nav)
+- [x] use root in qml items, change root.padding to global defaultPadding
 - [ ] update skyscraper notes
 - [x] detailsView show name if logo not available
 - [x] change opacity of help on focus/press (better tablet use)
@@ -14,3 +17,6 @@
 - [x] move bands to external qml
 - [x] sys info only visible if text exists
 - [x] reorganize directory structure, getting messy
+- [x] gameList delegate to external qml
+- [x] header to external qml
+- [x] filterInput to external qml

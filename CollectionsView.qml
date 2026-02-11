@@ -7,6 +7,7 @@ import "view_shared"
 // and one for the background images. They should have the same number of elements
 // to be kept in sync.
 FocusScope {
+    id: root
     // This element has the same size as the whole screen (ie. its parent).
     // Because this screen itself will be moved around when a collection is
     // selected, I've used width/height instead of anchors.
@@ -102,9 +103,9 @@ FocusScope {
                 id: controllerImage
                 anchors {
                     top: parent.top
-                    topMargin: root.padding
+                    topMargin: defaultPadding
                     right: colorBands.left
-                    rightMargin: root.padding
+                    rightMargin: defaultPadding
                 }
                 fillMode: Image.PreserveAspectFit
                 source: currentCollection.shortName ?
@@ -123,11 +124,11 @@ FocusScope {
                 id: consoleGameImage
                 anchors {
                     top: parent.top
-                    topMargin: root.padding
+                    topMargin: defaultPadding
                     left: parent.left
-                    leftMargin: root.padding
+                    leftMargin: defaultPadding
                     right: controllerImage.left
-                    rightMargin: root.padding
+                    rightMargin: defaultPadding
                 }
                 fillMode: Image.PreserveAspectFit
                 source: currentCollection.shortName ?
@@ -154,7 +155,7 @@ FocusScope {
         }
         height: vpx(170)
 
-        // Background
+        // logoBar background
         Rectangle {
             anchors.fill: parent
             color: colorFocusedBg
@@ -164,9 +165,9 @@ FocusScope {
         // The main carousel that we actually control
         Carousel {
             id: logoAxis
-
             anchors.fill: parent
             itemWidth: vpx(480)
+            focus: true
 
             model: undefined
             delegate: CollectionLogo {
@@ -177,8 +178,6 @@ FocusScope {
                     onClicked: collectionSelected()
                 }
             }
-
-            focus: true
 
             Keys.onPressed: {
                 if (event.isAutoRepeat) {
@@ -191,12 +190,11 @@ FocusScope {
                     decrementCurrentIndex();
                 }
             }
-
             onItemSelected: collectionSelected()
         }
     }
 
-    // Game count bar -- like above, I've put it in an Item to separately control opacity
+    // Game count bar
     Item {
         id: gameCountBar
         anchors {
@@ -248,58 +246,17 @@ FocusScope {
             onPressed: startY = mouse.y;
             onReleased: if (startY - mouse.y > vpx(100)) collectionSelected();
         }
-    }
+    } // end collection info
 
-    Rectangle {
+    // Footer
+    CollectionsFooter {
         id: footer
         anchors {
             bottom: parent.bottom
             left: parent.left
-            leftMargin: root.padding
+            leftMargin: defaultPadding
             right: parent.right
-            rightMargin: root.padding
-        }
-        height: vpx(40)
-        color: "transparent"
-
-        FooterImage {
-            id: leftRightButton
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/dpad_leftright.svg"
-            imageLabel: "Collection Switch"
-            opacity: switchHelpArea.containsMouse ? 1 : 0.45
-            MouseArea {
-                id: switchHelpArea
-                anchors.fill: parent
-                onClicked: selectNext()
-                hoverEnabled: true
-            }
-        }
-
-        FooterImage {
-            id: bButton
-            anchors.left: leftRightButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_b.svg"
-            imageLabel: "Select"
-            opacity: selectHelpArea.containsMouse ? 1 : 0.45
-            MouseArea {
-                id: selectHelpArea
-                anchors.fill: parent
-                onClicked: collectionSelected()
-                hoverEnabled: true
-            }
-        }
-
-        FooterImage {
-            // swiping in from right edge opens pegasus settings
-            // not sure how to trigger that with a different mouse action
-            id: startButton
-            anchors.left: bButton.right
-            anchors.bottom: parent.bottom
-            imageSource: "images/assets/button_start.svg"
-            imageLabel: "Settings"
+            rightMargin: defaultPadding
         }
     }
 }

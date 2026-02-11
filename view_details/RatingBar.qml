@@ -1,8 +1,8 @@
 import QtQuick 2.0
-
-// The rating bar is a 5-stars bar set to a percentage. It's actually
+// RatingBar: The rating bar is a 5-stars bar set to a percentage. It's actually
 // two images set on a repeating pattern.
 Item {
+    id: root
     property real percentage
 
     readonly property int starHeight: vpx(26)

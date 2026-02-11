@@ -1,8 +1,8 @@
 import QtQuick 2.0
-
-// The collection logo on the collection carousel. Just an image that gets scaled
+// CollectionLogo: The collection logo on the collection carousel. Just an image that gets scaled
 // and more visible when selected. Also has a fallback text if there's no image.
 Item {
+    id: root
     property string longName: "" // set on the PathView side
     property string shortName: "" // set on the PathView side
     readonly property bool selected: PathView.isCurrentItem

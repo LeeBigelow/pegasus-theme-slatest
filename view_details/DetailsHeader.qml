@@ -1,18 +1,34 @@
 import QtQuick 2.0
-// Collection's console and controller on left and logo on right
+// DetailsHeader: Collection's Console and Ccontroller images on left and Logo image on right
+// Will present collection's name if no logo image found
 Rectangle {
+    id: root
     color: colorDarkBg
     height: vpx(115)
+
+    MouseArea {
+        // left and right swipe switches collection
+        // down swipe focuses collectionsView
+        anchors.fill: parent
+        property int startX
+        property int startY
+        onPressed: { startX = mouse.x; startY = mouse.y; }
+        onReleased: {
+            if (mouse.y - startY > vpx(100)) { cancel(); return; }
+            if (mouse.x - startX > vpx(50)) nextCollection();
+            else if (startX - mouse.x > vpx(50)) prevCollection();
+        }
+    }
 
     Item {
         id: logoOrLabel
         anchors {
             top: parent.top
-            topMargin: root.padding
+            topMargin: defaultPadding
             right: parent.right
-            rightMargin: root.padding
+            rightMargin: defaultPadding
             bottom: parent.bottom
-            bottomMargin: root.padding
+            bottomMargin: defaultPadding
         }
         height: parent.height
         width: parent.width / 3
@@ -48,11 +64,11 @@ Rectangle {
         id: consoleGame
         anchors {
             top: parent.top
-            topMargin: root.padding
+            topMargin: defaultPadding
             left: parent.left
-            leftMargin: root.padding
+            leftMargin: defaultPadding
             bottom: parent.bottom
-            bottomMargin: root.padding
+            bottomMargin: defaultPadding
         }
         fillMode: Image.PreserveAspectFit
         source: currentCollection.shortName ?
@@ -66,11 +82,11 @@ Rectangle {
         id: controller
         anchors {
             top: parent.top
-            topMargin: root.padding
+            topMargin: defaultPadding
             left: consoleGame.right
-            leftMargin: root.padding
+            leftMargin: defaultPadding
             bottom: parent.bottom
-            bottomMargin: root.padding
+            bottomMargin: defaultPadding
         }
         fillMode: Image.PreserveAspectFit
         source: currentCollection.shortName ?

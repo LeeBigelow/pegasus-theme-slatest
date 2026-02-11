@@ -14,7 +14,7 @@ FocusScope {
     readonly property color colorBand3: "#FF0000"
     readonly property color colorBand4: "#303030"
 
-    readonly property int padding: vpx(20)
+    readonly property int defaultPadding: vpx(20)
 
     // Loading the fonts here makes them usable in the rest of the theme
     // and can be referred to using their name and weight.
