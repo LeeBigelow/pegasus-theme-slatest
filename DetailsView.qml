@@ -132,7 +132,10 @@ FocusScope {
         ListView {
             id: gameList
             width: parent.width
-            anchors.fill: parent
+            anchors {
+                fill: parent
+                margins: defaultPadding / 2
+            }
             focus: true
 
             model: filteredGames
