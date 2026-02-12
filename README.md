@@ -27,7 +27,7 @@ So far I've added:
         - Footer help images provide their function on click (if possible)
 - Converted svg css styles to line attributes for Android compatability
 - Some layout tweaks for tablet use
-- Included my [Pegasus notes](notes/pegasus-notes.md) and [Skyscraper notes](notes/skyscraper-notes.md).
+- Included my Pegasus and Skyscraper notes so future me can remember what was going on
 
 Notes:
 
