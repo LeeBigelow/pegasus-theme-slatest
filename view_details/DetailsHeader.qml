@@ -21,6 +21,7 @@ Rectangle {
     }
 
     Item {
+        // logo image or fallback text
         id: logoOrLabel
         anchors {
             top: parent.top
@@ -34,7 +35,7 @@ Rectangle {
         width: parent.width / 3
 
         Image {
-            id: logo
+            id: logoImage
             anchors.fill: parent
             fillMode: Image.PreserveAspectFit
             source: currentCollection.shortName ?
@@ -56,12 +57,12 @@ Rectangle {
             font.weight: Font.Bold
             text: currentCollection.name + "\n (" + currentCollection.shortName + ")"
             horizontalAlignment: Text.AlignHCenter
-            visible: logo.status != Image.Ready
+            visible: logoImage.status != Image.Ready
         }
     }
 
     Image {
-        id: consoleGame
+        id: consoleImage
         anchors {
             top: parent.top
             topMargin: defaultPadding
@@ -79,11 +80,11 @@ Rectangle {
     }
 
     Image {
-        id: controller
+        id: controllerImage
         anchors {
             top: parent.top
             topMargin: defaultPadding
-            left: consoleGame.right
+            left: consoleImage.right
             leftMargin: defaultPadding
             bottom: parent.bottom
             bottomMargin: defaultPadding

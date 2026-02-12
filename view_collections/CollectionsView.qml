@@ -1,7 +1,6 @@
 import QtQuick 2.0
-import "collections.js" as CollectionsData // platform info and band colors
-import "view_collections"
-import "view_shared"
+import "../view_shared"
+import "../view_shared/collections.js" as CollectionsData // platform info and band colors
 
 // The collections view consists of two carousels, one for the collection logo bar
 // and one for the background images. They should have the same number of elements

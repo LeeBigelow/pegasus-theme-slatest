@@ -1,8 +1,7 @@
 import QtQuick 2.7 // Text padding is used below, only added in 2.7
 import SortFilterProxyModel 0.2
-import "view_details/utils.js" as Utils // some helper functions
-import "view_details"
-import "view_shared"
+import "../view_details/utils.js" as Utils // some helper functions
+import "../view_shared"
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
 FocusScope {
@@ -23,29 +22,30 @@ FocusScope {
     property alias currentGameIndex: gameList.currentIndex
     property var filteredSourceIndex: filteredGames.mapToSource(currentGameIndex)
     readonly property var currentGame: {
+        if (filteredSourceIndex < 0) return emptyGame;
         switch(currentCollection.shortName) {
-            // extendedCollections ListModel can't hold item functions so need
-            // to reference items directly.
-            // "lastplayed" and "favorites" are self filtered so need their
-            // item functions to get source game.
             case "auto-lastplayed":
-                return lastPlayedCollection.sourceGame(filteredSourceIndex);
             case "auto-favorites":
-                return favoritesCollection.sourceGame(filteredSourceIndex);
-                // "all games" and original collection not self filtered so
-                // can reference their games directly
+                // map from detailsView filter,
+                // then the collection filter to get real index
+                return api.allGames.get(currentCollection.games.mapToSource(filteredSourceIndex));
             default:
+                // map from detailsView filter to get real colection index
+                // the allgames collection is unfiltered api.allGames so can
+                // also access directly
                 return currentCollection.games.get(filteredSourceIndex);
         }
     }
+
+    EmptyGame { id: emptyGame }
 
     SortFilterProxyModel {
         id: filteredGames
         sourceModel: currentCollection.games
         filters: RegExpFilter {
-                roleName: "title"
-                pattern: filterBox.filterInput.text
-                caseSensitivity: Qt.CaseInsensitive
+            roleName: "title"
+            pattern: filterBox.filterInput.text
+            caseSensitivity: Qt.CaseInsensitive
         }
     }
 

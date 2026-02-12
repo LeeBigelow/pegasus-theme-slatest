@@ -1,5 +1,7 @@
 import QtQuick 2.0
-import "custom_collections"
+import "view_collections"
+import "view_details"
+import "view_shared"
 
 FocusScope {
     id: root
@@ -33,7 +35,8 @@ FocusScope {
     ListModel {
         id: extendedCollections
         Component.onCompleted: {
-            // clone collections so we can add to it
+            // add old collections first so indexes match
+            // then we can add to it
             for (var i = 0; i < api.collections.count; i++) {
                 append(api.collections.get(i));
             }
@@ -62,19 +65,19 @@ FocusScope {
         anchors.top: collectionsView.bottom
 
         onCancel: {
-            filterBox.filterInput.text="";
+            filterBox.filterInput.text = "";
             collectionsView.focus = true
         }
         onNextCollection: {
             gameList.forceActiveFocus();
-            filterBox.filterInput.text="";
-            currentGameIndex=0;
+            filterBox.filterInput.text = "";
+            currentGameIndex = 0;
             collectionsView.selectNext();
         }
         onPrevCollection: {
             gameList.forceActiveFocus();
-            filterBox.filterInput.text="";
-            currentGameIndex=0;
+            filterBox.filterInput.text = "";
+            currentGameIndex = 0;
             collectionsView.selectPrev();
         }
         onLaunchGame: {
