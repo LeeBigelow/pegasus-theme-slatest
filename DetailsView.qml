@@ -134,7 +134,7 @@ FocusScope {
             width: parent.width
             anchors {
                 fill: parent
-                margins: defaultPadding / 2
+                margins: defaultPadding / 4
             }
             focus: true
 
@@ -169,7 +169,7 @@ FocusScope {
         id: filterLabel
         anchors {
             top: gameListBg.bottom
-            topMargin: vpx(5)
+            topMargin: defaultPadding / 4
             bottom: footer.top
             left: parent.left
             leftMargin: defaultPadding
@@ -187,9 +187,9 @@ FocusScope {
         // has property alias filterInput
         anchors {
             top: gameListBg.bottom
-            topMargin: vpx(5)
+            topMargin: defaultPadding / 4
             left: filterLabel.right
-            leftMargin: vpx(5)
+            leftMargin: defaultPadding / 4
             bottom: footer.top
             right: gameListBg.right
         }
