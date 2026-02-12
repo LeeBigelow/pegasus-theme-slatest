@@ -271,8 +271,6 @@ FocusScope {
                 topMargin: defaultPadding / 2
                 left: boxart.right
                 leftMargin: defaultPadding
-                right: parent.right
-                rightMargin: defaultPadding
             }
         }
 

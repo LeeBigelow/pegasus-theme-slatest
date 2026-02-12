@@ -6,6 +6,8 @@ Rectangle {
     color: activeFocus ? "black" :
         (launchButtonArea.containsMouse ? "black" : colorDarkBg)
     height: vpx(30)
+    // fixed width so games without art don't get a stretched launch button
+    width: vpx(270)
     visible: currentGameIndex >= 0
 
     Text {

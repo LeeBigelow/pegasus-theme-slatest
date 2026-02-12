@@ -4,8 +4,9 @@ Rectangle {
     id: root
     anchors {
         left: parent.left
-        right:  parent.right
     }
+    // fixed width so games without art don't get a stetched favorite button
+    width: vpx(160)
     focus: true
     height: detailsTextHeight
     color: activeFocus ? "black" :
