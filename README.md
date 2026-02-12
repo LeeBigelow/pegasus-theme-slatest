@@ -12,18 +12,20 @@ So far I've added:
 - Last Played collection
 - All Games collection
 - Game Description can be focused and scrolled
-- Game List regex filtering
+- Game List regex Filter
+- Use TAB, Shift-Tab, or Details button, to cycle focus
+    - Up/Down when focused on Filter, Game Art, Favorite Button, or Launch Button changes game and returns focus to Game List
+    - Select/Enter when focused on Game Description returns focus to Game List
 - Focus Game Art and cycle through other images (if available) with Enter key or Select button
     - Swiping Left/Right on the game art now also cycles through the images
-- Use TAB, or Details button, to cycle focus between Game List, Filter, Description, and Game Art
 - Added mouse and touch gestures:
     - Collections View:
         - Swipe up on system info to switch to Details View
     - Details View:
-        - Double click game title to launch
-        - Swipe Down on the header to switch to Collections View
-        - Swipe Left/Right on the header to change current colleciton
-        - Swipe Left/Right on game art to cycle through images
+        - Double Click on Game Title to launch
+        - Swipe Down on the Header to switch to Collections View
+        - Swipe Left/Right on the Header to change current colleciton
+        - Swipe Left/Right, or Double Click, on Game Art to cycle through images
         - Footer help images provide their function on click (if possible)
 - Converted svg css styles to line attributes for Android compatability
 - Some layout tweaks for tablet use

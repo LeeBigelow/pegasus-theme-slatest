@@ -1,8 +1,8 @@
 # Slatest Pegaus Theme Todo
 
-- [ ] change extended model to hold only names, dont need whole collection clone?
-- [ ] move mouseArea to FooterImage
-- [ ] dummy game info if no currentGame
+- [ ] update skyscraper notes
+- [x] move mouseArea to FooterImage
+- [x] dummy game info if no currentGame
 - [x] boxart to external qml
 - [x] favorite button to external qml
 - [x] launch button to external qml
@@ -10,7 +10,6 @@
 - [x] footer to external qml
 - [x] 'accept' on description moves focus to gameList (better for tablet nav)
 - [x] use root in qml items, change root.padding to global defaultPadding
-- [ ] update skyscraper notes
 - [x] detailsView show name if logo not available
 - [x] change opacity of help on focus/press (better tablet use)
 - [x] favorite checkbox above launch button (focusable)
