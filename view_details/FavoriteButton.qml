@@ -10,6 +10,7 @@ Rectangle {
     height: detailsTextHeight
     color: activeFocus ? "black" :
         (favoriteButtonArea.containsMouse ? "black" : colorDarkBg)
+    visible: currentGameIndex >= 0
 
     Image {
         anchors.centerIn: parent

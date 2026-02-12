@@ -6,6 +6,7 @@ Rectangle {
     color: activeFocus ? "black" :
         (launchButtonArea.containsMouse ? "black" : colorDarkBg)
     height: vpx(30)
+    visible: currentGameIndex >= 0
 
     Text {
         anchors.centerIn: parent

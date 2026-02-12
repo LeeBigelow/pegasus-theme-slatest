@@ -97,9 +97,7 @@ FocusScope {
         }
     }
 
-    //
     // Header
-    //
     // Collection's console and controller on left and logo on right
     DetailsHeader {
         id: header
@@ -110,9 +108,7 @@ FocusScope {
         }
     }
 
-    //
     // Game List
-    //
     Rectangle {
         // gamelist background
         id: gameListBg
@@ -143,10 +139,6 @@ FocusScope {
 
             clip: true
             highlightMoveDuration: 0
-            // highlightRange not behaving on resume so disabled
-            //highlightRangeMode: ListView.ApplyRange
-            //preferredHighlightBegin: height * 0.5 - vpx(15)
-            //referredHighlightEnd: height * 0.5 + vpx(15)
 
             // move focus on tab and details key (i)
             KeyNavigation.tab: filterBox.filterInput
@@ -162,9 +154,7 @@ FocusScope {
         } // end gameList ListView
     } // end gameListBg
 
-    //
     // Game Filter
-    //
     Text {
         id: filterLabel
         anchors {
@@ -184,7 +174,7 @@ FocusScope {
 
     FilterBox {
         id: filterBox
-        // has property alias filterInput
+        // has property alias filterInput for focus and text access
         anchors {
             top: gameListBg.bottom
             topMargin: defaultPadding / 4
@@ -195,11 +185,9 @@ FocusScope {
         }
     }
 
-    //
     // Details and Game Art
-    //
     Rectangle {
-        // boxart, details, description background
+        // background for boxart, rating, details, and description
         anchors {
             top: header.bottom
             left: gameListBg.right
