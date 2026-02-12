@@ -109,7 +109,7 @@ FocusScope {
                 }
                 fillMode: Image.PreserveAspectFit
                 source: currentCollection.shortName ?
-                    "images/controller/%1.svg".arg(currentCollection.shortName) : ""
+                    "../images/controller/%1.svg".arg(currentCollection.shortName) : ""
                 sourceSize.width: vpx(150)
                 sourceSize.height: vpx(235)
                 width: sourceSize.width
@@ -132,7 +132,7 @@ FocusScope {
                 }
                 fillMode: Image.PreserveAspectFit
                 source: currentCollection.shortName ?
-                    "images/consolegame/%1.svg".arg(currentCollection.shortName) : ""
+                    "../images/consolegame/%1.svg".arg(currentCollection.shortName) : ""
                 sourceSize.height: vpx(235)
                 height: sourceSize.height
                 asynchronous: true
