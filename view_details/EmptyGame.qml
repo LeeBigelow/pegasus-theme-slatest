@@ -19,7 +19,7 @@ Item {
 
     Item {
         id: emptyGameAssets
-        readonly property string cover: ""
+        readonly property string boxFront: ""
         readonly property string screenshot: ""
         readonly property string marquee: ""
         readonly property string wheel: ""

@@ -1,6 +1,6 @@
 import QtQuick 2.7 // Text padding is used below, only added in 2.7
 import SortFilterProxyModel 0.2
-import "../view_details/utils.js" as Utils // some helper functions
+import "utils.js" as Utils // some helper functions
 import "../view_shared"
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
