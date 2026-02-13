@@ -44,8 +44,8 @@ Rectangle {
             sourceSize.width: parent.width
             width: sourceSize.width
             height: sourceSize.height
-            // async causing text label to flash
-            // asynchronous: true
+            // async may cause text label to flash
+            asynchronous: true
         }
 
         Text {

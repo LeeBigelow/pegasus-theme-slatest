@@ -114,9 +114,9 @@ FocusScope {
                 sourceSize.height: vpx(235)
                 width: sourceSize.width
                 height: sourceSize.height
-                asynchronous: true
                 horizontalAlignment: Image.AlignRight
                 verticalAlignment: Image.AlignBottom
+                asynchronous: true
             }
 
             // console
@@ -135,9 +135,9 @@ FocusScope {
                     "../images/consolegame/%1.svg".arg(currentCollection.shortName) : ""
                 sourceSize.height: vpx(235)
                 height: sourceSize.height
-                asynchronous: true
                 horizontalAlignment: Image.AlignLeft
                 verticalAlignment: Image.AlignBottom
+                asynchronous: true
             }
 
         } // end Item

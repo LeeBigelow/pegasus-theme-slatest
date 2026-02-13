@@ -20,8 +20,8 @@ Item {
         fillMode: Image.PreserveAspectFit
 
         source: shortName ? "../images/logo/%1.svg".arg(shortName) : ""
-        // asnyc causing text label to flash
-        // asynchronous: true
+        // asnyc may cause text label to flash
+        asynchronous: true
         sourceSize { width: vpx(480); height: vpx(120) } // optimization SVG max
 
         scale: selected ? 1.0 : 0.66

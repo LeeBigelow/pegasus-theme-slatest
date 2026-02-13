@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.12 // for coloring star
 // FavoriteButton: A clickable buttom for toggling game's favorite status
 Rectangle {
     id: root
@@ -14,12 +15,20 @@ Rectangle {
     visible: currentGameIndex >= 0
 
     Image {
+        id: favoriteStar
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
         source: currentGame.favorite ?
-            "../images/assets/fav_filled.svg" : "../images/assets/fav_hollow.svg"
+            "../images/assets/star_filled.svg" : "../images/assets/star_hollow.svg"
         sourceSize.height: detailsTextHeight
         height: vpx(20)
+        asynchronous: true
+    }
+
+    ColorOverlay {
+        anchors.fill: favoriteStar
+        source: favoriteStar
+        color: colorLightText
     }
 
     MouseArea {
