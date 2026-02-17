@@ -7,7 +7,7 @@ Rectangle {
         left: parent.left
     }
     // fixed width so games without art don't get a stetched favorite button
-    width: vpx(160)
+    width: vpx(140)
     focus: true
     height: detailsTextHeight
     color: activeFocus ? "black" :

@@ -4,8 +4,8 @@ Rectangle {
     id: root
     focus: true
     property int order: 0
-    property var boxWidth: vpx(452)
-    property var boxHeight: vpx(339)
+    property var boxWidth: vpx(480)
+    property var boxHeight: vpx(400)
     width: boxartImage.status === Image.Ready ? boxWidth : vpx(5)
     height: boxHeight
     color: activeFocus ? colorFocusedBg : "transparent"

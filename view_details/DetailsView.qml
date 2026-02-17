@@ -213,9 +213,9 @@ FocusScope {
             id: ratingBar
             anchors {
                 top: parent.top
-                topMargin: defaultPadding
+                topMargin: defaultPadding * 2
                 left: boxart.right
-                leftMargin: defaultPadding
+                leftMargin: defaultPadding / 2
             }
             percentage: currentGame.rating
         }
@@ -228,7 +228,7 @@ FocusScope {
                 top: ratingBar.bottom
                 topMargin: defaultPadding / 2
                 left: boxart.right;
-                leftMargin: defaultPadding
+                leftMargin: defaultPadding / 2
             }
 
             GameInfoLabel { text: "Released:" }
@@ -268,9 +268,9 @@ FocusScope {
             id: launchButton
             anchors {
                 top: gameLabels.bottom
-                topMargin: defaultPadding / 2
+                topMargin: defaultPadding * 2
                 left: boxart.right
-                leftMargin: defaultPadding
+                leftMargin: defaultPadding / 2
             }
         }
 

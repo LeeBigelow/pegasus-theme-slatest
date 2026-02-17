@@ -15,7 +15,7 @@ Rectangle {
         text: (modelData.favorite ? "★" : "") + " " + modelData.title
         color: parent.selected ? colorLightText : "black"
 
-        font.pixelSize: vpx(20)
+        font.pixelSize: vpx(24)
         font.capitalization: Font.AllUppercase
         font.family: "Open Sans"
         font.weight: Font.DemiBold
